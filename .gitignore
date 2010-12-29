@@ -1,14 +1,13 @@
 #Apple Files
 *.DS_Store
 
-Java Class Files
+Java Binary Files
 *.class
+*.jar
 
 #SVN Files
 *.svn
 
 #No Libraries
-*.jar
-
 #Binaries Directory
 bin/*
