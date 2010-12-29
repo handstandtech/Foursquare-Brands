@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module rename-to='teamscape'>
+
+	<inherits name="com.allen_sauer.gwt.log.gwt-log-DEBUG" />
+	<set-property name="log_DivLogger" value="DISABLED" />
+
+	<!-- Inherit the core Web Toolkit stuff.                        -->
+	<inherits name='com.google.gwt.user.User' />
+
+	<!-- Other module inherits                                      -->
+
+	<!-- For client bundle and resource handling                    -->
+	<inherits name="com.google.gwt.resources.Resources" />
+	<!-- For gwt dispatch service                    				  -->
+	<inherits name='net.customware.gwt.dispatch.Dispatch' />
+	<!-- Google GIN for client side dependency injection            -->
+	<inherits name="com.google.gwt.inject.Inject" />
+	<!-- Presenter implementation of MVP pattern                    -->
+	<inherits name='net.customware.gwt.presenter.Presenter' />
+
+	<!-- Specify the paths for translatable code                    -->
+	<source path='client' />
+	<source path='interfaces' />
+	<source path='model' />
+
+</module>
