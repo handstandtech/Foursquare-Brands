@@ -1,0 +1,14 @@
+#Apple Files
+*.DS_Store
+
+Java Class Files
+*.class
+
+#SVN Files
+*.svn
+
+#Libraries Directory
+WEB-INF/lib/*
+
+#Binaries Directory
+bin/*
