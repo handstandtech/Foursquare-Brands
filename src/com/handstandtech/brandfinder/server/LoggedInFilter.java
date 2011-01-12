@@ -2,6 +2,11 @@ package com.handstandtech.brandfinder.server;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -13,9 +18,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import oauth.signpost.OAuthConsumer;
+
 import org.apache.log4j.Logger;
 
+import com.handstandtech.brandfinder.server.util.PageLoadUtils;
 import com.handstandtech.foursquare.server.FoursquareConstants;
+import com.handstandtech.foursquare.server.FoursquareHelper;
+import com.handstandtech.foursquare.shared.model.v2.FoursquareUser;
 
 public class LoggedInFilter implements Filter {
 
@@ -29,7 +39,6 @@ public class LoggedInFilter implements Filter {
 	}
 
 	public void init(FilterConfig filterConfig) throws ServletException {
-
 		log.debug("Instance created of " + getClass().getName());
 		this.config = filterConfig;
 		String exceptionsString = config.getInitParameter("secure-locations");
@@ -37,38 +46,39 @@ public class LoggedInFilter implements Filter {
 		secureLocations = new ArrayList<String>(Arrays.asList(exceptionsArray));
 	}
 
-	public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws java.io.IOException,
-			ServletException {
-
+	public void doFilter(ServletRequest req, ServletResponse resp,
+			FilterChain chain) throws java.io.IOException, ServletException {
 		// Start Logged In Filter
 		HttpServletRequest request = (HttpServletRequest) req;
 		HttpServletResponse response = (HttpServletResponse) resp;
 		String requestUri = request.getRequestURI();
 		String requestUrl = request.getRequestURL().toString();
 		HttpSession session = request.getSession();
-		
-		log.debug("Request URL: "+requestUrl);
-		log.debug("Request URI: "+requestUri);
-		
-		if(requestUrl.contains("4sqbrands.appspot.com")) {
-			String redirectUrl = "http://www.foursquarebrands.com"+requestUri;
+
+		log.debug("Request URL: " + requestUrl);
+		log.debug("Request URI: " + requestUri);
+
+		//Don't allow requests to the appengine version
+		/*if (requestUrl.contains("4sqbrands.appspot.com")) {
+			String redirectUrl = "http://www.foursquarebrands.com" + requestUri;
 			log.debug("redirecting...");
 			response.sendRedirect(redirectUrl);
 			return;
-		}
+		}*/
 
 		Object consumer = session.getAttribute(FoursquareConstants.CONSUMER_CONSTANT);
 
+		boolean loggedIn=false;
 		if (consumer != null) {
-			request.setAttribute("loggedIn", true);
-		} else {
-			request.setAttribute("loggedIn", false);
+			loggedIn=true;
 		}
+		request.setAttribute("loggedIn", loggedIn);
 
 		boolean isSecure = false;
 		for (String exception : secureLocations) {
 			if (requestUri.startsWith(exception)) {
-				log.debug("The Secure URI -- " + requestUri + " -- matches -- " + exception);
+				log.debug("The Secure URI -- " + requestUri + " -- matches -- "
+						+ exception);
 				isSecure = true;
 			}
 		}
@@ -80,7 +90,8 @@ public class LoggedInFilter implements Filter {
 			/*
 			 * use the ServletContext.log method to log filter messages
 			 */
-			log.debug("doFilter called in: " + config.getFilterName() + " on " + (new java.util.Date()));
+			log.debug("doFilter called in: " + config.getFilterName() + " on "
+					+ (new java.util.Date()));
 
 			// log the session ID
 			log.debug("session ID: " + session.getId());
@@ -92,7 +103,7 @@ public class LoggedInFilter implements Filter {
 				return;
 			}
 		}
-
+		
 		chain.doFilter(req, resp);
 	}
 

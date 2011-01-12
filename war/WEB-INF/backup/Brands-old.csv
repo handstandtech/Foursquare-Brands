@@ -1,0 +1,233 @@
+todos.count,photo,firstName,lastUpdate,lastName,contact.facebook,contact.phone,homeCity,type,friends.count,key,gender,mayorships.count,contact.email,contact.twitter
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/100438_1258503107219.jpg,TransLink,2010-12-17T03:14:58,,,,"Vancouver, British Columbia",brand,10037,100438,none,0,,translink
+1,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/BF2VT532YVG2VECM.png,Texas A&M University,2010-12-17T03:18:04,,,,"Bryan, TX",brand,4606,1014390,none,0,,tamutalk
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/DM1SVLAI205QMUOY.jpg,Utrechts Uitburo,2010-12-17T03:11:15,,,,"Utrecht, Nederland",brand,1345,1066667,none,0,,utrechtsuitburo
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/1LDYT3BQ2ZNW22CR.png,GQ,2010-12-17T03:14:15,,,,"New York, NY",brand,3274,1082106,male,0,,
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/XS23ZL14M1EHR0LC.jpg,Aaron,2010-12-17T03:15:05,L.,100000483799555,,"Boise, ID",user,18,1090792,male,3,,
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/XMBU52WKJTXCOGW2.gif,Stanford University,2010-12-17T03:12:30,,,,"Stanford, CA",brand,11400,1120937,none,0,,
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/DPTFTS5DEQX0F001.jpg,Umbro,2010-12-17T03:16:04,,,,"Manchester, UK",brand,3568,1126457,none,0,,umbro
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/JJNZRLUMW5ZSFM2T.jpg,SF Giants,2010-12-17T03:09:25,,,,"San Francisco, CA",brand,5632,1127758,male,0,,sfgiants
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/E0TKVYNXCSDCG5YJ.jpg,visitPA,2010-12-17T03:17:37,,,,"Philadelphia, PA",brand,27169,1138456,none,0,,visitpa
+1,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/0EGJIRK2RDX1LSTQ.jpg,The Seattle Times,2010-12-17T03:15:55,,,,"Seattle, WA",brand,5085,1150073,female,0,,seattletimes
+1,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/117717_1258943132324.jpg,lululemon athletica,2010-12-17T03:14:11,,,,"Vancouver, Canada",brand,4635,117717,female,0,,lululemon
+2,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/4OHQRKDXTD12E0CW.png,University of Louisville,2010-12-17T03:17:18,O.,,,"Louisville, Kentucky",brand,1728,1191479,male,8,,uofl
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/KK0N2ILSLVATOWPH.jpg,Original Penguin,2010-12-17T03:17:21,,,,"New York, NY",brand,1707,1202129,male,0,,originalpenguin
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/5MNTAU1G32XRRZCI.png,EDP 24,2010-12-17T03:18:23,,,,"Norwich, Norfolk",brand,1402,1209712,male,0,,edp24
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/FGYH0TBE0XRLOTCL.jpg,TODAY,2010-12-17T03:10:40,S.,,,"New York, NY",brand,23091,1223577,none,0,,todayshow
+1,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/YBEADJ5F2PDYBYEE.png,iVillage,2010-12-17T03:09:29,,,,"New York, NY",brand,4240,1236834,none,0,,ivillage
+2,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/L1YLAZN3NXPECPKZ.gif,Downtown Boulder,2010-12-17T03:12:24,,,,"Boulder, CO",brand,1735,1237754,female,0,,downtownboulder
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/OBKSVZEPJZ2YZX1Q.gif,TBD,2010-12-17T03:14:24,,,,"Arlington, VA",brand,3578,1240364,none,0,,tbd
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/GKHVMZ1BQCKX2ZYY.gif,VISIT,2010-12-17T03:14:34,M.,1792372093,,"Milwaukee, WI",brand,6206,1276998,none,0,,visitmilwaukee
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/CQKAHOXINDZT5O4P.jpg,Tanteo,2010-12-17T03:12:00,T.,100000808883682,,"New York, NY",brand,2522,1286763,none,0,,tanteotequila
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/IXCNSPTXHCYCJANT.jpg,Louis,2010-12-17T03:12:38,V.,,,"London, UK",brand,45744,1297266,none,0,,louisvuitton_hq
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/2Q1XTZKQGKV3KMVH.png,BBCRadio1,2010-12-17T03:10:38,,,,"London, UK",brand,3908,1297525,female,2,,bbcr1
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/0ZXFMB1LJOWOZ12V.jpg,HUGO BOSS,2010-12-17T03:16:36,,,,"Metzingen, Deutschland",brand,2339,1307334,none,0,,hugoboss
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/CNIO2QQIF3HIBXBC.jpg,Style.com,2010-12-17T03:11:17,,,,"New York, NY",brand,5879,1314412,none,0,,styledotcom
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/1KZHZVLLCTH05IBH.jpg,LogoTV,2010-12-17T03:08:31,,,,"Las Vegas, NV",brand,24371,1325831,female,0,,
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/VR522G2VVYSZPR41.jpg,The Tennessean,2010-12-17T03:09:24,,,,"Nashville, TN",brand,1658,1326984,male,0,,tennessean
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/BY1SQEOGMCJNAXNS.png,The Real L Word,2010-12-17T03:15:48,,,,"New York, NY",brand,12980,1361264,female,0,,sho_reallword
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/4a4170cdbaa41.png,Heavy Table,2010-12-17T03:13:32,,,,"Minneapolis, MN",brand,6102,13630,none,0,,heavytable
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/BKJSCMQKQON1HULU.jpg,TLC,2010-12-17T03:15:51,,,,"Seattle, WA",brand,56728,1364255,none,0,,tlc
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/N1RVPVUIJ3ZFDWRB.jpg,Colorado College,2010-12-17T03:09:03,,,,"Colorado Springs, CO",brand,2080,1364936,none,0,,coloradocollege
+2,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/40QI445DW5ZWVEG1.png,Sam,2010-12-17T03:36:19,Edwards,6216557,7034725556,"Gloucester, VA",user,134,136704,male,12,ssaammee@gmail.com,handstandsam
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/ELBQ23Q4QNNLVKJU.jpg,Colorado,2010-12-17T03:52:05,,,,"Denver, CO",brand,2666,1372183,male,0,,colorado
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/KQB0ENJV3YBKBQBZ.jpg,Metropolitan Museum of Art,2010-12-17T03:11:46,,,,"New York, NY",brand,18662,1372689,female,0,,metmuseum
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/RK40UUYFJAY0XPZJ.jpg,VisitBucksPA,2010-12-17T03:12:08,,,,"Bensalem, PA",brand,4244,1408406,male,0,,visitbuckspa
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/CG0JKCAAR4XZVDPX.gif,CNN,2010-12-17T03:09:35,,,,"Atlanta, GA",brand,39924,1413072,male,0,,cnn
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/DINWRXJSYXKGGWAW.jpg,Supermodelme,2010-12-17T03:17:57,,,,Singapore,brand,5017,1473703,female,0,,supermodelme
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/XLYYJZ4NSBMSKPZZ.png,Harvard,2010-12-17T03:40:10,U.,,,"Cambridge, MA",brand,15562,147983,none,0,,harvard
+1,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/UYTBFSMUGY0MM053.jpg,BrooklynMuseum,2010-12-17T03:11:32,,,,"New York, NY",brand,14404,149690,none,0,,brooklynmuseum
+1,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/3ZK1RVV3OHQC2AXD.png,Bonnaroo,2010-12-17T03:11:24,,,,"Manchester, TN",brand,6487,1501856,none,0,,bonnaroo
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/BCXUM3ZOB2R3FKTE.jpg,Aloft Hotels,2010-12-17T03:11:37,,,,"Lexington, MA",brand,2434,1503120,female,0,,aloft_hotels
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/1ARKWZ4Q1IIIFS5D.png,Mashable,2010-12-17T03:12:02,,,,"New York City, NY",brand,44033,1504602,none,0,,mashable
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/D1LMO5JNCGI2MBFM.png,C-SPAN,2010-12-17T03:15:54,,,,"Washington, DC",brand,7017,1514388,none,0,,cspan
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/5HAK530IHKXCQOO5.jpg,Six Flags,2010-12-17T03:15:19,,1722862631,,"New York, NY",brand,13317,1568845,male,0,,sixflags
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/LPFYHHDCP1BLG0WJ.jpg,Oakland Cemetery,2010-12-17T03:08:55,,,,"Atlanta, GA",brand,3093,1593133,none,0,,oaklandcemetery
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/SMINOWV4UCPNYLKB.gif,NOWNESS,2010-12-17T03:09:04,,,,"New York, NY",brand,1904,1601896,female,0,,
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/QGASJLN40RO4QQ4R.png,Dew Tour,2010-12-17T03:12:04,,,,"New York, NY",brand,25989,1604396,none,0,,thedewtour
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/ZJX35HEPPCMXH4DO.jpg,Helmut Lang,2010-12-17T03:14:46,,,,"New York, NY",brand,3251,1616888,female,0,,helmutlang
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/I1CBX0VI3XWYZO2D.jpg,Advance Auto Parts Monster Jam,2010-12-17T03:16:47,,1016900911,,"Aurora, IL",brand,2092,1618095,female,0,,realmonsterjam
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/HHEPNAZWG4EY2G5A.jpg,Boutiqued,2010-12-17T03:54:42,,,,"New York, NY",brand,1454,1618576,female,0,,boutiqued
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/SKRRI1UB51ORPTAU.jpg,Monster Energy Supercross,2010-12-17T03:11:05,,1013473540,,"Aurora, IL",brand,1446,1618660,female,0,,supercrosslive
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/TYZKN0CMKMUULN3K.jpg,Arenacross,2010-12-17T03:18:00,,1042183175,,"Aurora, IL",brand,1324,1618690,female,0,,arenacross
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/NQQJRSYANSYHE4GW.jpg,Ellen,2010-12-17T03:10:43,D.,,,Los Angeles,brand,39793,162361,female,0,,theellenshow
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/OFUSVHI5JU4KJXOO.gif,ScreenScape,2010-12-17T03:12:33,,,,"Charlottetown, PE",brand,3951,1657350,male,0,,screenscape
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/UQAOYNKBXVYOSO5X.jpg,KIIS FM,2010-12-17T03:08:57,,,,"Los angeles, Ca",brand,5191,1681171,female,0,,1027kiisfm
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/QGWPPHVNKW40BXNK.jpg,987LA,2010-12-17T03:08:56,,,,"Canoga Park, CA",brand,4986,1681286,female,0,,987la
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/IMIFYAXF10YOJ3UR.jpg,The Expendables,2010-12-17T03:08:33,,,,"Santa Monica, CA",brand,5136,1689524,male,0,,lionsgatemovies
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/NDY5CUVGCRNEQBRL.jpg,National Wildlife,2010-12-17T03:12:26,F.,,,"San Francisco, CA",brand,5114,169961,none,0,,nwf
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/B5QUEOJEOIDVVXYM.png,Intel,2010-12-17T03:12:44,,,,Silicon Valley,brand,6877,171148,none,0,,intel
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/ZRBSY4WUVTFDPSKA.jpg,IntelWiMAX,2010-12-17T03:13:33,,,,"Seattle, WA",brand,2694,1734196,male,0,,intelwimax
+1,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/DCEIUP114V432D01.jpg,KidsClubThirteen,2010-12-17T03:12:28,,,,"Long Island City, NY",brand,3370,1747041,none,0,,kidsclub13
+2,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/EMO3DZB34BLD2MYK.jpg,azcentral,2010-12-17T03:14:13,,,,"Phoenix, AZ",brand,5127,1747442,none,0,,dothingsaz
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/U4P03SLRRC3TJ4WL.png,GogoInflight,2010-12-17T03:17:26,,,,"Itasca, IL",brand,8584,1760948,male,0,,
+1,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/WGWNY5EIDV5AEKER.png,nymag,2010-12-17T03:08:17,,,,"New York, NY",brand,32973,1769287,female,0,,nymag
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/T2ITL1HMN3C2S3MN.png,Cooking Channel,2010-12-17T03:16:28,,,,"Philadelphia, PA",brand,6009,1781832,none,1,,cookingchannel
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/2GOLL3XYGMM2D5BQ.png,HuffPost,2010-12-17T03:11:29,,,,"New York, NY",brand,37700,1837066,none,0,,
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/XJXF3JJHUNJ5F5Z0.jpg,Los Angeles Times,2010-12-17T03:09:55,,,,"Los Angeles, CA",brand,3176,1839337,none,0,,latimes
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/GZ25XME3OALMZ5VX.jpg,VoiceStreet,2010-12-17T03:11:38,,,,"New York, NY",brand,2469,1868764,none,0,,voicestreet
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/XACTLHLAH4CEMETN.png,Sears Blue Appliance Crew,2010-12-17T03:15:07,,,,"New York, NY",brand,3497,1870591,female,0,,searsbluecrewha
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/S4HPYEHE3U43YAWT.jpg,METROrail,2010-12-17T03:14:08,,,,"Phoenix, AZ",brand,1442,1883093,female,0,,metrorail
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/LADLCEMTQHGTFFQQ.jpg,Loyola University New Orleans,2010-12-17T03:17:02,,,,"New Orleans, LA",brand,1470,1942924,female,0,,loyola_nola
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/MZ4P5M1CXTARP4NX.jpg,sunyoswego,2010-12-17T03:08:58,,,,"Oswego, NY",brand,922,1957543,male,0,,sunyoswego
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/40U4H4E0X1K5KZRX.jpg,College of William and Mary,2010-12-17T03:10:44,,,,"Williamsburg, VA",brand,3622,1968156,none,0,,williamandmary
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/MKJNMPXV0PHSD11C.jpg,TimeOut,2010-12-17T03:16:10,S.,,,"Sydney, Australia",brand,3969,1975808,none,0,,sydneytimeout
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/2LTERZ0KFPHIFIXX.jpg,CrainsChicago,2010-12-17T03:09:36,,,,"Chicago, IL",brand,6007,202873,none,0,,crainschicago
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/VAI2CVJTNPXJVSLN.jpg,ZAGAT,2010-12-17T03:09:52,,,,"Boston, MA",brand,91422,203469,male,0,,
+2,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/DGCWIAE2UPY2EAYG.png,BuzzFeed,2010-12-17T03:15:33,,,,"New York, NY",brand,2233,2040628,none,0,,buzzfeed
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/HDUGCVTREGVZUWT3.gif,fyeguy,2010-12-17T03:09:22,,,,"Albany, New York",brand,1550,2068754,male,0,,fyeguy
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/2XRMJAKV1ETX5GXB.png,Oregon,2010-12-17T03:11:18,D.,,,"Eugene, OR",brand,2107,2070299,male,0,,
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/HKLFYOM4QIYG0DWI.png,Standard Hotels,2010-12-17T03:14:26,,,,"New York, Miami, Downtown LA, Hollywood",brand,9564,2089643,none,0,,
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/A5LZLHR1YLM5H4PI.jpg,Drury University,2010-12-17T03:08:17,,,,"Springfield, MO",brand,3498,2094395,female,0,,druryuniversity
+0,http://foursquare.com/img/blank_girl.png,Jones,2010-12-17T03:13:34,M.,,,"New York, NY",brand,2648,2109233,female,0,,jonesmag
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/45GMBLEIO2HCJQAG.gif,SFGate,2010-12-17T03:08:20,,,,"San Francisco, CA",brand,5852,211360,none,0,,sfgate
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/LVED4J4B2U4N0XJY.jpg,Northern Illinois University,2010-12-17T03:11:19,,,,"DeKalb, IL",brand,2384,2234652,female,0,,niulive
+1,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/D5Y32XRU3ICHULYV.png,Hershey Harrisburg,2010-12-17T03:09:28,,,,"Harrisburg, PA",brand,2650,2270881,female,0,,hhrvb
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/CTZ1LB53FBIGCOGE.jpg,Walgreens,2010-12-17T03:08:36,,,,"Deerfield, IL",brand,19367,2276914,none,0,,walgreens
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/E33LEPNDHWGD3NZZ.gif,Chargers,2010-12-17T03:09:17,,,,"San Diego, CA",brand,2481,2277218,male,0,,chargers
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/GFGJWBM1WLIM0EB4.jpg,MichiganGoBlue,2010-12-17T03:12:50,,,,"Ann Arbor, MI",brand,3629,2295370,none,0,,michigangoblue
+1,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/VULNZ1SOUZW1W5SO.jpg,Welcome to Yorkshire,2010-12-17T03:11:26,,,,"Leeds, UK",brand,3863,2327413,none,0,,welcome2yorks
+0,http://foursquare.com/img/blank_boy.png,Duke Chronicle,2010-12-17T03:11:11,,,,"Durham, NC",brand,3043,2331531,male,0,,dukechronicle
+0,http://foursquare.com/img/blank_boy.png,The Journal News/LoHud.com,2010-12-17T03:10:58,,,,"White Plains, NY",brand,2097,2351118,male,0,,lohud
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/RI4KIQAWF43RWRMY.jpg,Crunch Gym,2010-12-17T03:11:02,,,,"New York, NY",brand,3327,2356962,male,0,,crunchgym
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/5Z030FPSCXJN3BWG.jpg,Gilt City,2010-12-17T03:12:48,,100001230138687,,New York,brand,2527,2371486,none,1,,giltcitynyc
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/MBJH0NVNVYRHZ0S4.jpg,Laurentian,2010-12-17T03:11:35,,,,"Sudbury, Canada",brand,1246,2373886,none,0,,laurentianu
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/LTRMKAIATZ2PN2GN.jpg,Advertising Week,2010-12-17T03:15:42,,,,"New York, NY",brand,4086,2380335,none,0,,advertisingweek
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/JEBEI3ZWJ53R2G2W.jpg,Explore Chicago,2010-12-17T03:13:55,,,,"Chicago, IL",brand,21257,238086,female,0,,explorechicago
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/OTRP0TO20B4G5L5Q.jpg,Cornell,2010-12-17T03:15:02,C.,,,"Mt Vernon, IA",brand,1539,2391786,none,0,,cornellcollege
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/UDX1GUZZJXZRKX3M.jpg,People,2010-12-17T03:09:47,,,,USA,brand,47782,2394891,female,0,,peoplemag
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/CDG3OTZJIVFPRIMD.gif,Frommer's,2010-12-17T03:13:37,,,,"New York, NY",brand,3234,2464309,none,0,,
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/OE1ICMYSURXEAQY2.jpg,Rice,2010-12-17T03:10:52,U.,,,"Houston, TX",brand,1216,2465098,none,0,,riceuniversity
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/XJRYX0XNP5ABHYG2.jpg,evradio,2010-12-17T03:17:22,,,,"New York, NY",brand,1961,2480128,none,0,,evradio
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/JBK0ZQIZFOYEIX43.jpg,Arizona State University,2010-12-17T03:17:16,,,,"Phoenix, AZ",brand,10472,2485038,none,0,,asu
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/EED21GOJV0QIPQQB.png,Crain's New York Business,2010-12-17T03:15:01,,,,"New York, NY",brand,4473,2485302,none,0,,crainsnewyork
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/5E42J13LIW5O4X5O.jpg,Epicurious,2010-12-17T03:14:16,,,,"New York, NY",brand,5798,2502541,female,0,,epicurious
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/DHSSU1CXHDW4POG2.jpg,Telegraph,2010-12-17T03:11:22,,,,"London, UK",brand,1606,2536922,male,0,,telegraph
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/ENBGFAQWXL4P34UY.jpg,Cal,2010-12-17T03:14:18,,,,"Berkeley, CA",brand,2380,2538162,female,0,,cal
+1,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/KO1AF3ZGPYLJA2PL.jpg,Volcom Entertainment,2010-12-17T03:13:26,,,,"Costa Mesa, CA",brand,1971,2540211,none,0,,volcom_ent
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/23IBP4151PG5RGOO.jpg,artstring,2010-12-17T03:17:29,B.,540259754,,"Los Angeles, CA",user,11,2542948,none,0,,
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/W3MKVRMV05XZBMSP.jpg,Texas Tech,2010-12-17T03:14:10,U.,,,"Lubbock, TX",brand,3977,2601108,male,0,,texastech
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/XOX4WIFLJ1EBVMHH.png,The New Yorker,2010-12-17T03:14:32,,,,"New York, NY",brand,8080,2611536,none,0,,
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/GJJ0EHACKBYV4U0O.jpg,WestVirginiaU,2010-12-17T03:14:42,,,,"Morgantown, WV",brand,2784,2613788,none,0,,
+1,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/MRVAQF5BOFVA2I34.png,Metro News,2010-12-17T03:11:49,,,,"Calgary, Canada",brand,16921,261702,female,0,,metrofoursquare
+1,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/35GKMG45TOGVDRVU.png,TravelOK,2010-12-17T03:18:17,,,,"Oklahoma City, OK",brand,11743,2619087,female,0,,travelok
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/TFVVL2VIELGOG2XE.jpg,Modelinia,2010-12-17T03:11:40,,,,"New York, NY",brand,2474,2619393,female,0,,modelinia
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/KGMMCK2KK1NYBBJ4.png,UNL,2010-12-17T03:08:21,,,,"Lincoln, NE",brand,4718,2630325,female,0,,unlnews
+0,http://foursquare.com/img/blank_girl.png,Madewell,2010-12-17T03:10:54,,,,"New York, NY",brand,1494,2632562,female,0,,madewell1937
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/CR5PHVW00NJCYZWC.jpg,Boston,2010-12-17T03:12:22,U.,,,"Boston, MA",brand,2122,2633456,none,0,,bu_tweets
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/XBHYIV1S1U1Z4ZS3.png,Theory,2010-12-17T03:15:53,,,,"New York, NY",brand,1677,2670635,none,0,,theory__
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/0B0KTAG0KTNCKSS5.jpg,Thrillist,2010-12-17T03:09:59,,,,"New York, NY",brand,46156,268135,male,0,,thrillist
+143,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/CJTPY31H5K0ILNGD.jpg,GreenShoelace,2010-12-17T03:14:30,G.,1474090098,,"New York, NY",brand,3339,268329,none,0,,greenshoelace
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/ZGNKOLPBEFN2V2IC.jpg,Sailing Spoken Here,2010-12-17T03:17:59,,,,"New York, NY",brand,1203,2727581,male,0,,sailingspoken
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/DMMUYEFSTQZZ1IXY.jpg,Graphic.ly,2010-12-17T03:12:10,,,,"Boulder, CO",brand,11694,2749170,none,0,,graphicly
+5,http://foursquare.com/img/blank_boy.png,Northeastern,2010-12-17T03:14:39,U.,,,"Boston, MA",brand,1861,2769138,none,0,,nuadmissions
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/20EXTLYIQRP2X5T3.jpg,Metro.co.uk,2010-12-17T03:12:04,,,,"London, UK",brand,1953,2782786,none,0,,metro_online
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/1JK2H1Y03JLQOXQK.gif,Lord & Taylor,2010-12-17T03:14:48,,,,"New York, NY",brand,1742,2792304,female,0,,lordandtaylor
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/S3LI1EUD5FNW222E.jpg,UW-Madison,2010-12-17T03:14:23,,,,"Madison, WI",brand,3129,2814921,male,0,,
+0,http://foursquare.com/img/blank_boy.png,The Source,2010-12-17T03:14:44,M.,,,"New York, NY",brand,1719,2817466,male,0,,thesourcemag
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/RCRPBBXLB1YQWRBM.jpg,H&M Sverige,2010-12-17T03:16:06,,,,"Stockholm, Sverige",brand,1961,2869391,none,0,,hmsverige
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/L4LN54FIRBOEH1HC.jpg,Washington,2010-12-17T03:09:33,R.,1820327356,,"Ashburn, VA",brand,17215,2924803,male,0,,redskinsdotcom
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/SNZOC5VK5QVXN3M4.jpg,SkyMall,2010-12-17T03:08:27,,,,"Phoenix, AZ",brand,1794,2928225,male,0,,skymall
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/VRBRRK4QP3YBF0GR.jpg,MoMA,2010-12-17T03:10:57,,,,"New York, NY",brand,12412,2944196,none,0,,
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/4KDZUSTFOETQD4SB.jpg,Lufthansa,2010-12-17T03:14:04,,100000965275955,,"Frankfurt am Main, Deutschland",brand,7928,2960181,female,0,,lufthansa_de
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/E1NM2F1BNM3RW54Q.jpg,The Magnificent Mile,2010-12-17T03:17:33,,,,"Chicago, IL",brand,2145,2960903,none,0,,themagmile
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/WSVNPMEPZB0P0N2U.jpg,OU,2010-12-17T03:17:07,,,,"Norman, OK",brand,2039,2962045,none,0,,uofoklahoma
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/4BCSUU45UJ3T3H4I.jpg,Rentonista,2010-12-17T03:11:46,,,,"Renton, WA",brand,1591,2979747,none,0,,rentonista
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/QONXBDTOVY0SFOZ4.jpg,ecomagination,2010-12-17T03:12:46,,,,CT,brand,1765,3049802,female,0,,ecomagination
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/EWGCKTZBB4IXRCJP.jpg,The Baltimore Sun,2010-12-17T03:10:50,,,,"Baltimore, MD",brand,5246,305094,none,0,,baltimoresun
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/EO14EVSDDROIXRTL.png,Windows Live Photo Gallery,2010-12-17T03:11:59,,,,"Seattle, WA",brand,11156,3052639,none,0,,windowslive
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/EH0NJWMWMTKQMQVX.jpg,Mazda,2010-12-17T03:17:29,,,,"Irvine, CA",brand,19336,3053550,none,0,,mazdausa
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/1TI0OUMNOTWTGBUM.jpg,Metromix,2010-12-17T03:14:50,,,,"New York, NY",brand,6383,305584,male,0,,metromix
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/BLR2MLXONYU5DMU1.jpg,University of Southern California,2010-12-17T03:11:42,,,,"Los Angeles, CA",brand,1799,3073406,none,0,,
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/D0XVF0MHU3HXM1JU.png,Jeep,2010-12-17T03:15:08,,,,,brand,3048,3086675,none,0,,jeep
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/YCYNYS1YXKPSUODR.jpg,BlogHer,2010-12-17T03:09:12,,,,"Belmont, CA",brand,1547,3091450,female,0,,
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/XXYPKNRTJ24YI4QA.gif,AskMen.com,2010-12-17T03:17:43,,1027280710,,"Boston, MA",brand,37782,311503,none,0,,askmen_com
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/XIBJPTTKEQBZ1HVG.jpg,Queensland,2010-12-17T03:11:53,,,,"Brisbane, Australia",brand,10187,3119396,male,0,,
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/RGAXUC12STIW0B2R.jpg,LA Phil,2010-12-17T03:09:17,,,,"Los Angeles, CA",brand,2862,321287,none,0,,laphil
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/ULUYVGGAQ5NTH5AF.png,Bon Appetit Magazine,2010-12-17T03:40:14,,,,"Dallas, TX",brand,60617,322698,none,0,,bonappetitmag
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/1JGCKHFWVMHMOL3D.jpg,TouchdownRundown,2010-12-17T03:11:12,,,,"New York, NY",brand,1708,3228004,female,0,,touchdownrundwn
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/ZR4BIUPPXWA05VJN.jpg,LIVESTRONG_COM,2010-12-17T03:14:20,,,,"Santa Monica, CA",brand,1871,3230661,female,0,,livestrong_com
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/B3DLTJ2UCO2FTU0A.png,Oscar de la Renta,2010-12-17T03:12:14,,,,"New York, NY",brand,1615,3244046,female,0,,odlr4sq
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/ATAVTYEBAY0WJFDY.jpg,Philadelphia Magazine,2010-12-17T03:09:00,,,,"Philadelphia, PA",brand,2214,3262181,none,0,,phillymag
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/0ULL23QRUNTQMIZ0.jpg,Axel,2010-12-17T03:14:28,,,,"Sindelfingen, Bundesrepublik Deutschland",user,6,3286426,male,1,,alphakilo2bravo
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/OVOVAJT0KTMHCCZO.jpg,ExtraTV,2010-12-17T03:18:26,,,,"Burbank, CA",brand,2889,3300943,none,0,,extratv
+0,http://foursquare.com/img/blank_boy.png,timescolonist,2010-12-17T03:10:44,,,,"Victoria, Canada",brand,1511,3302010,none,0,,timescolonist
+0,http://foursquare.com/img/blank_boy.png,eHow,2010-12-17T03:15:45,,,,"Santa Monica, CA",brand,1915,3323786,none,0,,ehow
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/NTPA23YWZCQROFFZ.jpg,Eater.com,2010-12-17T03:17:10,,,,"New York, NY",brand,20059,3343327,none,0,,eater
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/P1M0QARC5B5SCG1B.png,Racked,2010-12-17T03:13:31,,,,"New York, NY",brand,14502,3343338,none,0,,racked
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/WMRYRUHPTDBPOQDB.jpg,Time Out,2010-12-17T03:08:28,M.,,,"Melbourne, Australia",brand,1703,3348812,none,0,,timeoutmel
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/XMFPFOFRAY3OWCZM.jpg,FMXOnline,2010-12-17T03:11:27,,,,"Aurora, IL",brand,1310,3357729,female,0,,fmxonline
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/NXNWCN2UKB5YHFFK.jpg,IHRA,2010-12-17T03:17:24,,,,"Aurora, IL",brand,1267,3358174,female,0,,ihra
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/3P2K024XZNQQBDRP.jpg,Michelin Guides,2010-12-17T03:10:53,,,,"Paris, France",brand,14408,3358242,male,0,,michelinguides
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/33JX33IQQUT0SPLM.jpg,Lucky Magazine,2010-12-17T03:09:00,,,,"New York, NY",brand,45425,337548,female,0,,luckymagazine
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/02PFQ0VKWNP3V3XX.jpg,Jamba,2010-12-17T03:09:19,J.,,,"Emeryville, CA",brand,1767,3377786,none,0,,jambajuice
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/IR0QLSYF4FGDDFFU.jpg,China Daily,2010-12-17T03:11:14,U.,100000493170210,,"���������, ������",brand,3392,3400565,none,0,,chinadailyusa
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/ZXYKAXYFVS24HK4R.jpg,Visit Indiana,2010-12-17T03:09:08,,,,"Indianapolis, IN",brand,3847,340702,none,0,,visitindiana
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/RIC5VTE0GBPBVFL3.jpg,KLM,2010-12-17T03:14:06,S.,,,"Amsterdam, Nederland",brand,2518,3450621,male,0,,klmsurprise
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/2E3O4PSK1CRCQXST.png,Visit Tuscany,2010-12-17T03:12:41,,,,"Firenze, Repubblica Italiana",brand,1954,3452356,female,0,,visittuscany
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/DMZWRRG5SQRARGKA.png,TeamCoco,2010-12-17T03:14:20,,,,"Los Angeles, CA",brand,18028,3499494,male,0,,teamcoco
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/W0YEHB0GBWIVA4EF.png,Tallahassee Democrat,2010-12-17T03:16:03,,,,"Tallahassee, FL",brand,1558,3500370,none,0,,tdonline
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/XA3OLIOHRVCWZUPJ.jpg,SPIN,2010-12-17T03:13:39,,,,"Austin, TX",brand,8680,352703,male,0,,spinmagazine
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/QYHUTDMMT1J1HEZN.jpg,NHL,2010-12-17T03:14:41,,516959862,,North America,brand,17789,3534006,none,0,,nhl
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/DDMMOIGKFOLNFQTH.jpg,Soul Train,2010-12-17T03:09:13,,,,"Chicago, IL",brand,2004,3536222,male,0,,soultrain
+5,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/PYLLJKRD2U343VPG.png,The New York Times,2010-12-17T03:14:56,,,,"New York, NY",brand,48543,360215,none,0,,nytimes
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/X3E1J32E4ZY44UGI.png,Liberty University,2010-12-17T03:13:52,,,,"Lynchburg, VA",brand,1901,3602992,none,0,,libertyu
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/PAGKQJTVQ4Y5U1CH.jpg,MY_SonyEricsson,2010-12-17T03:11:30,,,,"Kuala Lumpur, Malaysia",user,0,3634559,none,0,,my_sonyericsson
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/QYRHNHITFGFLZCGQ.jpg,njdotcom,2010-12-17T03:09:48,,,,"Jersey City, NJ",brand,1784,3646920,female,0,,njdotcom
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/CP2ZNIUODAQCI4OF.jpg,Algonquin,2010-12-17T03:15:51,H.,,,"New York, NY",brand,1328,3648478,none,0,,algonquinnyc
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/ACZRLQTCIOTVZYIL.jpg,Four Points,2010-12-17T03:14:25,b.,,,"White Plains, NY",brand,1419,3663586,female,0,,fourpointsbrand
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/J4BFHUWHYH2CQAZO.png,Light The Night NY,2010-12-17T03:12:51,,,,"New York, NY",brand,1435,3685114,none,0,,lightthenightny
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/QN4E2DN4PIQ1S4NL.jpg,Finger Lakes Wine Country,2010-12-17T03:09:11,,,,"Corning, NY",brand,1842,3760650,female,0,,flwinecountry
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/4FIIHC1FYYHZBN10.jpg,HISTORY Channel,2010-12-17T03:16:09,,,,"Albuquerque, NM",brand,91695,376887,none,0,,historychannel
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/YO5GAMQ3DRK3TL4R.png,University of Lincoln,2010-12-17T03:14:37,,,,"Lincoln, UK",brand,1708,3779900,none,0,,unilincoln
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/BDAYJ41SWNF5RIHZ.jpg,VCU,2010-12-17T03:09:54,Q.,,,"Richmond, VA",user,20,3789773,female,0,,vcuqdoba
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/NJKXM3EGAUIGAAI0.png,Slacker,2010-12-17T03:16:39,R.,,,"San Diego, CA",brand,2036,3796987,male,0,,slackerradio
+5,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/F2EKVNRHZJUUMITX.jpg,Marc Jacobs Intl,2010-12-17T03:15:56,,,,"New York, NY",brand,13465,383992,none,0,,
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/XZXOUP4EYRAXYTM2.jpg,GourmetLive,2010-12-17T03:09:15,,,,"New York, NY",brand,2091,3904291,female,0,,gourmetlive
+2,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/DUN1J11FMPKT0KLH.png,Minnesota Wild,2010-12-17T03:11:50,,,,"St Paul, MN",brand,1564,3964060,none,0,,mnwild
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/ECR3HNWNXG4J5S4I.jpg,NASA,2010-12-17T03:17:05,,525068200,,"Washington, DC",brand,19796,3965355,none,0,,nasa
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/XUO4WAW0XUHJWP1A.jpg,Catraca Livre,2010-12-17T03:17:35,,,,"S��o Paulo, Brasil",brand,2064,3968757,none,0,,catracalivre
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/T5E4WT5U2OPWJOL3.jpg,NCAA,2010-12-17T03:13:40,,,,"Indianapolis, IN",brand,1955,3982252,none,0,,ncaa
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/GWDIYBZG14WCDWP5.jpg,Live Nation,2010-12-17T03:58:37,,,,"George, WA",brand,6667,398871,none,0,,livenation
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/G2KDX5P5NEVMYX1Q.jpg,Teen Vogue,2010-12-17T03:17:12,,,,"New York, NY",brand,3068,4049899,female,0,,teenvogue
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/UZHLGOY3YTJOWVR5.jpg,Missouri State University,2010-12-17T03:11:54,,,,"Springfield, MO",brand,1739,4082309,none,1,,missouristate
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/5AWLRZOOF3USRUWO.jpg,Sony Ericsson Tennis,2010-12-17T03:11:43,,,,"London, UK",brand,5286,4104113,none,0,,
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/DRNWRRZGALXRGEBJ.png,Florida State,2010-12-17T03:09:42,,5220069,,"Tallahassee, FL",brand,1824,4106970,none,0,,floridastate
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/NZLGBTSZBNPUE1MZ.png,The Colbert Report,2010-12-17T03:08:23,,,,"New York, NY",brand,8021,4108596,male,0,,colbertreport
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/UKCANAIJJSIYWXGA.png,The Daily Show,2010-12-17T03:11:08,,,,"New York, NY",brand,9924,4108698,male,0,,thedailyshow
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/2YA2YJTVBUAVJV4L.jpg,86project,2010-12-17T03:09:30,,,,"Atlanta, GA",brand,1942,4128086,none,1,,
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/ENOSKH04U5I3OCVC.png,Clube do Assinante O Globo,2010-12-17T03:10:59,,100000832929081,,"Rio de Janeiro, Brasil",brand,1529,4215070,none,0,,clubeoglobo
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/LK1TTZX2WEFZSSCN.jpg,Fashism,2010-12-17T03:16:44,,849689591,,"New York, NY",brand,1850,4237709,female,0,,fashism
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/00G1WLNQ0EU2VCOK.jpg,La Biennale di Venezia,2010-12-17T03:09:26,,,,"Venezia, Repubblica Italiana",brand,1689,4269226,female,0,,la_biennale
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/JYOW1EQWKP0DSTMS.jpg,UAlberta,2010-12-17T03:40:16,,,,"Edmonton, Canada",brand,967,4278043,female,0,,ualberta
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/5KBDGO4KFILYV0BM.jpg,Pace University,2010-12-17T03:11:09,,,,"New York, NY",brand,1452,429202,none,0,,paceuniversity
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/10IWZ2YCNJAJ0BMM.jpg,S��DWEST PRESSE,2010-12-17T03:12:35,O.,,,"Ulm, Deutschland",brand,1780,4302443,none,0,,swpde
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/TE3ZMBLX43K4XUCZ.jpg,@AdobeSXSW,2010-12-17T03:18:03,,,,"Austin, TX",brand,6419,430851,none,0,,adobesxsw
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/GVRPWRAGNNGK4AKG.jpg,Nashville Predators,2010-12-17T03:15:04,,,,"Nashville, TN",brand,1765,4354366,male,0,,predsnhl
+1,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/45O1DZAJMPD2CLBV.png,RadioShack,2010-12-17T03:10:00,,,,"Fort Worth, TX",brand,15712,4382042,none,0,,radioshack
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/FGU2DLS2GLTN1BYN.jpg,Sony Ericsson,2010-12-17T03:54:33,,,,"Lund, Sverige",brand,9802,4552302,none,0,,sonyericsson
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/M4KWBHYQWHLWTYRW.gif,Highsnobiety,2010-12-17T03:14:31,,,,"Berlin, Deutschland",brand,2217,4559911,male,0,,highsnobiety
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/2R4OPLTNLXRDUAGR.jpg,IFC (Independent Film Channel),2010-12-17T03:13:25,,,,"Portland, OR",brand,36099,470491,none,0,,ifcdotcom
+4,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/48281_1254850783932.gif,SFBART,2010-12-17T03:08:27,,,,"San Francisco, CA",brand,12440,48281,none,0,,sfbart
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/15EDWTCRS2IFOBTZ.png,GOOD,2010-12-17T03:10:48,,,,"New York, NY",brand,7504,493509,female,0,,good
+0,http://foursquare.com/img/blank_boy.png,Handstand,2010-12-17T03:08:11,Tech,,,VA,user,0,5023230,none,0,foursquare@handstandtech.com,
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/3VMQWPLUTFOE35TY.jpg,MCFC,2010-12-17T03:09:09,,,,"Atlanta, GA",brand,4127,508885,none,0,,mcfc
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/55232_1254847784897.jpg,Flavorpill NYC,2010-12-17T03:09:58,,,,"New York, NY",brand,6528,55232,none,0,,flavorpill_nyc
+9,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/XLVLAFAYNXHNV1XP.jpg,National Post,2010-12-17T03:16:12,,,,"Toronto, Canada",brand,33664,572758,none,0,,nationalpost
+2,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/45GDSKRDCR0NFVFI.jpg,Marquette,2010-12-17T03:10:38,U.,,,"Milwaukee, WI",brand,3337,611736,none,0,,marquetteu
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/HMM3EZIGZ0EPWGRD.png,Bloomingdale's,2010-12-17T03:11:33,,,,"New York, NY",brand,4940,64003,female,0,,bloomingdales
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/LHTMMSPPZCM1UNPK.jpg,MTV,2010-12-17T03:18:17,,,,"New York, NY",brand,101197,660771,none,0,,mtv
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/31NXB1IE00KUBMH4.jpg,Hilton Grand Vacations,2010-12-17T03:17:31,,100000089100315,,"Orlando , FL",brand,2916,680644,male,0,,hiltongrandvac
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/TBW52TWGW0QQSHSB.jpg,Gossip Girl,2010-12-17T03:17:15,,,,"New York, NY",brand,52383,749968,female,0,,
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/83989_1256900171650.jpg,Robert,2010-12-17T03:13:36,M.,,,"Moon Township, PA",brand,1513,83989,male,0,,rmu
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/MQK5QHHUVSREJYQD.jpg,ARTINFO,2010-12-17T03:09:32,,,,"New York, NY",brand,6399,844707,female,0,,artinfodotcom
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/SKBVR2T2W3XY4KE3.jpg,VCU,2010-12-17T03:52:08,,,,"Richmond, VA",brand,1758,879576,none,0,,
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/PPM4MBI5W0S1M1SC.png,SyracuseU,2010-12-17T03:54:30,,,,"Syracuse, NY",brand,5997,887198,male,0,,syracuseu
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/ZNGB0DQVYUEU2RX4.jpg,HotelChatter,2010-12-17T03:16:49,,,,"Santa Monica, CA",brand,4854,891126,female,0,,hotelchatter
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/V331ORSVMOVGWOP0.jpg,Ableton,2010-12-17T03:20:19,C.,,,"Boulder, Colorado",user,0,899855,male,0,,
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/V1GLVVK3FRNEJISX.jpg,InStyle,2010-12-17T03:58:35,,,,"New York, NY",brand,23426,901653,female,0,,instyle
+2,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/4XCP02RPGKDW0KEX.jpg,VH1,2010-12-17T03:18:09,,853434827,,Dublin,brand,69376,909936,female,0,,vh1
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/1RQAWXJXX0M2LFYW.jpg,Visit Brasil,2010-12-17T03:11:57,,,,"S��o Paulo, Brasil",user,1500,921601,none,0,,visitbrasil
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/2KQE4YG5JXNLSZPU.jpg,Ken,2010-12-17T03:16:12,B.,,,"Fairfax, Virginia",brand,2978,922746,male,0,,kenburnspbs
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/Y1JGQPEIWD2B5RZ2.jpg,DressUp-Instyle,2010-12-17T03:17:34,,,,"Bernheze, Nederland",user,0,980487,male,0,,
+0,http://playfoursquare.s3.amazonaws.com/userpix_thumbs/RNLQAGZVMSFTB1WG.jpg,The Wall Street Journal,2010-12-17T03:16:32,,,,"New York, NY",brand,53252,989827,male,0,,wsj

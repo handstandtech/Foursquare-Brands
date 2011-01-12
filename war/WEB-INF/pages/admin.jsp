@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt"%>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<%@ taglib prefix="pf" tagdir="/WEB-INF/tags/pf"%>
+<%@ taglib prefix="foursquarebrands" tagdir="/WEB-INF/tags/foursquarebrands"%>
 <%@page import="com.handstandtech.server.SessionConstants"%>
 <%@page import="java.text.DecimalFormat"%>
 <%@ page import="javax.jdo.PersistenceManager"%>

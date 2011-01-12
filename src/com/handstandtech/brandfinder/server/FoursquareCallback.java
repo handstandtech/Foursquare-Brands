@@ -16,6 +16,7 @@ import oauth.signpost.exception.OAuthExpectationFailedException;
 import oauth.signpost.exception.OAuthMessageSignerException;
 import oauth.signpost.exception.OAuthNotAuthorizedException;
 
+import com.handstandtech.brandfinder.server.util.SessionHelper;
 import com.handstandtech.foursquare.server.FoursquareConstants;
 import com.handstandtech.foursquare.server.FoursquareHelper;
 import com.handstandtech.foursquare.server.oauth.FoursquareLogin;
@@ -80,7 +81,7 @@ public class FoursquareCallback extends HttpServlet {
 			FoursquareUser user = helper.getUserInfo("self");
 			DAO dao = new DAO();
 			dao.updateFoursquareUser(user);
-			session.setAttribute("currentUser", user);
+			SessionHelper.setCurrentUser(session, user);
 			redirectToFoursquareApp(response);
 		} catch (OAuthMessageSignerException e) {
 			// TODO Auto-generated catch block

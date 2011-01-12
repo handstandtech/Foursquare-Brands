@@ -7,11 +7,13 @@ import com.googlecode.objectify.Key;
 import com.googlecode.objectify.ObjectifyService;
 import com.googlecode.objectify.Query;
 import com.googlecode.objectify.helper.DAOBase;
+import com.handstandtech.brandfinder.shared.model.Analytic;
 import com.handstandtech.foursquare.shared.model.v2.FoursquareUser;
 
 public class DAO extends DAOBase {
 	static {
 		ObjectifyService.register(FoursquareUser.class);
+		ObjectifyService.register(Analytic.class);
 	}
 
 	/** Your DAO can have your own useful methods */
@@ -44,6 +46,35 @@ public class DAO extends DAOBase {
 			list.add(item);
 		}
 		return list;
+	}
+	
+	public List<FoursquareUser> getCelebrities() {
+		Query<FoursquareUser> query = ofy().query(FoursquareUser.class);
+		query.filter("type", "celebrity");
+		
+		List<FoursquareUser> list = new LinkedList<FoursquareUser>();
+		for (FoursquareUser item : query) {
+			list.add(item);
+		}
+		return list;
+	}
+	
+	public List<FoursquareUser> getAllFoursquareUserObjects() {
+		Query<FoursquareUser> query = ofy().query(FoursquareUser.class);
+		
+		List<FoursquareUser> list = new LinkedList<FoursquareUser>();
+		for (FoursquareUser item : query) {
+			list.add(item);
+		}
+		return list;
+	}
+	
+	public Key<Analytic> updateAnalytic(Analytic analytic) {
+		return ofy().put(analytic);
+	}
+
+	public void deleteFoursquareUser(FoursquareUser user) {
+		ofy().delete(user);
 	}
 	
 }

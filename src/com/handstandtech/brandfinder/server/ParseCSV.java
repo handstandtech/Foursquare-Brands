@@ -38,101 +38,106 @@ public class ParseCSV {
 
 	}
 
-//	public static void main(String args[]) throws Exception {
-//		ParseCSV parser = new ParseCSV();
-//		List<FoursquareUser> users = parser.parseBrandsCSV("/Users/ssaammee/Documents/eclipseworkspaces/handstandtechnologies/brandfinder/war/WEB-INF/backup/Brands.csv");
-//		System.out.println("users: " + users);
-//
-////		BasicAuthenticator auth = new BasicAuthenticator("ssaammee@gmail.com", "wakefield");
-////		parser.findFriendByName("instyle", auth);
-//
-//		// OAuthConsumer consumer = new
-//		// DefaultOAuthConsumer(FoursquareConstants.LOCALHOST8888_CONSUMER_KEY,
-//		// FoursquareConstants.LOCALHOST8888_CONSUMER_SECRET);
-//		// consumer.setTokenWithSecret("AKUTT1GGBMLDUCVR02RWS54CBVBYBHWVHNEGNE3BBZMFGGVH",
-//		// "WHIGPSP1P5EGKDG32M1RSXFKRDVSDV2W2A12LYQIQTTWDKDK");
-//		// Map<String, FoursquareUser> brands = parser
-//		// .read("/Users/ssaammee/Documents/eclipseworkspaces/handstandtechnologies/brandfinder/war/uidToJSON.txt");
-//		// List<FoursquareUser> friends = parser.getCurrentFriends(consumer);
-//		// List<FoursquareUser> followed = parser.getFollowed(friends, brands);
-//		// List<FoursquareUser> unfollowed = parser.getUnfollowed(followed,
-//		// brands);
-//		//
-//		// System.out.println("brands: " + brands.size());
-//		// System.out.println("followed: " + followed.size());
-//		// System.out.println("unfollowed: " + unfollowed.size());
-//
-//		
-//	}
+	// public static void main(String args[]) throws Exception {
+	// ParseCSV parser = new ParseCSV();
+	// List<FoursquareUser> users =
+	// parser.parseBrandsCSV("/Users/ssaammee/Documents/eclipseworkspaces/handstandtechnologies/brandfinder/war/WEB-INF/backup/Brands.csv");
+	// System.out.println("users: " + users);
+	//
+	// // BasicAuthenticator auth = new BasicAuthenticator("ssaammee@gmail.com",
+	// "wakefield");
+	// // parser.findFriendByName("instyle", auth);
+	//
+	// // OAuthConsumer consumer = new
+	// // DefaultOAuthConsumer(FoursquareConstants.LOCALHOST8888_CONSUMER_KEY,
+	// // FoursquareConstants.LOCALHOST8888_CONSUMER_SECRET);
+	// //
+	// consumer.setTokenWithSecret("AKUTT1GGBMLDUCVR02RWS54CBVBYBHWVHNEGNE3BBZMFGGVH",
+	// // "WHIGPSP1P5EGKDG32M1RSXFKRDVSDV2W2A12LYQIQTTWDKDK");
+	// // Map<String, FoursquareUser> brands = parser
+	// //
+	// .read("/Users/ssaammee/Documents/eclipseworkspaces/handstandtechnologies/brandfinder/war/uidToJSON.txt");
+	// // List<FoursquareUser> friends = parser.getCurrentFriends(consumer);
+	// // List<FoursquareUser> followed = parser.getFollowed(friends, brands);
+	// // List<FoursquareUser> unfollowed = parser.getUnfollowed(followed,
+	// // brands);
+	// //
+	// // System.out.println("brands: " + brands.size());
+	// // System.out.println("followed: " + followed.size());
+	// // System.out.println("unfollowed: " + unfollowed.size());
+	//
+	//
+	// }
 
-//	public List<FoursquareUser> parseBrandsCSV(String path) throws Exception {
-//		List<FoursquareUser> users = new ArrayList<FoursquareUser>();
-//
-//		InputStream is = new FileInputStream(path);
-//		InputStreamReader isReader = new InputStreamReader(is);
-//		CSVReader reader = new CSVReader(isReader);
-//
-//		String[] line = reader.readNext();
-//		
-//		//Skip first line
-//		line = reader.readNext();
-//		
-//		while (line != null) {
-//			// todos.count,photo,firstName,lastUpdate,lastName,contact.facebook,contact.phone,homeCity,type,friends.count
-//			// ,key,gender,mayorships.count,contact.email,contact.twitter
-//			FoursquareUser user = new FoursquareUser();
-//
-//			Long todosCount = Long.parseLong(line[0]);
-//			String photo = line[1];
-//			String firstName = line[2];
-//			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-//			Date lastUpdate = sdf.parse(line[3]);
-//			String lastName = line[4];
-//			String contactFacebook = line[5];
-//			String contactPhone = line[6];
-//			String homeCity = line[7];
-//			String type = line[8];
-//			Long friendsCount = Long.parseLong(line[9]);
-//			String key = line[10];
-//			String gender = line[11];
-//			Long mayorshipsCount = Long.parseLong(line[12]);
-//			String contactEmail = line[13];
-//			String contactTwitter = line[14];
-//
-//			Todos todos = new Todos();
-//			todos.setCount(todosCount);
-//			user.setTodos(todos);
-//			user.setPhoto(photo);
-//			user.setFirstName(firstName);
-//			user.setLastUpdate(lastUpdate);
-//			user.setLastName(lastName);
-//			user.setHomeCity(homeCity);
-//			user.setType(type);
-//			user.setId(key);
-//			user.setGender(gender);
-//
-//			Mayorships mayorships = new Mayorships();
-//			mayorships.setCount(mayorshipsCount);
-//
-//			Friends friends = new Friends();
-//			friends.setCount(friendsCount);
-//			user.setFriends(friends);
-//
-//			Contact contact = new Contact();
-//			contact.setFacebook(contactFacebook);
-//			contact.setPhone(contactPhone);
-//			contact.setTwitter(contactTwitter);
-//			contact.setTwitter(contactEmail);
-//			user.setContact(contact);
-//
-//			users.add(user);
-//			line = reader.readNext();
-//		}
-//
-//		return users;
-//	}
+	public List<FoursquareUser> parseBrandsCSV(String path) throws Exception {
+		List<FoursquareUser> users = new ArrayList<FoursquareUser>();
 
-	public List<FoursquareUser> getFollowed(List<FoursquareUser> friends, Map<String, FoursquareUser> brands) {
+		InputStream is = new FileInputStream(path);
+		InputStreamReader isReader = new InputStreamReader(is);
+		CSVReader reader = new CSVReader(isReader);
+
+		String[] line = reader.readNext();
+
+		// Skip first line
+		line = reader.readNext();
+
+		while (line != null) {
+			// todos.count,photo,firstName,lastUpdate,lastName,contact.facebook,contact.phone,homeCity,type,friends.count
+			// ,key,gender,mayorships.count,contact.email,contact.twitter
+			FoursquareUser user = new FoursquareUser();
+
+			Long todosCount = Long.parseLong(line[0]);
+			String photo = line[1];
+			String firstName = line[2];
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+			Date lastUpdate = sdf.parse(line[3]);
+			String lastName = line[4];
+			String contactFacebook = line[5];
+			String contactPhone = line[6];
+			String homeCity = line[7];
+			String type = line[8];
+			Long friendsCount = Long.parseLong(line[9]);
+			String key = line[10];
+			String gender = line[11];
+			Long mayorshipsCount = Long.parseLong(line[12]);
+			String contactEmail = line[13];
+			String contactTwitter = line[14];
+
+			Todos todos = new Todos();
+			todos.setCount(todosCount);
+			user.setTodos(todos);
+			user.setPhoto(photo);
+			user.setFirstName(firstName);
+			user.setLastUpdate(lastUpdate);
+			user.setLastName(lastName);
+			user.setHomeCity(homeCity);
+			user.setType(type);
+			user.setId(key);
+			user.setGender(gender);
+
+			Mayorships mayorships = new Mayorships();
+			mayorships.setCount(mayorshipsCount);
+
+			Friends friends = new Friends();
+			friends.setCount(friendsCount);
+			user.setFriends(friends);
+
+			Contact contact = new Contact();
+			contact.setFacebook(contactFacebook);
+			contact.setPhone(contactPhone);
+			contact.setTwitter(contactTwitter);
+			contact.setTwitter(contactEmail);
+			user.setContact(contact);
+
+			users.add(user);
+			line = reader.readNext();
+		}
+
+		return users;
+	}
+
+	public List<FoursquareUser> getFollowed(List<FoursquareUser> friends,
+			Map<String, FoursquareUser> brands) {
 		List<FoursquareUser> followed = new ArrayList<FoursquareUser>();
 		for (FoursquareUser friend : friends) {
 			String key = friend.getId().toString();
@@ -144,7 +149,8 @@ public class ParseCSV {
 		return followed;
 	}
 
-	public List<FoursquareUser> getUnfollowed(List<FoursquareUser> followed, Map<String, FoursquareUser> brands) {
+	public List<FoursquareUser> getUnfollowed(List<FoursquareUser> followed,
+			Map<String, FoursquareUser> brands) {
 		List<FoursquareUser> unfollowed = new ArrayList<FoursquareUser>();
 
 		Map<String, FoursquareUser> followedMap = new HashMap<String, FoursquareUser>();
@@ -170,8 +176,8 @@ public class ParseCSV {
 			RESTClientImpl client = new RESTClientImpl();
 
 			OAuthAuthenticator auth = new OAuthAuthenticator(consumer);
-			RESTResult result = client.requestWithBody(RequestMethod.GET, "https://api.foursquare.com/v1/friends.json",
-					auth, null);
+			RESTResult result = client.requestWithBody(RequestMethod.GET,
+					"https://api.foursquare.com/v1/friends.json", auth, null);
 			try {
 				System.out.print(result.toString());
 				JSONObject jsonObj;
@@ -183,7 +189,8 @@ public class ParseCSV {
 					JSONObject userObj = friends.getJSONObject(i);
 					String json = userObj.toString();
 					Gson gson = new Gson();
-					FoursquareUser user = gson.fromJson(json, FoursquareUser.class);
+					FoursquareUser user = gson.fromJson(json,
+							FoursquareUser.class);
 					users.add(user);
 				}
 			} catch (JSONException e) {
@@ -213,7 +220,8 @@ public class ParseCSV {
 			String json = split[1];
 
 			Gson gson = new Gson();
-			FoursquareUser foursquareUser = gson.fromJson(json, FoursquareUser.class);
+			FoursquareUser foursquareUser = gson.fromJson(json,
+					FoursquareUser.class);
 			users.put(foursquareUser.getId().toString(), foursquareUser);
 
 			line = reader.readNext();
@@ -243,8 +251,12 @@ public class ParseCSV {
 
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("q", uid);
-		String urlString = RESTUtil.createParamString("https://api.foursquare.com/v1/findfriends/byname.json", params);
-		RESTResult result = client.requestWithBody(RequestMethod.GET, urlString, auth, null);
+		String urlString = RESTUtil
+				.createParamString(
+						"https://api.foursquare.com/v1/findfriends/byname.json",
+						params);
+		RESTResult result = client.requestWithBody(RequestMethod.GET,
+				urlString, auth, null);
 
 		System.out.println(result.toString());
 

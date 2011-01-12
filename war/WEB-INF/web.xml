@@ -79,6 +79,25 @@
 		<servlet-name>unfollow</servlet-name>
 		<servlet-class>com.handstandtech.brandfinder.server.UnFollowServlet</servlet-class>
 	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>tasks-store-follower-count</servlet-name>
+		<url-pattern>/tasks/store-follower-count/*</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>tasks-store-follower-count</servlet-name>
+		<servlet-class>com.handstandtech.brandfinder.server.tasks.FollowerCountTaskServlet</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>cron-daily</servlet-name>
+		<url-pattern>/cron/daily/*</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>cron-daily</servlet-name>
+		<servlet-class>com.handstandtech.brandfinder.server.cron.DailyCronServlet</servlet-class>
+	</servlet>
+	
 
 	<!--*********************************** Logged In Filter ******************************* -->
 	<filter>
