@@ -149,7 +149,7 @@
 					</tr>
 					<c:forEach var="eventCount" items="${counts}">
 						<tr>
-							<td>${eventCount.date}</td>
+							<td><fmt:formatDate pattern="yyyy-MM-dd" value="${eventCount.date}" /></td>
 							<td>${eventCount.uniqueFollowCount}</td>
 							<td>${eventCount.totalFollowCount}</td>
 							<td>${eventCount.uniqueUnFollowCount}</td>
@@ -172,7 +172,7 @@
 					</tr>
 					<c:forEach var="snapshot" items="${followerCounts}">
 						<tr>
-							<td>${snapshot.date}</td>
+							<td><fmt:formatDate pattern="yyyy-MM-dd" value="${snapshot.date}" /></td>
 							<td>${snapshot.count}</td>
 						</tr>
 					</c:forEach>

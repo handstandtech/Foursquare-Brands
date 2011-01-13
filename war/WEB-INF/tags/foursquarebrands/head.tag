@@ -15,12 +15,6 @@
 	}
 %>
 <head>
-	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-	<meta name="author" content="Handstand Technologies, LLC" />
-	<meta name="copyright" content="&copy; 2010 Handstand Technologies, LLC" />
-	<meta name="robots" content="all" />
-	<meta name="Description" content="Find and Manage The Brands You Follow on Foursquare." />
-	<meta name="Keywords" content="Foursquare, Brands, Finder, Brand" />
 	<c:choose>
 		<c:when test="${title!=null}">
 			<title>Foursquare Brands - ${title}</title>
@@ -29,6 +23,21 @@
 			<title>Foursquare Brands - Find and Manage The Brands You Follow on Foursquare.</title>
 		</c:otherwise>
 	</c:choose>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+	<meta name="author" content="Handstand Technologies, LLC" />
+	<meta name="copyright" content="&copy; 2010 Handstand Technologies, LLC" />
+	<meta name="robots" content="all" />
+	<meta name="Description" content="Find and Manage The Brands You Follow on Foursquare." />
+	<meta name="Keywords" content="Foursquare, Brands, Finder, Brand" />
+	
+	<!-- Facebook Properties --> 
+	<meta property="fb:admins" content="169406172091"> 
+	<meta property="fb:app_id" content="169406172091"/> 
+	<meta property="og:site_name" content="Foursquare Brands"/> 
+	<meta property="og:title" content="Foursquare Brands"/> 
+	<meta property="og:url" content="http://www.foursquarebrands.com"/> 
+	<meta property="og:image" content="http://www.foursquarebrands.com/assets/images/foursquare-brands-logo.png"/> 
+	<meta property="og:description" content="Find and Manage The Brands You Follow on Foursquare."/> 
 	
 	<!-- jQuery -->
 	<script type="text/javascript" src="/assets/js/jquery/jquery-1.4.4.min.js"></script>
@@ -36,15 +45,6 @@
 	
 	<!-- Style -->
 	<link type="text/css" rel="stylesheet" href="/assets/css/style.css" />
-	
-	<!-- Open Graph Markup -->
-	<!--meta property="og:title" content="Foursquare Brands"/>
-	<meta property="og:type" content="website"/>
-	<meta property="og:url" content="http://www.foursquarebrands.com"/>
-	<meta property="og:image" content="http://www.foursquarebrands.com/assets/images/foursquare-brands-logo.png"/>
-	<meta property="og:site_name" content="Foursquare Brands"/>
-	<meta property="fb:admins" content="169406172091"/>
-	<meta property="og:description" content="Find and Manage The Brands You Follow on Foursquare."/-->
 	
 	<jsp:doBody />
 	
