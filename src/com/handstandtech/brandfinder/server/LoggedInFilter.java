@@ -2,11 +2,6 @@ package com.handstandtech.brandfinder.server;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -18,14 +13,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import oauth.signpost.OAuthConsumer;
-
 import org.apache.log4j.Logger;
 
-import com.handstandtech.brandfinder.server.util.PageLoadUtils;
 import com.handstandtech.foursquare.server.FoursquareConstants;
-import com.handstandtech.foursquare.server.FoursquareHelper;
-import com.handstandtech.foursquare.shared.model.v2.FoursquareUser;
 
 public class LoggedInFilter implements Filter {
 
@@ -57,6 +47,11 @@ public class LoggedInFilter implements Filter {
 
 		log.debug("Request URL: " + requestUrl);
 		log.debug("Request URI: " + requestUri);
+		
+		if (requestUrl.contains("/manage")) {
+			response.sendRedirect("/");
+			return;
+		}
 
 		//Don't allow requests to the appengine version
 		/*if (requestUrl.contains("4sqbrands.appspot.com")) {

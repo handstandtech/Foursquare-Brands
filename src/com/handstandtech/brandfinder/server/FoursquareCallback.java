@@ -100,7 +100,7 @@ public class FoursquareCallback extends HttpServlet {
 
 	private void redirectToFoursquareApp(HttpServletResponse response) {
 		try {
-			response.sendRedirect("/manage");
+			response.sendRedirect("/");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

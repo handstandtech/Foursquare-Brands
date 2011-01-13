@@ -25,10 +25,7 @@ import com.handstandtech.foursquare.shared.model.v2.FoursquareUser.Contact;
 import com.handstandtech.foursquare.shared.model.v2.FoursquareUser.Friends;
 import com.handstandtech.foursquare.shared.model.v2.FoursquareUser.Mayorships;
 import com.handstandtech.foursquare.shared.model.v2.FoursquareUser.Todos;
-import com.handstandtech.server.rest.Authenticator;
-import com.handstandtech.server.rest.BasicAuthenticator;
 import com.handstandtech.server.rest.RESTClientImpl;
-import com.handstandtech.server.rest.RESTUtil;
 import com.handstandtech.shared.model.rest.RESTResult;
 import com.handstandtech.shared.model.rest.RequestMethod;
 
@@ -204,31 +201,31 @@ public class ParseCSV {
 		return users;
 	}
 
-	public Map<String, FoursquareUser> read(String path) throws Exception {
-		Map<String, FoursquareUser> users = new HashMap<String, FoursquareUser>();
-
-		InputStream is = new FileInputStream(path);
-		InputStreamReader isReader = new InputStreamReader(is);
-		CSVReader reader = new CSVReader(isReader, '\n');
-
-		String[] line = reader.readNext();
-		while (line != null) {
-			String lineData = line[0];
-			String[] split = lineData.split(",", 2);
-
-			String uid = split[0];
-			String json = split[1];
-
-			Gson gson = new Gson();
-			FoursquareUser foursquareUser = gson.fromJson(json,
-					FoursquareUser.class);
-			users.put(foursquareUser.getId().toString(), foursquareUser);
-
-			line = reader.readNext();
-		}
-
-		return users;
-	}
+//	public Map<String, FoursquareUser> read(String path) throws Exception {
+//		Map<String, FoursquareUser> users = new HashMap<String, FoursquareUser>();
+//
+//		InputStream is = new FileInputStream(path);
+//		InputStreamReader isReader = new InputStreamReader(is);
+//		CSVReader reader = new CSVReader(isReader, '\n');
+//
+//		String[] line = reader.readNext();
+//		while (line != null) {
+//			String lineData = line[0];
+//			String[] split = lineData.split(",", 2);
+//
+//			String uid = split[0];
+//			String json = split[1];
+//
+//			Gson gson = new Gson();
+//			FoursquareUser foursquareUser = gson.fromJson(json,
+//					FoursquareUser.class);
+//			users.put(foursquareUser.getId().toString(), foursquareUser);
+//
+//			line = reader.readNext();
+//		}
+//
+//		return users;
+//	}
 
 	// private void go() throws Exception {
 	// InputStream is = new
@@ -245,22 +242,22 @@ public class ParseCSV {
 	// }
 	// }
 
-	private RESTResult findFriendByName(String uid, Authenticator auth) {
-
-		RESTClientImpl client = new RESTClientImpl();
-
-		Map<String, String> params = new HashMap<String, String>();
-		params.put("q", uid);
-		String urlString = RESTUtil
-				.createParamString(
-						"https://api.foursquare.com/v1/findfriends/byname.json",
-						params);
-		RESTResult result = client.requestWithBody(RequestMethod.GET,
-				urlString, auth, null);
-
-		System.out.println(result.toString());
-
-		System.out.print("\n");
-		return result;
-	}
+//	private RESTResult findFriendByName(String uid, Authenticator auth) {
+//
+//		RESTClientImpl client = new RESTClientImpl();
+//
+//		Map<String, String> params = new HashMap<String, String>();
+//		params.put("q", uid);
+//		String urlString = RESTUtil
+//				.createParamString(
+//						"https://api.foursquare.com/v1/findfriends/byname.json",
+//						params);
+//		RESTResult result = client.requestWithBody(RequestMethod.GET,
+//				urlString, auth, null);
+//
+//		System.out.println(result.toString());
+//
+//		System.out.print("\n");
+//		return result;
+//	}
 }

@@ -15,7 +15,7 @@
 		<servlet-name>index</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
-	<servlet>
+	<!--servlet>
 		<description>Brand Finder Page</description>
 		<servlet-name>managejsp</servlet-name>
 		<jsp-file>/WEB-INF/pages/manage.jsp</jsp-file>
@@ -23,7 +23,7 @@
 	<servlet-mapping>
 		<servlet-name>managejsp</servlet-name>
 		<url-pattern>/manage/*</url-pattern>
-	</servlet-mapping>
+	</servlet-mapping-->
 	<servlet>
 		<description>Admin Page</description>
 		<servlet-name>adminpage</servlet-name>
@@ -61,6 +61,16 @@
 	</servlet>
 
 
+	<!-- Google Analytics -->
+	<servlet-mapping>
+		<servlet-name>get-google-analytics</servlet-name>
+		<url-pattern>/tasks/get-google-analytics/*</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>get-google-analytics</servlet-name>
+		<servlet-class>com.handstandtech.brandfinder.server.googleanalytics.GetEventDataForDateServlet</servlet-class>
+	</servlet>
+
 
 	<!--********************** Follow and UnFollow ************************** -->
 	<servlet-mapping>
@@ -96,6 +106,15 @@
 	<servlet>
 		<servlet-name>cron-daily</servlet-name>
 		<servlet-class>com.handstandtech.brandfinder.server.cron.DailyCronServlet</servlet-class>
+	</servlet>
+	
+		<servlet-mapping>
+		<servlet-name>cron-hourly</servlet-name>
+		<url-pattern>/cron/hourly/*</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>cron-hourly</servlet-name>
+		<servlet-class>com.handstandtech.brandfinder.server.cron.HourlyCronServlet</servlet-class>
 	</servlet>
 	
 

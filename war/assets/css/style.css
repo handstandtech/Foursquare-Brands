@@ -1,5 +1,5 @@
 /*=== Reset Styles ===*/
-html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,sub,sup,tt,var,dl,dt,dd,ol,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,sub,sup,tt,var,dl,dt,dd,ol,fieldset,form,label,legend,caption,tbody,tfoot,thead
 	{
 	margin: 0;
 	padding: 0;
@@ -44,6 +44,9 @@ h4 {
 table {
 	border-collapse: separate;
 	border-spacing: 0;
+}
+
+tr,th,td {
 }
 
 caption,th,td {
@@ -96,6 +99,30 @@ h3 {
 #header h2 {
 	padding: 20px;
 }
+
+#header .right-side {
+	float:right;
+	margin-top:25px;
+}
+
+#header .right-side .addthis_toolbox {
+	margin-top:18px;
+	margin-right:125px;	
+}
+
+.addthis_toolbox a {
+    float: left;
+}
+/*
+.addthis_toolbox.addthis_pill_combo a.addthis_button_tweet,
+.addthis_toolbox.addthis_pill_combo a.addthis_counter {
+    margin-top: -2px;
+}*/
+.addthis_button_compact .at15t_compact {
+    margin-right: 4px;
+    float: left;
+} 
+
 #header #logo {
 	margin:10px 20px;
 }

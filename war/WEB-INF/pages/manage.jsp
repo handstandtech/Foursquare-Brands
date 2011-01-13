@@ -3,8 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt"%>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<%@ taglib prefix="foursquarebrands"
-	tagdir="/WEB-INF/tags/foursquarebrands"%>
+<%@ taglib prefix="foursquarebrands" tagdir="/WEB-INF/tags/foursquarebrands"%>
 <%@page import="com.handstandtech.server.SessionConstants"%>
 <%@page import="java.text.DecimalFormat"%>
 <%@ page import="javax.jdo.PersistenceManager"%>
@@ -19,10 +18,9 @@
 <%@ page import="com.handstandtech.brandfinder.server.tasks.FollowerCountTaskServlet"%>
 <%@ page import="com.handstandtech.brandfinder.server.ParseCSV"%>
 <%@ page import="com.handstandtech.brandfinder.server.DAO"%>
-<%@ page import="com.handstandtech.brandfinder.shared.model.Analytic"%>
-<%@ page import="com.handstandtech.brandfinder.shared.model.Event"%>
 <%@ page import="com.handstandtech.brandfinder.server.util.PageLoadUtils"%>
 <%@ page import="com.handstandtech.brandfinder.server.util.SessionHelper"%>
+<%@ page import="com.handstandtech.brandfinder.shared.model.BrandDiscovered"%>
 <%@ page import="com.google.appengine.api.datastore.Key"%>
 <%@ page import="com.handstandtech.shared.model.rest.RESTResult"%>
 <%@ page import="com.handstandtech.foursquare.server.FoursquareUtils"%>
@@ -81,12 +79,11 @@
 					dao.updateFoursquareUser(brand);
 			
 					// Add Analytic about Discovered Brand
-					Analytic analytic = new Analytic();
-					analytic.setEvent(Event.NEW_BRAND_DISCOVERED_BY_USER);
-					analytic.setLabel(brand.getId());
-					analytic.setDate(new Date());
-					analytic.setAction(currentUser.getId());
-					dao.updateAnalytic(analytic);
+					BrandDiscovered brandDiscovered = new BrandDiscovered();
+					brandDiscovered.setDate(new Date());
+					brandDiscovered.setBrandId(brand.getId());
+					brandDiscovered.setUserId(currentUser.getId());
+					dao.updateBrandDiscovered(brandDiscovered);
 					
 					idToBrandMap.put(brand.getId(), brand);
 				}
@@ -512,5 +509,6 @@
 	back in an hour and try again.</p>
 	</div>
 	</div>
+	
 </foursquarebrands:body>
 </foursquarebrands:html>

@@ -1,24 +1,13 @@
 package com.handstandtech.brandfinder.server.util;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
-import oauth.signpost.OAuthConsumer;
 
 import com.handstandtech.brandfinder.server.DAO;
 import com.handstandtech.brandfinder.server.ParseCSV;
-import com.handstandtech.brandfinder.shared.model.Analytic;
-import com.handstandtech.brandfinder.shared.model.Event;
-import com.handstandtech.foursquare.server.FoursquareConstants;
-import com.handstandtech.foursquare.server.FoursquareHelper;
 import com.handstandtech.foursquare.shared.model.v2.FoursquareUser;
 
 public class PageLoadUtils {
