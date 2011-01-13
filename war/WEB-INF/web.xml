@@ -15,15 +15,15 @@
 		<servlet-name>index</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
-	<!--servlet>
-		<description>Brand Finder Page</description>
-		<servlet-name>managejsp</servlet-name>
-		<jsp-file>/WEB-INF/pages/manage.jsp</jsp-file>
+	<servlet>
+		<description>Brands</description>
+		<servlet-name>brandsjsp</servlet-name>
+		<jsp-file>/WEB-INF/pages/brands.jsp</jsp-file>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>managejsp</servlet-name>
-		<url-pattern>/manage/*</url-pattern>
-	</servlet-mapping-->
+		<servlet-name>brandsjsp</servlet-name>
+		<url-pattern>/brands/*</url-pattern>
+	</servlet-mapping>
 	<servlet>
 		<description>Admin Page</description>
 		<servlet-name>adminpage</servlet-name>

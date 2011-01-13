@@ -40,9 +40,15 @@
 <%@ page import="java.io.InputStreamReader"%>
 <%
 	DAO dao = new DAO();
+
+	String uri = request.getRequestURI();
+	String[] tokens = uri.split("/");
 	
-	String brandId = request.getParameter("id");
-	request.setAttribute("brandId", brandId);
+	String brandId = null;
+	if(tokens.length==3){
+		brandId = tokens[2];
+		request.setAttribute("brandId", brandId);
+	}
 	
 	if(brandId!=null){
 		FoursquareUser brand = dao.getFoursquareUser(brandId);
@@ -125,7 +131,7 @@
 						<c:set var="brandName" value="${brand.firstName}" />
 					</c:otherwise>
 				</c:choose>
-				<h3><a href="/brands.jsp">Back to ALL Brands</a></h3>
+				<h3><a href="/brands">Back to ALL Brands</a></h3>
 				<br/>
 				<h1>${brandName}</h1>
 				<br/>
@@ -202,7 +208,7 @@
 										</c:choose>
 									</td>
 									<td>${brand.friends.count}</td>
-									<td><a href="/brands.jsp?id=${brand.id}">Analytics</a></td>
+									<td><a href="/brands/${brand.id}">Analytics</a></td>
 								</tr>
 							</c:forEach>
 						</table>
