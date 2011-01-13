@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <datastore-indexes autoGenerate="true">
-    <datastore-index kind="Analytic" ancestor="false">
-        <property name="event" direction="asc"/>
+    <datastore-index kind="BrandDiscovered" ancestor="false">
         <property name="date" direction="asc"/>
     </datastore-index>
 </datastore-indexes>
