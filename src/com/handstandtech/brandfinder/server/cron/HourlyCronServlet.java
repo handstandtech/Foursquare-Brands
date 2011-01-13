@@ -66,7 +66,7 @@ public class HourlyCronServlet extends HttpServlet {
 		Queue queue = QueueFactory.getDefaultQueue();
 		TaskOptions googleAnalyticsTask = TaskOptions.Builder.withDefaults();
 		googleAnalyticsTask.url("/tasks/get-google-analytics");
-		googleAnalyticsTask.method(Method.POST);
+		googleAnalyticsTask.method(Method.GET);
 		Date yesterday = new Date(date.getTime()-ONE_DAY);
 		googleAnalyticsTask.param("date", ModelUtils.getDateFormat().format(yesterday));
 		queue.add(googleAnalyticsTask);
