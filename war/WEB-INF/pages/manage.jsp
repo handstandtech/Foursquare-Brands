@@ -113,6 +113,21 @@
 		}
 	}
 	
+	/*Long ONE_SECOND = 1000L;
+	Long ONE_MINUTE = 60 * ONE_SECOND;
+	Long ONE_HOUR = 60 * ONE_MINUTE;
+	Long ONE_DAY = 24 * ONE_HOUR;*/
+	List<BrandDiscovered> discoveredBrands = dao.getBrandDiscoveredSince(null);
+	final Map<String, BrandDiscovered> discovered = PageLoadUtils.createMap(discoveredBrands);
+	
+	try {
+		Collections.sort(followed, PageLoadUtils.getBrandCompare(discovered));
+		Collections.sort(notFollowed, PageLoadUtils.getBrandCompare(discovered));
+	}catch(Exception e){
+		//DO nothing...
+		e.printStackTrace();
+	}
+	
 	System.out.println("brands: " + brands.size());
 	System.out.println("followed: " + followed.size());
 	System.out.println("notFollowed: " + notFollowed.size());
