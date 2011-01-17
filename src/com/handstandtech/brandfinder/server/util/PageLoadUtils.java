@@ -76,12 +76,12 @@ public class PageLoadUtils {
 				BrandDiscovered d1= discovered.get(o1.getId());
 				BrandDiscovered d2= discovered.get(o2.getId());
 				
-				if(d1!=null && d2!=null){
-					return d2.getDate().compareTo(d1.getDate());
-				} else if(d1==null && d2!=null) {
+				if (d1 != null && d2 != null) {
+					return d1.getDate().compareTo(d2.getDate());
+				} else if (d1 == null && d2 != null) {
 					return -1;
-				} else if(d1!=null && d2==null) {
-					return +1;
+				} else if (d1 != null && d2 == null) {
+					return 1;
 				} else {
 					Long l1 = Long.parseLong(o1.getId());
 					Long l2 = Long.parseLong(o2.getId());

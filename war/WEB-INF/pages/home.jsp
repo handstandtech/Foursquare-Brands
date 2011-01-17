@@ -54,8 +54,7 @@
 		<p style="">
 			This application is not created by or affiliated with <a href="http://foursquare.com">Foursquare</a>, but rather your friends at <a href="http://handstandtech.com">Handstand Technologies</a>.  
 			Feel free to ask questions and comments by hitting us up on <a href="http://twitter.com/HandstandTech">
-			<img src="/assets/images/twitter-small-logo.png" style=""/>
-			</a>.
+			<img src="/assets/images/twitter-small-logo.png" style=""/></a>.
 		</p>
 	</div>
 	

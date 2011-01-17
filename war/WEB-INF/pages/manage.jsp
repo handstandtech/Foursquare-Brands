@@ -107,16 +107,10 @@
 			followed.add(brandEntry);
 		}	else {
 			// NOT FOLLOWED
-			notFollowed.add(brandEntry);
-			System.out.println("NOT FOLLOWING: " + brandEntry.getFirstName());
-			
+			notFollowed.add(brandEntry);			
 		}
 	}
 	
-	/*Long ONE_SECOND = 1000L;
-	Long ONE_MINUTE = 60 * ONE_SECOND;
-	Long ONE_HOUR = 60 * ONE_MINUTE;
-	Long ONE_DAY = 24 * ONE_HOUR;*/
 	List<BrandDiscovered> discoveredBrands = dao.getBrandDiscoveredSince(null);
 	final Map<String, BrandDiscovered> discovered = PageLoadUtils.createMap(discoveredBrands);
 	
@@ -128,7 +122,10 @@
 		e.printStackTrace();
 	}
 	
-	System.out.println("brands: " + brands.size());
+	/*for(FoursquareUser b : notFollowed) {
+		System.out.println(b.getId());
+	}*/
+	
 	System.out.println("followed: " + followed.size());
 	System.out.println("notFollowed: " + notFollowed.size());
 	
