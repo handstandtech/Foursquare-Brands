@@ -1,5 +1,6 @@
 package com.handstandtech.brandfinder.server.util;
 
+import java.util.Collection;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
@@ -15,7 +16,7 @@ import com.handstandtech.foursquare.shared.model.v2.FoursquareUser;
 public class PageLoadUtils {
 
 	public static Map<String, FoursquareUser> getFollowing(
-			List<FoursquareUser> friends,
+			Collection<FoursquareUser> friends,
 			Map<String, FoursquareUser> idToBrandMap) {
 		Map<String, FoursquareUser> followingList = new HashMap<String, FoursquareUser>();
 

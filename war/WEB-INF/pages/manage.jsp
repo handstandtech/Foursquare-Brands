@@ -33,6 +33,8 @@
 <%@ page import="java.util.Comparator"%>
 <%@ page import="java.io.InputStream"%>
 <%@ page import="java.io.BufferedReader"%>
+<%@ page import="java.util.Collection"%>
+<%@ page import="java.util.HashSet"%>
 <%@ page import="java.io.InputStreamReader"%>
 <%
 	OAuthConsumer consumer = (OAuthConsumer) session.getAttribute(FoursquareConstants.CONSUMER_CONSTANT);
@@ -60,7 +62,22 @@
 	Map<String, FoursquareUser> idToBrandMap = PageLoadUtils.createIdToBrandMap(brands);
 	
 	FoursquareHelper helper = new FoursquareHelper(consumer);
-	List<FoursquareUser> friends = helper.getFriends("self");
+	Collection<FoursquareUser> friends = new HashSet<FoursquareUser>();
+	Boolean keepGoing = true;
+	Integer offset = 0;
+	String userId = "self";
+	List<FoursquareUser> friendResponseList = helper.getFriends(userId, offset);
+	while(keepGoing){
+		System.out.println("Adding: " +friendResponseList.size());
+		friends.addAll(friendResponseList);
+		if(friendResponseList.size()>=500) {
+			keepGoing=true;
+			offset=offset+500;
+			friendResponseList = helper.getFriends(userId, offset);
+		} else {
+			keepGoing=false;
+		}
+	}
 	
 	// See who is followed
 	System.out.println("See who is followed");
@@ -125,7 +142,8 @@
 	/*for(FoursquareUser b : notFollowed) {
 		System.out.println(b.getId());
 	}*/
-	
+
+	System.out.println("friends: " + friends.size());
 	System.out.println("followed: " + followed.size());
 	System.out.println("notFollowed: " + notFollowed.size());
 	
@@ -454,10 +472,8 @@
 	<h2 class="following-stats">Hey ${currentUser.firstName}! You're
 	Following <span class="percentage">${numFollowed}</span> of ${total}
 	brands on Foursquare.</h2>
-	<p>Manage the brands you're following and not following below. Use
-	the links to Follow or UnFollow them as you please by clicking the
-	button that appears after hovering over their logo. Clicking the name
-	of the brand will open up their page on Foursquare.</p>
+	<p>Follow and UnFollow brands with 1-click.  The brands are ordered by when they were discovered.  The newest brands are displayed in the bottom-right of each section.  Use
+	the links to Follow or UnFollow brands with 1-click.</p>
 	</div>
 	<h3 class="section-header">Following:</h3>
 	<div class="section following"><c:forEach var="user"

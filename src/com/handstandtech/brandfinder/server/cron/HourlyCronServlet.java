@@ -105,6 +105,7 @@ public class HourlyCronServlet extends HttpServlet {
 
 				List<String> adminEmails = new ArrayList<String>();
 				adminEmails.add("sam@handstandtech.com");
+				adminEmails.add("kristen.sheriff@gmail.com");
 				for (String adminEmail : adminEmails) {
 					msg.addRecipient(Message.RecipientType.TO,
 							new InternetAddress(adminEmail,

@@ -108,7 +108,17 @@
 		<servlet-class>com.handstandtech.brandfinder.server.cron.DailyCronServlet</servlet-class>
 	</servlet>
 	
-		<servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>cron-tweet</servlet-name>
+		<url-pattern>/cron/tweet/*</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>cron-tweet</servlet-name>
+		<servlet-class>com.handstandtech.brandfinder.server.cron.TweetCronServlet</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
 		<servlet-name>cron-hourly</servlet-name>
 		<url-pattern>/cron/hourly/*</url-pattern>
 	</servlet-mapping>
