@@ -29,8 +29,8 @@ public class TwitterOAuth10aHelpers {
 	private static String FOURSQUAREBRANDS_CONSUMER_KEY = "2EBADuJpc9I0wMLpWn1Pjw";
 	private static String FOURSQUAREBRANDS_CONSUMER_SECRET = "5pwA6Pwlb07vuTwtV8GO3GfpHNAT8iqwQ3yFWi8bPE";
 
-	public static String FOURSQUAREBRANDS_HANDSTANDTECH_TOKEN = "82803536-zl3kqlCQaGAtwL0c7kZjllMBhsEYV9sKq5WukwBaN";
-	public static String FOURSQUAREBRANDS_HANDSTANDTECH_TOKEN_SECRET = "U3crf3pGeAro6igDFhqvtT33z1tQolmFC4ErEgTMKqs";
+	public static String FOURSQUAREBRANDS_TOKEN = "244235295-Svxzxnyghp2uycUyXvQA15lPffuEkn0i17MAyFQ";
+	public static String FOURSQUAREBRANDS_TOKEN_SECRET = "Ho4hxNSjRRbGTQsrsfnnCqvEgTxELNLcmbXGvZvzM";
 
 	public static OAuthProvider getTwitterOAuthProvider() {
 		String baseUrl = "https://api.twitter.com/oauth/";
@@ -53,15 +53,17 @@ public class TwitterOAuth10aHelpers {
 		// Get Tokens and AUTH URL
 		// getAccessTokenAndAuthUrl(consumer, provider);
 
+		consumer.setTokenWithSecret(FOURSQUAREBRANDS_TOKEN,
+				FOURSQUAREBRANDS_TOKEN_SECRET);
 		
 
-		// GET A REAL TOKENS
-		// String oauth_verifier =
-		// "xAL5whcg1PsQn4UycDkHYCl3glJhje5KVEf2EM3t4";
-		// provider.retrieveAccessToken(consumer, oauth_verifier);
+//		// GET A REAL TOKENS
+//		String oauth_verifier = "Z8A6fbKcGyHC07nhEg2SEmJLcQWVMfjuCSR3SK2F4M";
+//		provider.retrieveAccessToken(consumer, oauth_verifier);
 
-		// getCurrentUser(consumer);
+		getCurrentUser(consumer);
 
+		printConsumerInfo(consumer);
 
 	}
 
@@ -85,7 +87,6 @@ public class TwitterOAuth10aHelpers {
 		}
 
 		log.log(Level.INFO, "Auth URL: " + authUrl);
-		printConsumerInfo(consumer);
 	}
 
 	private static void getCurrentUser(OAuthConsumer consumer) {

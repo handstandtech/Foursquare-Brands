@@ -21,6 +21,7 @@
 <%@ page import="com.handstandtech.brandfinder.server.util.PageLoadUtils"%>
 <%@ page import="com.handstandtech.brandfinder.server.util.SessionHelper"%>
 <%@ page import="com.handstandtech.brandfinder.shared.model.BrandDiscovered"%>
+<%@ page import="com.handstandtech.brandfinder.server.twitter.FoursquareBrandsTwitter"%>
 <%@ page import="com.google.appengine.api.datastore.Key"%>
 <%@ page import="com.handstandtech.shared.model.rest.RESTResult"%>
 <%@ page import="com.handstandtech.foursquare.server.FoursquareUtils"%>
@@ -101,6 +102,8 @@
 					brandDiscovered.setBrandId(brand.getId());
 					brandDiscovered.setUserId(currentUser.getId());
 					dao.updateBrandDiscovered(brandDiscovered);
+					
+					FoursquareBrandsTwitter.queueTweet(brand.getId());
 					
 					idToBrandMap.put(brand.getId(), brand);
 				}
@@ -476,6 +479,7 @@
 	the links to Follow or UnFollow brands with 1-click.</p>
 	</div>
 	<h3 class="section-header">Following:</h3>
+	<foursquarebrands:skyscraper-ad/>
 	<div class="section following"><c:forEach var="user"
 		items="${followed}">
 		<c:if test="${user.id!=null}">
@@ -498,6 +502,7 @@
 	</c:forEach></div>
 	<hr />
 	<h3 class="section-header">Not Following:</h3>
+	<foursquarebrands:skyscraper-ad/>
 	<div class="section not-following"><c:forEach var="user"
 		items="${notFollowed}">
 		<div class="user-info" name='${user.firstName}' userid='${user.id}'>

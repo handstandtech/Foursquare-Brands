@@ -34,7 +34,7 @@
 		<link>
 			<name>foursquare</name>
 			<type>2</type>
-			<location>/Users/ssaammee/Documents/eclipseworkspaces/handstandtechnologies/handstandtechlibs/src/foursquare</location>
+			<location>/Users/ssaammee/dev/git/Handstand-Tech-Libs/src/foursquare</location>
 		</link>
 		<link>
 			<name>googleanalytics</name>
@@ -44,17 +44,17 @@
 		<link>
 			<name>restclient</name>
 			<type>2</type>
-			<location>/Users/ssaammee/Documents/eclipseworkspaces/handstandtechnologies/handstandtechlibs/src/restclient</location>
+			<location>/Users/ssaammee/dev/git/Handstand-Tech-Libs/src/restclient</location>
 		</link>
 		<link>
 			<name>server</name>
 			<type>2</type>
-			<location>/Users/ssaammee/Documents/eclipseworkspaces/handstandtechnologies/handstandtechlibs/src/server</location>
+			<location>/Users/ssaammee/dev/git/Handstand-Tech-Libs/src/server</location>
 		</link>
 		<link>
 			<name>shared</name>
 			<type>2</type>
-			<location>/Users/ssaammee/Documents/eclipseworkspaces/handstandtechnologies/handstandtechlibs/src/shared</location>
+			<location>/Users/ssaammee/dev/git/Handstand-Tech-Libs/src/shared</location>
 		</link>
 	</linkedResources>
 </projectDescription>

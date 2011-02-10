@@ -110,12 +110,12 @@
 	
 	
 	<servlet-mapping>
-		<servlet-name>cron-tweet</servlet-name>
-		<url-pattern>/cron/tweet/*</url-pattern>
+		<servlet-name>tasks-tweet</servlet-name>
+		<url-pattern>/tasks/tweet/*</url-pattern>
 	</servlet-mapping>
 	<servlet>
-		<servlet-name>cron-tweet</servlet-name>
-		<servlet-class>com.handstandtech.brandfinder.server.cron.TweetCronServlet</servlet-class>
+		<servlet-name>tasks-tweet</servlet-name>
+		<servlet-class>com.handstandtech.brandfinder.server.cron.TweetServlet</servlet-class>
 	</servlet>
 	
 	<servlet-mapping>
