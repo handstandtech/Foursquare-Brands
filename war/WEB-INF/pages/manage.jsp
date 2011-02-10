@@ -476,7 +476,7 @@
 	Following <span class="percentage">${numFollowed}</span> of ${total}
 	brands on Foursquare.</h2>
 	<p>Follow and UnFollow brands with 1-click.  The brands are ordered by when they were discovered.  The newest brands are displayed in the bottom-right of each section.  Use
-	the links to Follow or UnFollow brands with 1-click.</p>
+	the links to Follow or UnFollow brands with 1-click.  Send us Questions/Comments using the Feedback Tab on the left.</p>
 	</div>
 	<h3 class="section-header">Following:</h3>
 	<foursquarebrands:skyscraper-ad/>

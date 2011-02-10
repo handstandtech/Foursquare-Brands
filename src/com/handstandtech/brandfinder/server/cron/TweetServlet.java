@@ -33,7 +33,7 @@ public class TweetServlet extends HttpServlet {
 		
 		// Send out tweet about it!
 		if (brandId != null && !brandId.isEmpty()) {
-			//Make sure we're not on localhost
+			//Make sure we're not on localhost so that we don't tweet during testing
 			if (FoursquareHelper.isProduction(request.getRequestURL().toString()) == true) {
 				FoursquareBrandsTwitter.sendOutTweetOfNewBrands(brandId);
 			}

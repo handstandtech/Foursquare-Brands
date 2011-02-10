@@ -1,4 +1,4 @@
-<div style="float:right;margin-top:4px;">
+<div style="float:right;">
 <script type="text/javascript"><!--
 google_ad_client = "ca-pub-3492018993183397";
 /* 120x600 Skyscraper for FoursquareBrands.com */
