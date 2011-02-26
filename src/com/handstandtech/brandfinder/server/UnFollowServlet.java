@@ -7,9 +7,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import oauth.signpost.OAuthConsumer;
-
-import com.handstandtech.foursquare.server.FoursquareConstants;
+import com.google.visualization.datasource.datatable.DataTable;
+import com.handstandtech.brandfinder.server.util.SessionHelper;
+import com.handstandtech.brandfinder.shared.model.User;
 import com.handstandtech.foursquare.server.FoursquareHelper;
 
 /**
@@ -26,11 +26,12 @@ public class UnFollowServlet extends HttpServlet {
 	 * Handle a GET Request and serve the appropriate {@link DataTable}
 	 */
 	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+	protected void doPost(HttpServletRequest request,
+			HttpServletResponse response) throws IOException {
 		String id = request.getParameter("id");
 		HttpSession session = request.getSession();
-		OAuthConsumer sessionConsumer = (OAuthConsumer) session.getAttribute(FoursquareConstants.CONSUMER_CONSTANT);
-		FoursquareHelper helper = new FoursquareHelper(sessionConsumer.getTokenSecret());
+		User currentUser = SessionHelper.getCurrentUser(session);
+		FoursquareHelper helper = new FoursquareHelper(currentUser.getToken());
 		helper.unFriendRequest(id);
 	}
 }

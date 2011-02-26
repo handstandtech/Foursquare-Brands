@@ -1,6 +1,8 @@
-<%@ tag isELIgnored="false"%>
+<%@ tag isELIgnored="false" language="java"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ attribute name="title"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="foursquarebrands" tagdir="/WEB-INF/tags/foursquarebrands"%>
 <%@ tag import="com.google.appengine.api.utils.SystemProperty"%>
 
 <%
@@ -40,33 +42,22 @@
 	<meta property="og:description" content="Find and Manage The Brands You Follow on Foursquare."/> 
 	
 	<!-- jQuery -->
-	<script type="text/javascript" src="/assets/js/jquery/jquery-1.4.4.min.js"></script>
+	<script type="text/javascript" src="/assets/js/jquery/jquery-1.5.1.min.js"></script>
 	<script type="text/javascript" src="/assets/js/jquery-ui/jquery-ui-1.8.4.min.js"></script>
+	
+	<!-- Superfish -->
+	<link rel="stylesheet" type="text/css" href="/assets/js/superfish-1.4.8/css/superfish.css" media="screen">
+	<script type="text/javascript" src="/assets/js/superfish-1.4.8/js/hoverIntent.js"></script>
+	<script type="text/javascript" src="/assets/js/superfish-1.4.8/js/superfish.js"></script>
+	<script type="text/javascript">
+		// initialize superfish
+		$(document).ready(function(){
+			$('ul.sf-menu').superfish();
+		});
+	</script>
 	
 	<!-- Style -->
 	<link type="text/css" rel="stylesheet" href="/assets/css/style.css" />
 	
 	<jsp:doBody />
-	
-	
-	<!-- Begin Google Analytics -->
-	<script type="text/javascript">
-		var _gaq = _gaq || [];
-	</script>
-	<c:if test="${production==true}">
-		<script type="text/javascript">
-		  _gaq.push(['_setAccount', 'UA-12000077-5']);
-		  _gaq.push(['_setDomainName', 'none']);
-		  _gaq.push(['_setAllowLinker', true]);
-		  _gaq.push(['_trackPageview']);
-		
-		  (function() {
-		    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-		    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-		    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-		  })();
-		</script>
-	</c:if>
-	<!-- End Google Analytics -->
-	
 </head>

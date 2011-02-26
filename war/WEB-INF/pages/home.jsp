@@ -21,42 +21,43 @@
 </foursquarebrands:head>
 <foursquarebrands:body>
 	<br/>
-	<h1 class="align-center">Find and Manage The Brands You Follow on Foursquare</h1>
+	<h1 class="align-center">Manage the Brands and Celebrities you Follow on Foursquare</h1>
 	<br/>
 	<br/>
 	<br/>
 	<div class="feature-checklist">
 		<ul>
 			<li>
-				<h3><img src="/assets/images/check-button.png"/>Most Up to Date List of Brands on Foursquare</h3>
+				<h3><img src="/assets/images/check-button.png"/>Most Up to Date List of Brands and Celebrities</h3>
 			</li>
 			<li>
 				<h3><img src="/assets/images/check-button.png"/>Easiest Way to Manage Who You are Following</h3>
 			</li>
 			<li>
-				<h3><img src="/assets/images/check-button.png"/>Follow or UnFollow Brands with 1 Click</h3>
+				<h3><img src="/assets/images/check-button.png"/>Follow or UnFollow with 1 Click</h3>
 			</li>
 		</ul>
 		<hr style="margin:0px 15px;"/>
 		<br/>
-		<p class="align-center bold">Sign In with Foursquare to Get Started!</p>
-		<p class="login-button"> 
-			<a href="/foursquare/login">
-				<img src="/assets/images/signinwith-foursquare.png"/> 
-			</a>
-		</p>
+		<c:choose>
+			<c:when test="${currentUser==null}">
+			<p class="align-center bold">Sign In with Foursquare to Get Started!</p>
+			<p class="login-button"> 
+				<a href="/login">
+					<img src="/assets/images/signinwith-foursquare.png"/> 
+				</a>
+			</p>
+			</c:when>
+			<c:otherwise>
+			<h2 class="align-center">Hey ${currentUser.foursquareUser.name}, You're Logged in!</h2>
+			<br/>
+			<h2 class="align-center">Start Managing <a href="/manage/brands">Brands</a> or <a href="/manage/celebs">Celebrities</a>.</h2>
+			</c:otherwise>
+		</c:choose>
 		<br/>
 	</div>
 	<br/>
 	<br/>
-	<div class="lower-section">
-		<a class="created-by" href="http://handstandtech.com"><img src="/assets/images/createdby-handstandtech.png"/></a>
-		<p style="">
-			This application is not created by or affiliated with <a href="http://foursquare.com">Foursquare</a>, but rather your friends at <a href="http://handstandtech.com">Handstand Technologies</a>.  
-			Feel free to ask questions and comments by hitting us up on <a href="http://twitter.com/4sqbrands">
-			<img src="/assets/images/twitter-small-logo.png" style=""/></a>.
-		</p>
-	</div>
 	
 </foursquarebrands:body>
 </foursquarebrands:html>

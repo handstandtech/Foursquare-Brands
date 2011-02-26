@@ -25,7 +25,7 @@ public class FoursquareBrandsTwitter {
 
 		StringBuffer sb = new StringBuffer();
 		FoursquareUser brand = dao.getFoursquareUser(brandId);
-		String status = "[New Brand Found] - " + getBrandName(brand)
+		String status = "[New Brand Found] - " + brand.getName()
 				+ getTwitterHandle(brand)
 				+ " is on http://FoursquareBrands.com";
 
@@ -52,16 +52,6 @@ public class FoursquareBrandsTwitter {
 			}
 		}
 		return "";
-	}
-
-	private static String getBrandName(FoursquareUser brand) {
-		String first = brand.getFirstName();
-		String last = brand.getLastName();
-		if (last == null) {
-			return first;
-		} else {
-			return first + " " + last;
-		}
 	}
 
 	public static void queueTweet(String brandId) {

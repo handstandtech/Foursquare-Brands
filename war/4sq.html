@@ -25,12 +25,12 @@
 
 	
 		function initialize(specialsMap) {
-			var centerLatLng = new google.maps.LatLng(40.748338,-73.977857);
+			var centerLatLng = new google.maps.LatLng(39.04172,-77.10763);
             var diameterKm = .5;
             var radiusKm=diameterKm/2;
 			 
 	        var myOptions = {
-	       	    zoom: 15,
+	       	    zoom: 14,
 	       	    center: centerLatLng,
 	       	    mapTypeId: google.maps.MapTypeId.ROADMAP
 	       	  }
@@ -53,7 +53,7 @@
 	        	var location = venue.location;
 	        	var point = new google.maps.LatLng(location.lat, location.lng);
 	        	
-	        	var red = new google.maps.MarkerImage("http://labs.google.com/ridefinder/images/mm_20_red.png");	            
+	        	var red = new google.maps.MarkerImage("http://labs.google.com/ridefinder/images/mm_20_green.png");	            
 	        	
 				var myHtml = "";
 				myHtml=myHtml+"<div class='info-window'>"+

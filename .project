@@ -39,7 +39,7 @@
 		<link>
 			<name>googleanalytics</name>
 			<type>2</type>
-			<location>/Users/ssaammee/Documents/eclipseworkspaces/handstandtechnologies/handstandtechlibs/src/googleanalytics</location>
+			<location>/Users/ssaammee/dev/git/Handstand-Tech-Libs/src/googleanalytics</location>
 		</link>
 		<link>
 			<name>restclient</name>

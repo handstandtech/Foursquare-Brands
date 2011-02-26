@@ -8,13 +8,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import oauth.signpost.OAuthConsumer;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.google.visualization.datasource.datatable.DataTable;
-import com.handstandtech.foursquare.server.FoursquareConstants;
+import com.handstandtech.brandfinder.server.util.SessionHelper;
+import com.handstandtech.brandfinder.shared.model.User;
 import com.handstandtech.foursquare.server.FoursquareHelper;
 import com.handstandtech.foursquare.server.FoursquareUtils;
 import com.handstandtech.foursquare.shared.model.v2.FoursquareUser;
@@ -40,10 +39,8 @@ public class FollowServlet extends HttpServlet {
 			HttpServletResponse response) throws IOException {
 		String id = request.getParameter("id");
 		HttpSession session = request.getSession();
-		OAuthConsumer sessionConsumer = (OAuthConsumer) session
-				.getAttribute(FoursquareConstants.CONSUMER_CONSTANT);
-		FoursquareHelper helper = new FoursquareHelper(
-				sessionConsumer.getTokenSecret());
+		User currentUser = SessionHelper.getCurrentUser(session);
+		FoursquareHelper helper = new FoursquareHelper(currentUser.getToken());
 
 		RESTResult result = helper.friendRequest(id);
 		try {
@@ -58,11 +55,11 @@ public class FollowServlet extends HttpServlet {
 				dao.updateFoursquareUser(user);
 			} else {
 				log.info("follow was NOT successful");
-				
-				//Possible Errors
-				//{"meta":{"code":403,"errorType":"rate_limit_exceeded","errorDetail":"Quota exceeded"},"response":{}}
+
+				// Possible Errors
+				// {"meta":{"code":403,"errorType":"rate_limit_exceeded","errorDetail":"Quota exceeded"},"response":{}}
 				//
-				
+
 				response.setContentType("application/json");
 				response.getWriter().append(meta.toString());
 			}

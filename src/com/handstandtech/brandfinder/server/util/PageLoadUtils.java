@@ -22,14 +22,14 @@ public class PageLoadUtils {
 
 		for (FoursquareUser friend : friends) {
 			String relationship = friend.getRelationship();
-			if (relationship!=null && relationship.equals("followingThem")) {
+			if (relationship != null && relationship.equals("followingThem")) {
 				FoursquareUser currValue = idToBrandMap.get(friend.getId());
 				followingList.put(friend.getId(), currValue);
 			}
 		}
 		return followingList;
 	}
-	
+
 	public static Map<String, BrandDiscovered> createMap(
 			List<BrandDiscovered> brands) {
 		Map<String, BrandDiscovered> map = new HashMap<String, BrandDiscovered>();
@@ -37,16 +37,6 @@ public class PageLoadUtils {
 			map.put(b.getBrandId(), b);
 		}
 		return map;
-	}
-	
-
-	public static Map<String, FoursquareUser> createIdToBrandMap(
-			List<FoursquareUser> brands) {
-		Map<String, FoursquareUser> idToBrandMap = new HashMap<String, FoursquareUser>();
-		for (FoursquareUser b : brands) {
-			idToBrandMap.put(b.getId(), b);
-		}
-		return idToBrandMap;
 	}
 
 	/**
@@ -70,13 +60,14 @@ public class PageLoadUtils {
 			e.printStackTrace();
 		}
 	}
-	
-	public static Comparator<FoursquareUser> getBrandCompare(final Map<String, BrandDiscovered> discovered) {
+
+	public static Comparator<FoursquareUser> getBrandCompare(
+			final Map<String, BrandDiscovered> discovered) {
 		return new Comparator<FoursquareUser>() {
 			public int compare(FoursquareUser o1, FoursquareUser o2) {
-				BrandDiscovered d1= discovered.get(o1.getId());
-				BrandDiscovered d2= discovered.get(o2.getId());
-				
+				BrandDiscovered d1 = discovered.get(o1.getId());
+				BrandDiscovered d2 = discovered.get(o2.getId());
+
 				if (d1 != null && d2 != null) {
 					return d1.getDate().compareTo(d2.getDate());
 				} else if (d1 == null && d2 != null) {

@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <datastore-indexes autoGenerate="true">
-    <!--datastore-index kind="BrandDiscovered" ancestor="false">
-        <property name="date" direction="asc"/>
-    </datastore-index-->
+    <!-- FoursquareUser -->
+    <datastore-index kind="FoursquareUser" ancestor="false" source="auto">
+        <property name="type" direction="asc"/>
+        <property name="friends.count" direction="desc"/>
+    </datastore-index>
 </datastore-indexes>

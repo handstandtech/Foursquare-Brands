@@ -31,14 +31,12 @@ public class DealFinder {
 
 		double diameterInKm = .5;
 		double radiusInKm = diameterInKm / 2;
-		double columnCount = 5;
-		double rowCount = 5;
-		LatLon center = new LatLon(40.748338, -73.977857);
+		double columnCount = 10;
+		double rowCount = 10;
+		LatLon center = new LatLon(39.04172,-77.10763);
 		List<LatLon> points = new ArrayList<LatLon>();
 
 		LatLon topLeft = findTopLeft(center, columnCount, rowCount, radiusInKm);
-
-		// topLeft= new LatLon(37.555159,-77.487302);
 
 		// Get Points
 		points.addAll(createPointsInGrid(topLeft, columnCount, rowCount,

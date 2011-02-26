@@ -15,7 +15,8 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 
-import com.handstandtech.foursquare.server.FoursquareConstants;
+import com.handstandtech.brandfinder.server.util.SessionHelper;
+import com.handstandtech.brandfinder.shared.model.User;
 
 public class LoggedInFilter implements Filter {
 
@@ -47,24 +48,11 @@ public class LoggedInFilter implements Filter {
 
 		log.debug("Request URL: " + requestUrl);
 		log.debug("Request URI: " + requestUri);
-		
-		if (requestUrl.contains("/manage")) {
-			response.sendRedirect("/");
-			return;
-		}
 
-		//Don't allow requests to the appengine version
-		/*if (requestUrl.contains("4sqbrands.appspot.com")) {
-			String redirectUrl = "http://www.foursquarebrands.com" + requestUri;
-			log.debug("redirecting...");
-			response.sendRedirect(redirectUrl);
-			return;
-		}*/
-
-		Object consumer = session.getAttribute(FoursquareConstants.CONSUMER_CONSTANT);
+		User currentUser = SessionHelper.getCurrentUser(session);
 
 		boolean loggedIn=false;
-		if (consumer != null) {
+		if (currentUser != null) {
 			loggedIn=true;
 		}
 		request.setAttribute("loggedIn", loggedIn);
@@ -77,27 +65,13 @@ public class LoggedInFilter implements Filter {
 				isSecure = true;
 			}
 		}
+		
+		if(isSecure && !loggedIn){
+			SessionHelper.setContinueUrl(session, requestUrl);
+			response.sendRedirect("/login");
+		}
 
 		log.debug(requestUri + " - is secure? " + isSecure);
-
-		if (isSecure == true) {
-
-			/*
-			 * use the ServletContext.log method to log filter messages
-			 */
-			log.debug("doFilter called in: " + config.getFilterName() + " on "
-					+ (new java.util.Date()));
-
-			// log the session ID
-			log.debug("session ID: " + session.getId());
-
-			// Find out whether the logged-in session attribute is set
-			if (consumer == null) {
-				log.debug("Redirecting to LOGIN");
-				response.sendRedirect("/");
-				return;
-			}
-		}
 		
 		chain.doFilter(req, resp);
 	}

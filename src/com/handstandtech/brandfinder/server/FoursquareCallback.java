@@ -1,6 +1,8 @@
 package com.handstandtech.brandfinder.server;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
@@ -9,18 +11,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import oauth.signpost.OAuthConsumer;
-import oauth.signpost.OAuthProvider;
-import oauth.signpost.exception.OAuthCommunicationException;
-import oauth.signpost.exception.OAuthExpectationFailedException;
-import oauth.signpost.exception.OAuthMessageSignerException;
-import oauth.signpost.exception.OAuthNotAuthorizedException;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import com.handstandtech.brandfinder.server.util.SessionHelper;
+import com.handstandtech.brandfinder.shared.model.User;
 import com.handstandtech.foursquare.server.FoursquareConstants;
 import com.handstandtech.foursquare.server.FoursquareHelper;
-import com.handstandtech.foursquare.server.oauth.FoursquareLogin;
 import com.handstandtech.foursquare.shared.model.v2.FoursquareUser;
+import com.handstandtech.server.rest.RESTClientImpl;
+import com.handstandtech.server.rest.RESTUtil;
+import com.handstandtech.shared.model.rest.RESTResult;
+import com.handstandtech.shared.model.rest.RequestMethod;
 
 /**
  * An OAuth callback handler.
@@ -29,7 +31,10 @@ import com.handstandtech.foursquare.shared.model.v2.FoursquareUser;
  */
 public class FoursquareCallback extends HttpServlet {
 
-	public static final String PATH = "/foursquare/callback";
+	/**
+	 * Default Serialization UID
+	 */
+	private static final long serialVersionUID = 1L;
 
 	protected final Logger log = Logger.getLogger(getClass().getName());
 
@@ -38,75 +43,62 @@ public class FoursquareCallback extends HttpServlet {
 	 * in cookies.
 	 */
 	@Override
-	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+	public void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
 
 		HttpSession session = request.getSession();
-		OAuthConsumer sessionConsumer = (OAuthConsumer) session.getAttribute(FoursquareConstants.CONSUMER_CONSTANT);
 
-		// If we already have a consumer, no need to login again... redirect
-		// back home
-		if (sessionConsumer != null) {
-			redirectToFoursquareApp(response);
-		}
+		String code = request.getParameter("code");
+		String baseUrl = "https://foursquare.com/oauth2/access_token";
+		Map<String, String> params = new HashMap<String, String>();
+		String clientId = FoursquareConstants.getClientId(request);
+		params.put("client_id", clientId);
+		String clientSecret = FoursquareConstants.getClientSecret(request);
+		params.put("client_secret", clientSecret);
+		params.put("grant_type", "authorization_code");
+		params.put("redirect_uri", RESTUtil.getBaseUrl(request)
+				+ FoursquareConstants.FOURSQUARE_CALLBACK);
+		params.put("code", code);
+		String fullUrl = RESTUtil.createParamString(baseUrl, params);
+
+		RESTClientImpl client = new RESTClientImpl();
+		RESTResult result = client.request(RequestMethod.GET, fullUrl, null);
+
+		System.out.println(result);
 
 		try {
-			String oauth_verifier = request.getParameter("oauth_verifier");
-			String token = (String) session.getAttribute(FoursquareConstants.TOKEN_CONSTANT);
-			String tokenSecret = (String) session.getAttribute(FoursquareConstants.TOKEN_SECRET_CONSTANT);
-			OAuthConsumer consumer = FoursquareLogin.getFoursquareOAuthConsumer(request);// the
-																							// same
-																							// constructor
-																							// as
-																							// above...
-			consumer.setTokenWithSecret(token, tokenSecret);
-			OAuthProvider provider = FoursquareLogin.getFoursquareOAuthProvider();// the
-																					// same
-																					// constructor
-																					// as
-																					// above...
-
-			System.out.println("oauth_verifier: " + oauth_verifier);
-			System.out.println("token: " + token);
-			System.out.println("tokenSecret: " + tokenSecret);
-			provider.setOAuth10a(true);
-			provider.retrieveAccessToken(consumer, oauth_verifier);
-			System.out.println("--------------------");
-			System.out.println("Cosumer Key: "+consumer.getConsumerKey());
-			System.out.println("Cosumer Secret: "+consumer.getConsumerSecret());
-			System.out.println("Token: "+consumer.getToken());
-			System.out.println("Token Secret: "+consumer.getTokenSecret());
-			session.setAttribute(FoursquareConstants.CONSUMER_CONSTANT, consumer);
+			JSONObject jsonObj = new JSONObject(result.getResponseBody());
+			String accessToken = jsonObj.getString("access_token");
 			
-			FoursquareHelper helper = new FoursquareHelper(consumer.getTokenSecret());
-			FoursquareUser user = helper.getUserInfo("self");
+			FoursquareHelper helper = new FoursquareHelper(accessToken);
+			FoursquareUser foursquareUser = helper.getUserInfo("self");
 			DAO dao = new DAO();
-			dao.updateFoursquareUser(user);
+
+			User user = new User();
+			user.setToken(accessToken);
+			user.setId(foursquareUser.getId());
+			user.setFoursquareUser(foursquareUser);
+			dao.updateUser(user);
 			SessionHelper.setCurrentUser(session, user);
-			redirectToFoursquareApp(response);
-		} catch (OAuthMessageSignerException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (OAuthExpectationFailedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (OAuthCommunicationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (OAuthNotAuthorizedException e) {
+		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+
+		redirectToFoursquareApp(session, response);
 	}
 
-	private void redirectToFoursquareApp(HttpServletResponse response) {
+	private void redirectToFoursquareApp(HttpSession session, HttpServletResponse response) {
 		try {
-			response.sendRedirect("/");
+			String continueUrl = SessionHelper.getContinueUrl(session);
+			if(continueUrl==null){
+				continueUrl="/";
+			}
+			response.sendRedirect(continueUrl);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-
-	private static final long serialVersionUID = 1L;
 
 }

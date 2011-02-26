@@ -1,4 +1,11 @@
-<!-- Indices written at Thu, 10 Feb 2011 16:19:18 UTC -->
+<!-- Indices written at Sat, 26 Feb 2011 22:09:26 UTC -->
 
-<datastore-indexes/>
+<datastore-indexes>
 
+    <!-- Used 33 times in query history -->
+    <datastore-index kind="FoursquareUser" ancestor="false" source="auto">
+        <property name="type" direction="asc"/>
+        <property name="friends.count" direction="desc"/>
+    </datastore-index>
+
+</datastore-indexes>
