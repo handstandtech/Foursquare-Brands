@@ -2,6 +2,7 @@ package com.handstandtech.brandfinder.server;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -46,14 +47,22 @@ public class LoggedInFilter implements Filter {
 		String requestUrl = request.getRequestURL().toString();
 		HttpSession session = request.getSession();
 
+		HashSet<String> uris = new HashSet<String>();
+		uris.add("/foursquare/callback");
+		uris.add("/login");
+		uris.add("/logout");
+		if (!uris.contains(requestUri)) {
+			SessionHelper.setContinueUrl(session, requestUri);
+		}
+
 		log.debug("Request URL: " + requestUrl);
 		log.debug("Request URI: " + requestUri);
 
 		User currentUser = SessionHelper.getCurrentUser(session);
 
-		boolean loggedIn=false;
+		boolean loggedIn = false;
 		if (currentUser != null) {
-			loggedIn=true;
+			loggedIn = true;
 		}
 		request.setAttribute("loggedIn", loggedIn);
 
@@ -65,14 +74,13 @@ public class LoggedInFilter implements Filter {
 				isSecure = true;
 			}
 		}
-		
-		if(isSecure && !loggedIn){
-			SessionHelper.setContinueUrl(session, requestUrl);
+
+		if (isSecure && !loggedIn) {
 			response.sendRedirect("/login");
 		}
 
 		log.debug(requestUri + " - is secure? " + isSecure);
-		
+
 		chain.doFilter(req, resp);
 	}
 

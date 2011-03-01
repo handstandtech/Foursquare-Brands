@@ -32,7 +32,7 @@ public class FollowerCountTaskServlet extends HttpServlet {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public static final String OAUTH_TOKEN_HANDSTANDTECH = "2QXKWLFL2VYE2GSEUUPMYC1SKPWT0TJ5ITG4N5O0D2DUS0WZ";
+	public static final String OAUTH_TOKEN_FOURSQUAREBRANDS = "2QXKWLFL2VYE2GSEUUPMYC1SKPWT0TJ5ITG4N5O0D2DUS0WZ";
 
 	protected final Logger log = Logger.getLogger(getClass().getName());
 
@@ -47,7 +47,7 @@ public class FollowerCountTaskServlet extends HttpServlet {
 		Long time = Long.parseLong(timeStr);
 
 		FoursquareHelper helper = new FoursquareHelper(
-				OAUTH_TOKEN_HANDSTANDTECH);
+				OAUTH_TOKEN_FOURSQUAREBRANDS);
 		RESTResult result = helper.getMultiResult(multi);
 
 		int count = 0;
@@ -63,9 +63,9 @@ public class FollowerCountTaskServlet extends HttpServlet {
 				log.log(Level.INFO, "Storing Brand: " + userJson);
 				log.log(Level.INFO,
 						"Storing " + (i + 1) + " of " + responses.length());
-				FoursquareUser brand = FoursquareUtils
+				FoursquareUser user = FoursquareUtils
 						.getFoursquareUserFromJson(userJson.toString());
-				storeBrand(brand, time, response);
+				storeBrand(user, time, response);
 				count++;
 			}
 		} catch (JSONException e) {

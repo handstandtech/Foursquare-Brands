@@ -3,6 +3,7 @@ package com.handstandtech.brandfinder.server.util;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
@@ -15,16 +16,16 @@ import com.handstandtech.foursquare.shared.model.v2.FoursquareUser;
 
 public class PageLoadUtils {
 
-	public static Map<String, FoursquareUser> getFollowing(
+	public static Collection<String> getFollowing(
 			Collection<FoursquareUser> friends,
 			Map<String, FoursquareUser> idToBrandMap) {
-		Map<String, FoursquareUser> followingList = new HashMap<String, FoursquareUser>();
+		Collection<String> followingList = new HashSet<String>();
 
 		for (FoursquareUser friend : friends) {
 			String relationship = friend.getRelationship();
 			if (relationship != null && relationship.equals("followingThem")) {
-				FoursquareUser currValue = idToBrandMap.get(friend.getId());
-				followingList.put(friend.getId(), currValue);
+				//FoursquareUser currValue = idToBrandMap.get(friend.getId());
+				followingList.add(friend.getId());
 			}
 		}
 		return followingList;

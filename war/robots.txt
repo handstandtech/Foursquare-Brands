@@ -2,3 +2,5 @@ User-agent: *
 Disallow: /admin/
 Disallow: /cron/
 Disallow: /tasks/
+
+Sitemap: http://www.foursquarebrands.com/sitemap

@@ -4,7 +4,11 @@ import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Id;
+import javax.persistence.PrePersist;
 
+import com.googlecode.objectify.annotation.Cached;
+
+@Cached
 public class BrandDiscovered implements Serializable {
 
 	/**
@@ -22,6 +26,13 @@ public class BrandDiscovered implements Serializable {
 	private String brandId;
 
 	public BrandDiscovered() {
+	}
+	
+	@PrePersist
+	public void prePersist() {
+		if(date==null){
+			date=new Date();
+		}
 	}
 
 	public Long getId() {

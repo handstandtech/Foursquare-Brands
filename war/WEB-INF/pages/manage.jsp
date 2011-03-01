@@ -38,83 +38,105 @@
 <%@ page import="java.util.Collection"%>
 <%@ page import="java.util.HashSet"%>
 <%@ page import="java.io.InputStreamReader"%>
+<%@ page import="java.util.logging.Logger"%>
+<%@ page import="java.util.logging.Level"%>
 <%@ page import="com.handstandtech.brandfinder.server.Manager" %>
 <%
+	Logger log = Logger.getLogger(request.getRequestURI());
 	User currentUser = SessionHelper.getCurrentUser(session);
+	
+	log.log(Level.INFO, "Get The Current User's Friends");
+	Collection<FoursquareUser> friends = Manager.getCurrentUsersFriends(currentUser);
+	log.log(Level.INFO, currentUser.getFoursquareUser().getName() + " has "+ friends.size() + " Friends");
+	
 	
 	Map<String, FoursquareUser> userMap = null;
 	String userType = null;
+	String pageTitle = null;
 	String uriString = request.getRequestURI();
 	System.out.println(uriString);
 	if(uriString.startsWith("/manage/brands")){
 		userType="brands";
 		//Get The Current Brands
 		userMap = Manager.getBrandMap(session);	
+		pageTitle="Brands";
 	} else {
 		//Get The Current Celebrities
 		userType="celebs";
-		userMap = Manager.getCelebMap(session);	
+		userMap = Manager.getCelebMap(session);
+		pageTitle="Celebrities";
 	}
+	log.log(Level.INFO, "User Type: " + userType);
 	request.setAttribute("userType", userType);
+	request.setAttribute("pageTitle", pageTitle);
 	
-	//Get The Current User's Friends
-	Collection<FoursquareUser> friends = Manager.getCurrentUsersFriends(currentUser);
+	//log.log(Level.INFO, "Determine who the user is currently following who is followed");
+	//Collection<String> following = PageLoadUtils.getFollowing(friends, userMap);
 	
-	// See who is followed
-	Map<String, FoursquareUser> mapOfFollowedUsers = PageLoadUtils.getFollowing(friends, userMap);
+	log.log(Level.INFO, "See if they know any new users, if so, add them.");
+	Collection<FoursquareUser> newUsersFound = Manager.findNewUsers(userType, currentUser, friends);
+	/*for(FoursquareUser newUserFound : newUsersFound){
+		userMap.put(newUserFound.getId(), newUserFound);
+	}*/
 	
-	// See if they know any new users, if so, add them
-	mapOfFollowedUsers = Manager.findNewUsers(userType, currentUser, mapOfFollowedUsers);
+	log.log(Level.INFO, "Prepare followed and notFollowed lists for request.");
+	Manager.prepareFollowedAndNotFollowedLists(currentUser, friends, userMap, request);
 	
-	//Prepare followed and notFollowed lists for request
-	Manager.prepareFollowedAndNotFollowedLists(currentUser, mapOfFollowedUsers, userMap, request);
+	request.setAttribute("userMap", userMap);
 %>
 
 <c:set var="numFollowed" value="${fn:length(followed)}" scope="request"/>
 <c:set var="numNotFollowed" value="${fn:length(notFollowed)}" scope="request"/>
 <c:set var="total" value="${numFollowed + numNotFollowed}" scope="request"/>
 <foursquarebrands:html>
-<foursquarebrands:head>
-	<link type="text/css" rel="stylesheet"
-		href="/assets/js/fancybox/jquery.fancybox-1.3.4.css" />
-	<script type="text/javascript"
-		src="/assets/js/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
-	<script type="text/javascript" src="/assets/js/foursquarebrands.js"></script>
-</foursquarebrands:head>
-<foursquarebrands:body>
-	<div style="overflow: hidden; margin-left: 5px;">
-		<!--img class="user-photo" src="${currentUser.foursquareUser.photo}" width="110" height="110" /-->
-		<h2 class="following-stats">Hey ${currentUser.foursquareUser.firstName}! You're	Following <span class="percentage">${numFollowed}</span> of ${total} ${userType} on Foursquare.</h2>
-		<p>Follow and UnFollow ${userType} with 1-click.  The ${userType} are ordered by when they were discovered.  The newest ${userType} are displayed in the bottom-right of each section.  Use the links to Follow or UnFollow ${userType} with 1-click.  Send us Questions/Comments using the Feedback Tab on the left.</p>
-	</div>
-	<h3 class="section-header">Following:</h3>
-	<%--foursquarebrands:skyscraper-ad/--%>
-	<div class="section following">
-		<c:forEach var="user" items="${followed}">
-			<c:set var="user" value="${user}" scope="request"/>
-			<foursquarebrands:user-info/>
-		</c:forEach>
-	</div>
-	<hr />
-	<h3 class="section-header">Not Following:</h3>
-	<%--foursquarebrands:skyscraper-ad/--%>
-	<div class="section not-following">
-		<c:forEach var="user" items="${notFollowed}">
-			<c:set var="user" value="${user}" scope="request"/>
-			<foursquarebrands:user-info/>
-		</c:forEach>
-	</div>
-	<div id="dialogs" style="display: none;">
-		<div id="already-following" class="error-dialog">
-			<img class="photo" src="" />
-			<h3>You are already following <span class="brand-name"></span>!</h3>
-			<p>The page will refresh in <span class="timer">5</span> seconds to show the most up to date info, or you can refresh the page manually.</p>
+
+	<c:set var="title" value="Manage ${pageTitle}" scope="request"/>
+	<foursquarebrands:head>
+		<link type="text/css" rel="stylesheet" href="/assets/js/fancybox/jquery.fancybox-1.3.4.css" />
+		<script type="text/javascript" src="/assets/js/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
+		<script type="text/javascript" src="/assets/js/foursquarebrands.js"></script>
+	</foursquarebrands:head>
+	<foursquarebrands:body>
+		<div style="overflow: hidden; margin-left: 5px;">
+			<h2 class="following-stats">Hey ${currentUser.foursquareUser.firstName}! You're	Following <span class="percentage">${numFollowed}</span> of ${total} ${userType} on Foursquare.</h2>
+			<p>Follow and UnFollow ${userType} with 1-click.  Use the links to Follow or UnFollow ${userType} with 1-click.  Send us Questions/Comments using the Feedback Tab on the left.</p>
 		</div>
-		<div id="rate-limit-exceeded" class="error-dialog">
-			<h3>Foursquare Rate Limit Exceeded.</h3>
-			<p>Sounds like you have been following a lot of people! Foursquare imposes some limits to the amount of times their API can be called. For more information see <a	href="http://developer.foursquare.com/docs/overview.html">their	documentation on rate limiting</a>. If you keep seeing this error, come	back in an hour and try again.</p>
+		<h3 class="section-header">Following:</h3>
+		<%--foursquarebrands:skyscraper-ad/--%>
+		<div class="section following">
+			<c:forEach var="id" items="${followed}">
+				<c:set var="id" value="${id}" scope="request"/>
+				<foursquarebrands:user-info/>
+			</c:forEach>
 		</div>
-	</div>
-	
-</foursquarebrands:body>
+		<hr />
+		<h3 class="section-header">Not Following:</h3>
+		<%--foursquarebrands:skyscraper-ad/--%>
+		<div class="section not-following">
+			<c:forEach var="id" items="${notFollowed}">
+				<c:set var="id" value="${id}" scope="request"/>
+				<foursquarebrands:user-info/>
+			</c:forEach>
+		</div>
+		<div id="dialogs" style="display: none;">
+			<div id="already-following" class="error-dialog">
+				<img class="photo" src="" />
+				<h3>You are already following <span class="brand-name"></span>!</h3>
+				<p>The page will refresh in <span class="timer">5</span> seconds to show the most up to date info, or you can refresh the page manually.</p>
+			</div>
+			<div id="rate-limit-exceeded" class="error-dialog">
+				<h3>Foursquare Rate Limit Exceeded.</h3>
+				<p>Sounds like you have been following a lot of people! Foursquare imposes some limits to the amount of times their API can be called. For more information see <a	href="http://developer.foursquare.com/docs/overview.html">their	documentation on rate limiting</a>. If you keep seeing this error, come	back in an hour and try again.</p>
+			</div>
+			<div id="error-occurred" class="error-dialog">
+				<h3>An Error Occurred while using the Foursquare API</h3>
+				<p><strong>Error Type: </strong><span class="errorType"></span></p>
+				<br/>
+				<p><strong>Error Detail: </strong><span class="errorDetail"></span></p>
+				<br/>
+				<p style="display:none;"><strong>Error Code: </strong><span class="code"></span></p>
+			</div>
+		</div>
+		
+	</foursquarebrands:body>
 </foursquarebrands:html>

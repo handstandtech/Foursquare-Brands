@@ -4,4 +4,8 @@
 4sqbrands \
 config.yml \
 http://www.foursquarebrands.com/remote_api \
-FoursquareUser
+BrandDiscovered \
+DailyFollowEventCount \
+DailyFollowerCount \
+FoursquareUser \
+User

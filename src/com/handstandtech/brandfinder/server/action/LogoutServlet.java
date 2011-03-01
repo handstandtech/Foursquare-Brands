@@ -27,8 +27,9 @@ public class LogoutServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
 		HttpSession session = request.getSession();
+		String continueUrl = SessionHelper.getContinueUrl(session);
 		SessionHelper.setCurrentUser(session, null);
 		SessionHelper.setContinueUrl(session, null);
-		response.sendRedirect("/");
+		response.sendRedirect(continueUrl);
 	}
 }

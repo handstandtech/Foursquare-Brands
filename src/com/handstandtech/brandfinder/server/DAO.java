@@ -33,7 +33,7 @@ public class DAO extends DAOBase {
 	}
 
 	public List<FoursquareUser> getUsers() {
-		return ofy().query(FoursquareUser.class).filter("type", "user").order("-friends.count").list();
+		return ofy().query(FoursquareUser.class).filter("type", "user").list();
 	}
 
 	public List<FoursquareUser> getBrands() {
@@ -42,24 +42,26 @@ public class DAO extends DAOBase {
 	}
 
 	public Query<FoursquareUser> createBrandQuery() {
-		return ofy().query(FoursquareUser.class).filter("type", "brand").order("-friends.count");
+		return ofy().query(FoursquareUser.class).filter("type", "brand");
 	}
 
 	public Query<FoursquareUser> createCelebQuery() {
-		return ofy().query(FoursquareUser.class).filter("type", "celebrity").order("-friends.count");
+		return ofy().query(FoursquareUser.class).filter("type", "celebrity");
 	}
-	
-	public Query addLimitAndOffset(Query query, Integer limit, Integer offset) {
-		
-		if(offset!=null){
+
+	public void orderByFollowerCount(Query<FoursquareUser> query) {
+		query.order("-followers.count");
+	}
+
+	public void addLimitAndOffset(Query query, Integer limit, Integer offset) {
+
+		if (offset != null) {
 			query.offset(offset);
 		}
-		
-		if(limit!=null){
+
+		if (limit != null) {
 			query.limit(limit);
 		}
-		
-		return query;
 	}
 
 	public List<FoursquareUser> getCelebrities() {
@@ -137,6 +139,10 @@ public class DAO extends DAOBase {
 
 	public void updateUser(User user) {
 		ofy().put(user);
+	}
+
+	public User findUser(String id) {
+		return ofy().find(User.class, id);
 	}
 
 }

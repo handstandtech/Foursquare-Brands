@@ -25,22 +25,27 @@ public class FoursquareBrandsTwitter {
 
 		StringBuffer sb = new StringBuffer();
 		FoursquareUser brand = dao.getFoursquareUser(brandId);
-		String status = "[New Brand Found] - " + brand.getName()
-				+ getTwitterHandle(brand)
-				+ " is on http://FoursquareBrands.com";
+		String type = brand.getType();
+		if (type.equals("brand")) {
 
-		// Make sure it's 140 or less
-		if (status.length() >= 140) {
-			status = status.substring(0, 137);
-			status = status + "...";
+			String url = "http://FoursquareBrands.com/brands"+"/" + brandId;
+
+			String status = "[New Brand Found] - " + brand.getName()
+					+ getTwitterHandle(brand) + " - " + url + " #Foursquare";
+
+			// Make sure it's 140 or less
+			if (status.length() >= 140) {
+				status = status.substring(0, 137);
+				status = status + "...";
+			}
+
+			OAuthConsumer consumer = TwitterOAuth10aHelpers.getConsumer();
+			consumer.setTokenWithSecret(
+					TwitterOAuth10aHelpers.FOURSQUAREBRANDS_TOKEN,
+					TwitterOAuth10aHelpers.FOURSQUAREBRANDS_TOKEN_SECRET);
+			TwitterOAuth10aHelpers.printConsumerInfo(consumer);
+			TwitterOAuth10aHelpers.updateStatus(consumer, status);
 		}
-
-		OAuthConsumer consumer = TwitterOAuth10aHelpers.getConsumer();
-		consumer.setTokenWithSecret(
-				TwitterOAuth10aHelpers.FOURSQUAREBRANDS_TOKEN,
-				TwitterOAuth10aHelpers.FOURSQUAREBRANDS_TOKEN_SECRET);
-		TwitterOAuth10aHelpers.printConsumerInfo(consumer);
-		TwitterOAuth10aHelpers.updateStatus(consumer, status);
 	}
 
 	private static String getTwitterHandle(FoursquareUser brand) {

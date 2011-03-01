@@ -3,6 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="foursquarebrands" tagdir="/WEB-INF/tags/foursquarebrands"%>
+<c:set var="user" value="${userMap[id]}"/>
 <c:if test="${user.id!=null}">
 	<div class="user-info" name='${user.firstName}' userid='${user.id}'>
 		<a href="/${userType}/${user.id}" class="foursquare-photo-link">

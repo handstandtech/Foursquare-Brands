@@ -72,6 +72,10 @@ transformers:
       external_name: friends.count
       import_transform: transform.none_if_empty(int)
       
+    - property: followers.count
+      external_name: followers.count
+      import_transform: transform.none_if_empty(int)
+      
     - property: mayorships.count
       external_name: mayorships.count
       import_transform: transform.none_if_empty(int)
@@ -80,6 +84,82 @@ transformers:
       external_name: lastUpdate
       import_transform: transform.import_date_time('%Y-%m-%dT%H:%M:%S')
       export_transform: transform.export_date_time('%Y-%m-%dT%H:%M:%S')
+
+
+- kind: User
+  connector: csv
+  connector_options:
+    # TODO: Add connector options here--these are specific to each connector.
+  property_map:
+    - property: __key__
+      external_name: key
+      export_transform: transform.key_id_or_name_as_string
+      
+    - property: token
+      external_name: token
+
+    - property: lastLogin
+      external_name: lastLogin
+      import_transform: transform.import_date_time('%Y-%m-%dT%H:%M:%S')
+      export_transform: transform.export_date_time('%Y-%m-%dT%H:%M:%S')
+      
+    - property: firstLogin
+      external_name: firstLogin
+      import_transform: transform.import_date_time('%Y-%m-%dT%H:%M:%S')
+      export_transform: transform.export_date_time('%Y-%m-%dT%H:%M:%S')
+      
+    - property: foursquareUser.contact.phone
+      external_name: foursquareUser.contact.phone
+      
+    - property: foursquareUser.contact.twitter
+      external_name: foursquareUser.contact.twitter
+
+    - property: foursquareUser.contact.facebook
+      external_name: foursquareUser.contact.facebook
+      
+    - property: foursquareUser.contact.email
+      external_name: foursquareUser.contact.email
+
+    - property: foursquareUser.firstName
+      external_name: foursquareUser.firstName
+
+    - property: foursquareUser.lastName
+      external_name: foursquareUser.lastName
+      
+    - property: foursquareUser.gender
+      external_name: foursquareUser.gender
+
+    - property: foursquareUser.homeCity
+      external_name: foursquareUser.homeCity
+      
+    - property: foursquareUser.photo
+      external_name: foursquareUser.photo
+
+    - property: foursquareUser.type
+      external_name: foursquareUser.type
+        
+    - property: foursquareUser.todos.count
+      external_name: foursquareUser.todos.count
+      import_transform: transform.none_if_empty(int)
+        
+    - property: foursquareUser.friends.count
+      external_name: foursquareUser.friends.count
+      import_transform: transform.none_if_empty(int)
+      
+    - property: foursquareUser.followers.count
+      external_name: foursquareUser.followers.count
+      import_transform: transform.none_if_empty(int)
+      
+    - property: foursquareUser.mayorships.count
+      external_name: foursquareUser.mayorships.count
+      import_transform: transform.none_if_empty(int)
+
+    - property: foursquareUser.lastUpdate
+      external_name: foursquareUser.lastUpdate
+      import_transform: transform.import_date_time('%Y-%m-%dT%H:%M:%S')
+      export_transform: transform.export_date_time('%Y-%m-%dT%H:%M:%S')
+
+
 
 
 

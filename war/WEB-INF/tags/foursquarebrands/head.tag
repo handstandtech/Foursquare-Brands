@@ -35,15 +35,13 @@
 	<!-- Facebook Properties --> 
 	<meta property="fb:admins" content="169406172091"> 
 	<meta property="fb:app_id" content="169406172091"/> 
-	<meta property="og:site_name" content="Foursquare Brands"/> 
-	<meta property="og:title" content="Foursquare Brands"/> 
-	<meta property="og:url" content="http://www.foursquarebrands.com"/> 
-	<meta property="og:image" content="http://www.foursquarebrands.com/assets/images/foursquare-brands-logo.png"/> 
-	<meta property="og:description" content="Find and Manage The Brands You Follow on Foursquare."/> 
 	
 	<!-- jQuery -->
 	<script type="text/javascript" src="/assets/js/jquery/jquery-1.5.1.min.js"></script>
 	<script type="text/javascript" src="/assets/js/jquery-ui/jquery-ui-1.8.4.min.js"></script>
+
+	<!-- Format Date -->
+	<script type="text/javascript" src="/assets/js/formatdate.js"></script>
 	
 	<!-- Superfish -->
 	<link rel="stylesheet" type="text/css" href="/assets/js/superfish-1.4.8/css/superfish.css" media="screen">
@@ -53,8 +51,10 @@
 		// initialize superfish
 		$(document).ready(function(){
 			$('ul.sf-menu').superfish();
+			formatTimestamps();
 		});
 	</script>
+	
 	
 	<!-- Style -->
 	<link type="text/css" rel="stylesheet" href="/assets/css/style.css" />

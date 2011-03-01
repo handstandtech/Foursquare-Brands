@@ -449,8 +449,8 @@ a.first-level {
 	margin-left:10px;
 }
 
-.leaderboard ul li h1, .leaderboard ul li h2, .leaderboard ul li h3, .leaderboard ul li p, .leaderboard ul li {
-	line-height:100px;
+.leaderboard ul li h1, .leaderboard ul li h2, .leaderboard ul li h3, .leaderboard ul li h4, .leaderboard ul li p, .leaderboard ul li {
+	line-height:60px;
 }
 
 .leaderboard ul li.photo {
@@ -490,4 +490,7 @@ img.user-image {
 
 .profiles div img {
 	margin: 0px auto;
+}
+
+.chart-div {
 }

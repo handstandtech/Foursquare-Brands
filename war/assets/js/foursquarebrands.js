@@ -1,4 +1,66 @@
+function handleFoursquareError(response){
+	// Rate Limit Exceeded
+	if (response.errorType == 'rate_limit_exceeded') {
+		// Rate Limit
+		$.fancybox({
+			'padding' : 0,
+			'href' : '#rate-limit-exceeded',
+			'transitionIn' : 'elastic',
+			'transitionOut' : 'elastic',
+			'centerOnScroll' : 'true'
+		});
+	}
+	// Error Occurred
+	else if (response.errorDetail != null && response.errorDetail == "You're already friends with that user.") {
+		var infoDiv = $('.user-info[userid=' + id + ']');
+		var photoSrc = $(infoDiv).find('img.photo').attr('src');
+		var brandName = $(infoDiv).find('.brand-name').html();
+		$('#already-following span.brand-name').html(brandName);
+		$('#already-following img.photo').attr('src', photoSrc);
+		$.fancybox({
+			'padding' : 0,
+			'href' : '#already-following',
+			'transitionIn' : 'elastic',
+			'transitionOut' : 'elastic',
+			'centerOnScroll' : 'true'
+		});
+		$('#already-following span.timer').html('5');
+		setTimeout(function() {
+			$('#already-following span.timer').html('4');
+			setTimeout(function() {
+				$('#already-following span.timer').html('3');
+				setTimeout(function() {
+					$('#already-following span.timer').html('2');
+					setTimeout(function() {
+						$('#already-following span.timer').html('1');
+						setTimeout(function() {
+							$('#already-following span.timer').html('0');
+							location.reload();
+						}, 1000);
+					}, 1000);
+				}, 1000);
+			}, 1000);
+		}, 1000);
+	} 
+	else if(response.errorType!=null){
+		//Other error...
+		$('#error-occurred span.errorType').html(response.errorType);
+		$('#error-occurred span.errorDetail').html(response.errorDetail);
+		$('#error-occurred span.code').html(response.code);
+		$.fancybox({
+			'padding' : 0,
+			'href' : '#error-occurred',
+			'transitionIn' : 'elastic',
+			'transitionOut' : 'elastic',
+			'centerOnScroll' : 'true'
+		});
+	}
+}
+
+
 /**
+
+
  * When a Brand is UnFollowed
  */
 function unfollow(user) {
@@ -9,13 +71,10 @@ function unfollow(user) {
 	$.ajax({
 		type : 'POST',
 		url : "/unfollow?id=" + id,
-		data : {
-			name : "John",
-			time : "2pm"
-		},
+		data : {},
 		success : function(response) {
 			// No Error
-			if (response.error == null) {
+			if (response.errorType == null) {
 				user.find('img.loading').remove();
 				user.hide('slow', function() {
 					$('.not-following').append(user);
@@ -25,10 +84,9 @@ function unfollow(user) {
 					updateCount();
 				});
 			}
-			// Error Occurred
 			else {
-				alert(response.error);
-				location.reload();
+				//Handle Foursquare API Error
+				handleFoursquareError(response);
 			}
 		},
 		error : function(request) {
@@ -49,10 +107,7 @@ function follow(user) {
 	$.ajax({
 		type : 'POST',
 		url : "/follow?id=" + id,
-		data : {
-			name : "John",
-			time : "2pm"
-		},
+		data : {},
 		success : function(response) {
 			// No Error
 			if (response.errorType == null) {
@@ -65,52 +120,14 @@ function follow(user) {
 					updateCount();
 				});
 			}
-			// Rate Limit Exceeded
-			else if (response.errorType == 'rate_limit_exceeded') {
-				// Rate Limit
-				$.fancybox({
-					'padding' : 0,
-					'href' : '#rate-limit-exceeded',
-					'transitionIn' : 'elastic',
-					'transitionOut' : 'elastic',
-					'centerOnScroll' : 'true'
-				});
-			}
-			// Error Occurred
-			else if (response.errorType == "other") {
-				var infoDiv = $('.user-info[userid=' + id + ']');
-				var photoSrc = $(infoDiv).find('img.photo').attr('src');
-				var brandName = $(infoDiv).find('.brand-name').html();
-				$('#already-following span.brand-name').html(brandName);
-				$('#already-following img.photo').attr('src', photoSrc);
-				$.fancybox({
-					'padding' : 0,
-					'href' : '#already-following',
-					'transitionIn' : 'elastic',
-					'transitionOut' : 'elastic',
-					'centerOnScroll' : 'true'
-				});
-				$('#already-following span.timer').html('5');
-				setTimeout(function() {
-					$('#already-following span.timer').html('4');
-					setTimeout(function() {
-						$('#already-following span.timer').html('3');
-						setTimeout(function() {
-							$('#already-following span.timer').html('2');
-							setTimeout(function() {
-								$('#already-following span.timer').html('1');
-								setTimeout(function() {
-									$('#already-following span.timer').html('0');
-									location.reload();
-								}, 1000);
-							}, 1000);
-						}, 1000);
-					}, 1000);
-				}, 1000);
+			else {
+				//Handle Foursquare API Error
+				handleFoursquareError(response);
 			}
 		}, 
 		error : function(request) {
-			alert('failed request');
+			alert("An error has occurred, we're going to refresh the page to try and fix it.  If this continues to happen, let us know @HandstandTech.  Thanks!");
+			location.reload();
 		}
 	});
 }
@@ -125,16 +142,6 @@ function updateCount() {
 
 $(document).ready(function() {
 	
-	/*$("a.foursquare-photo-link").fancybox({
-		'width' : '90%',
-		'height' : '90%',
-		'autoScale' : false,
-		'transitionIn' : 'none',
-		'transitionOut' : 'none',
-		'type' : 'iframe',
-		'centerOnScroll' : 'true'
-	});*/
-
 	$('a.follow-unfollow-link').click(function() {
 		var user = $(this).parent();
 		user.find('.foursquare-link').hide();

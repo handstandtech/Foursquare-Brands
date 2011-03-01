@@ -31,9 +31,9 @@ public class DealFinder {
 
 		double diameterInKm = .5;
 		double radiusInKm = diameterInKm / 2;
-		double columnCount = 10;
-		double rowCount = 10;
-		LatLon center = new LatLon(39.04172,-77.10763);
+		double columnCount = 12;
+		double rowCount = 12;
+		LatLon center = new LatLon(38.990437,-77.0224);
 		List<LatLon> points = new ArrayList<LatLon>();
 
 		LatLon topLeft = findTopLeft(center, columnCount, rowCount, radiusInKm);

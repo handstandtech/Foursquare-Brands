@@ -69,6 +69,16 @@
 		<servlet-name>about-page</servlet-name>
 		<url-pattern>/about/*</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+		<description>FAQ Page</description>
+		<servlet-name>faq-page</servlet-name>
+		<jsp-file>/WEB-INF/pages/faq.jsp</jsp-file>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>faq-page</servlet-name>
+		<url-pattern>/faq/*</url-pattern>
+	</servlet-mapping>
 
 	<!-- FOURSQUARE OAUTH -->
 	<servlet-mapping>
@@ -163,6 +173,15 @@
 	<servlet>
 		<servlet-name>cron-hourly</servlet-name>
 		<servlet-class>com.handstandtech.brandfinder.server.cron.HourlyCronServlet</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>sitemap-generator</servlet-name>
+		<url-pattern>/sitemap/*</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>sitemap-generator</servlet-name>
+		<servlet-class>com.handstandtech.brandfinder.server.util.SitemapGeneratorServlet</servlet-class>
 	</servlet>
 	
 

@@ -3,6 +3,10 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="foursquarebrands" tagdir="/WEB-INF/tags/foursquarebrands"%>
+<%
+	String requestUri = request.getRequestURI();
+	request.setAttribute("requestUri", requestUri);
+%>
 
 <div id="nav" class="wrapper">
 	<ul class="sf-menu">
@@ -37,18 +41,30 @@
 		</li--%>	
 	</ul>
 	
-	<!-- AddThis -->
-	
 	<div style="float:right;">
-		<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
-		<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=handstandtech"></script>
-		<div class="addthis_toolbox addthis_default_style ">
-			<a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
-			<a class="addthis_button_tweet"></a>
-			<a class="addthis_counter addthis_pill_style"></a>
-		</div>
-		<!--End AddThis -->
 		
+		<c:choose>
+		<c:when test="${requestUri=='/'}">
+			<!-- AddThis -->
+			<script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+			<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=handstandtech"></script>
+			<div class="addthis_toolbox addthis_default_style ">
+				<a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+				<a class="addthis_button_tweet"></a>
+				<a class="addthis_counter addthis_pill_style"></a>
+			</div>
+			<!--End AddThis -->
+		</c:when>
+		<c:otherwise>
+			<ul class="sf-menu" style="position:relative;">
+				<li>
+					<p>
+						<a href="http://twitter.com/4sqbrands" target="_blank" class="first-level">Foursquare Brands on Twitter</a>
+					</p>
+				</li>
+			</ul>
+		</c:otherwise>
+		</c:choose>
 		<div class="login-logout">
 			<c:choose>
 				<c:when test="${currentUser!=null}">

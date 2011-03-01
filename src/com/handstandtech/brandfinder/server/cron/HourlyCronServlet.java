@@ -27,8 +27,10 @@ import com.google.visualization.datasource.datatable.DataTable;
 import com.handstandtech.brandfinder.server.DAO;
 import com.handstandtech.brandfinder.server.tasks.FollowerCountTaskServlet;
 import com.handstandtech.brandfinder.shared.model.BrandDiscovered;
+import com.handstandtech.brandfinder.shared.model.User;
 import com.handstandtech.brandfinder.shared.util.ModelUtils;
 import com.handstandtech.foursquare.server.FoursquareHelper;
+import com.handstandtech.foursquare.shared.model.v2.FoursquareUser;
 
 /**
  * The server side implementation of the RPC service.
@@ -54,11 +56,11 @@ public class HourlyCronServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
 		Date date = new Date();
-		
-		//Update Analytics from Yesterday
+
+		// Update Analytics from Yesterday
 		updateGoogleAnalyticsForYesterday(date);
-		
-		//Find Which New Brands were Added and Follow Them
+
+		// Find Which New Brands were Added and Follow Them
 		findNewBrandsAndFollow(date);
 	}
 
@@ -67,31 +69,41 @@ public class HourlyCronServlet extends HttpServlet {
 		TaskOptions googleAnalyticsTask = TaskOptions.Builder.withDefaults();
 		googleAnalyticsTask.url("/tasks/get-google-analytics");
 		googleAnalyticsTask.method(Method.GET);
-		Date yesterday = new Date(date.getTime()-ONE_DAY);
-		googleAnalyticsTask.param("date", ModelUtils.getDateFormat().format(yesterday));
+		Date yesterday = new Date(date.getTime() - ONE_DAY);
+		googleAnalyticsTask.param("date",
+				ModelUtils.getDateFormat().format(yesterday));
 		queue.add(googleAnalyticsTask);
 	}
 
-	private void findNewBrandsAndFollow(Date date) throws UnsupportedEncodingException {
+	private void findNewBrandsAndFollow(Date date)
+			throws UnsupportedEncodingException {
 		DAO dao = new DAO();
 
 		// See if there are any new brands in the last day
-		List<BrandDiscovered> brandsDiscovered = dao.getBrandDiscoveredSince(new Date(date.getTime()
-						- ONE_HOUR));
+		List<BrandDiscovered> brandsDiscovered = dao
+				.getBrandDiscoveredSince(new Date(date.getTime() - ONE_HOUR));
 		StringBuffer sb = new StringBuffer();
 		for (BrandDiscovered b : brandsDiscovered) {
-			String brandId = b.getBrandId();
-			String discoveredBy =b.getUserId();
-			sb.append("  <li>Brand <a href='http://foursquare.com/user/"
-					+ brandId
-					+ "'>"
-					+ brandId
-					+ "</a> Discovered By User <a href='http://foursquare.com/user/"
-					+ discoveredBy + "'>" + discoveredBy + "</a> at "
-					+ b.getDate() + "</li>\n");
-			FoursquareHelper handstandTechHelper = new FoursquareHelper(
-					FollowerCountTaskServlet.OAUTH_TOKEN_HANDSTANDTECH);
-			handstandTechHelper.friendRequest(brandId);
+			String brandIdStr = b.getBrandId();
+			FoursquareUser brandFound = dao.getFoursquareUser(brandIdStr);
+			String discoveredByStr = b.getUserId();
+			User byUser = dao.findUser(discoveredByStr);
+
+			sb.append("<li>[<strong>" + brandFound.getType()
+					+ "</strong>] <a href='http://foursquare.com/user/"
+					+ brandIdStr + "'><h1>" + brandFound.getName() + "</h1></a>");
+			sb.append("<br/>");
+			sb.append("Discovered By <a href='http://foursquare.com/user/"
+					+ discoveredByStr + "'>"
+					+ byUser.getFoursquareUser().getName() + "</a>");
+			sb.append("<br/>at " + b.getDate() + "</li>\n");
+
+			// If a brand, follow it.
+			if (brandFound.getType().equals("brand")) {
+				FoursquareHelper handstandTechHelper = new FoursquareHelper(
+						FollowerCountTaskServlet.OAUTH_TOKEN_FOURSQUAREBRANDS);
+				handstandTechHelper.friendRequest(brandIdStr);
+			}
 		}
 
 		if (sb.length() > 0) {
@@ -119,7 +131,7 @@ public class HourlyCronServlet extends HttpServlet {
 				msgBody.append(sb.toString());
 				msgBody.append("</ul>\n");
 				System.out.println(msgBody.toString());
-				
+
 				msg.setContent(msgBody.toString(), "text/html");
 				Transport.send(msg);
 			} catch (AddressException e) {

@@ -17,47 +17,54 @@
 	import="com.handstandtech.foursquare.server.FoursquareConstants"%>
 <%@ page import="com.handstandtech.foursquare.server.FoursquareHelper"%>
 <foursquarebrands:html>
-<foursquarebrands:head>
-</foursquarebrands:head>
-<foursquarebrands:body>
-	<br/>
-	<h1 class="align-center">Manage the Brands and Celebrities you Follow on Foursquare</h1>
-	<br/>
-	<br/>
-	<br/>
-	<div class="feature-checklist">
-		<ul>
-			<li>
-				<h3><img src="/assets/images/check-button.png"/>Most Up to Date List of Brands and Celebrities</h3>
-			</li>
-			<li>
-				<h3><img src="/assets/images/check-button.png"/>Easiest Way to Manage Who You are Following</h3>
-			</li>
-			<li>
-				<h3><img src="/assets/images/check-button.png"/>Follow or UnFollow with 1 Click</h3>
-			</li>
-		</ul>
-		<hr style="margin:0px 15px;"/>
-		<br/>
+	<foursquarebrands:head>
+		<!-- Facebook Properties --> 
+		<meta property="og:site_name" content="FoursquareBrands.com"/> 
+		<meta property="og:title" content="Foursquare Brands"/> 
+		<meta property="og:url" content="http://www.foursquarebrands.com"/> 
+		<meta property="og:image" content="http://www.foursquarebrands.com/assets/images/foursquare-brands-logo.png"/> 
+		<meta property="og:description" content="Find and Manage The Brands You Follow on Foursquare."/>
+	</foursquarebrands:head>
+	<foursquarebrands:body>
 		<c:choose>
 			<c:when test="${currentUser==null}">
-			<p class="align-center bold">Sign In with Foursquare to Get Started!</p>
-			<p class="login-button"> 
-				<a href="/login">
-					<img src="/assets/images/signinwith-foursquare.png"/> 
-				</a>
-			</p>
+				<h1 class="align-center">Manage the Brands and Celebrities you Follow on Foursquare</h1>
+				<br/>
+				<br/>
+				<div class="feature-checklist">
+					<ul>
+						<li>
+							<h3><img src="/assets/images/check-button.png"/>Most Up to Date List of Brands and Celebrities</h3>
+						</li>
+						<li>
+							<h3><img src="/assets/images/check-button.png"/>Easiest Way to Manage Who You are Following</h3>
+						</li>
+						<li>
+							<h3><img src="/assets/images/check-button.png"/>Follow or UnFollow with 1 Click</h3>
+						</li>
+					</ul>
+					<hr style="margin:5px 15px 15px 15px"/>
+					<p class="align-center bold">Sign In with Foursquare to Get Started!</p>
+					<p class="login-button"> 
+						<a href="/login">
+							<img src="/assets/images/signinwith-foursquare.png"/> 
+						</a>
+					</p>
+				</div>
+				<br/>
 			</c:when>
 			<c:otherwise>
-			<h2 class="align-center">Hey ${currentUser.foursquareUser.name}, You're Logged in!</h2>
-			<br/>
-			<h2 class="align-center">Start Managing <a href="/manage/brands">Brands</a> or <a href="/manage/celebs">Celebrities</a>.</h2>
+				<div class="align-center">
+					<h1>Hey ${currentUser.foursquareUser.firstName}, You're Logged In!</h1>
+					<br/>
+					<br/>
+					<div class="feature-checklist">
+						<br/>
+						<h2 class="align-center">Start Managing <a href="/manage/brands">Brands</a> and <a href="/manage/celebs">Celebrities</a>.</h2>
+						<br/>
+					</div>
+				</div>
 			</c:otherwise>
 		</c:choose>
-		<br/>
-	</div>
-	<br/>
-	<br/>
-	
-</foursquarebrands:body>
+	</foursquarebrands:body>
 </foursquarebrands:html>

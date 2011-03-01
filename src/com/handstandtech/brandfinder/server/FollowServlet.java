@@ -32,10 +32,24 @@ public class FollowServlet extends HttpServlet {
 	protected final Logger log = Logger.getLogger(getClass().getName());
 
 	/**
-	 * Handle a GET Request and serve the appropriate {@link DataTable}
+	 * Handle a Follow Request
 	 */
 	@Override
 	protected void doPost(HttpServletRequest request,
+			HttpServletResponse response) throws IOException {
+		doFollow(request, response);
+	}
+	
+	/**
+	 * Handles a Follow Request
+	 */
+	@Override
+	protected void doGet(HttpServletRequest request,
+			HttpServletResponse response) throws IOException {
+		doFollow(request, response);
+	}
+
+	private void doFollow(HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
 		String id = request.getParameter("id");
 		HttpSession session = request.getSession();

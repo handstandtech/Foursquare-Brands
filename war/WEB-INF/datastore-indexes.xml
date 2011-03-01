@@ -5,4 +5,8 @@
         <property name="type" direction="asc"/>
         <property name="friends.count" direction="desc"/>
     </datastore-index>
+    <datastore-index kind="FoursquareUser" ancestor="false" source="auto">
+        <property name="type" direction="asc"/>
+        <property name="followers.count" direction="desc"/>
+    </datastore-index>
 </datastore-indexes>

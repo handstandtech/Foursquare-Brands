@@ -48,7 +48,7 @@
 		//Do Nothing
 	}
 	
-	Integer pageSize = 20;
+	Integer pageSize = 50;
 	Integer limit=pageSize;
 	Integer offset=0;
 	Integer totalCount = 0;
@@ -66,30 +66,35 @@
 	List<FoursquareUser> users = null;		
 		String uriString = request.getRequestURI();
 		System.out.println(uriString);
+		String pageTitle=null;
 		String userType=null;
 		if(uriString.startsWith("/brand")){
 			//Get The Current Brands
-			Query brandQuery = dao.createBrandQuery();
+			Query<FoursquareUser> brandQuery = dao.createBrandQuery();
+			dao.orderByFollowerCount(brandQuery);
 			totalCount = brandQuery.count();
 			dao.addLimitAndOffset(brandQuery, limit, offset);
-			users=brandQuery.list();
+			users = brandQuery.list();
 			userType="brands";
+			pageTitle="Brands";
 		} else {
 			//Get The Current Celebrities
-			
-			Query celebQuery = dao.createCelebQuery();
+			Query<FoursquareUser> celebQuery = dao.createCelebQuery();
+			dao.orderByFollowerCount(celebQuery);
 			totalCount = celebQuery.count();
 			dao.addLimitAndOffset(celebQuery, limit, offset);
 			users=celebQuery.list();
 			
 			userType="celebs";
+			pageTitle="Celebrities";
 		}
+		request.setAttribute("pageTitle", pageTitle);
 		request.setAttribute("userType", userType);
-		Collections.sort(users, new Comparator<FoursquareUser>(){
+		/*Collections.sort(users, new Comparator<FoursquareUser>(){
 			public int compare(FoursquareUser one, FoursquareUser two) {
-				return two.getFriends().getCount().compareTo(one.getFriends().getCount());
+				return two.getFollowers().getCount().compareTo(one.getFollowers().getCount());
 			}
-		});
+		});*/
 		request.setAttribute("users", users);
 
 	SimpleDateFormat dateFormat = ModelUtils.getDateFormat();
@@ -105,64 +110,70 @@
 	request.setAttribute("totalCount", totalCount);
 %>
 <foursquarebrands:html>
+	<c:set var="title" value="${pageTitle}" scope="request"/>
 	<foursquarebrands:head>
 	</foursquarebrands:head>
 	<foursquarebrands:body>
+		<c:set var="toNum" value="${offset+limit}" scope="request"/>
+		<c:if test="${toNum>totalCount}">
+			<c:set var="toNum" value="${totalCount}" scope="request"/>
+		</c:if>
 		<%-- See if we have a full list of brands --%>
 		<c:choose>
+			<c:when test="${offset>toNum}">
+				<h1 class="align-center">Quit messing with the parameters!<br/><br/>It's not going to work if you do that!</h1>
+			</c:when>
 			<%-- We have a full list of brands --%>
 			<c:when test="${users!=null}">
+				<h2 class="align-center">Top ${userType} by Follower Count, showing ${offset+1}-${toNum} out of ${totalCount}</h2>
+				<br/>
 				<c:set var="count" value="${offset+1}" scope="request"/>
 				<div class="leaderboard">
 					<c:forEach var="user" items="${users}">
 						<ul>
 							<li class="rank">
-								<h1>${count}</h1>
+								<h2>${count}</h2>
 							</li>
 							<li class="photo">
-								<a href="/${userType}/${user.id}"><img src="${user.photo}" width="100" height="100"/></a>
+								<a href="/${userType}/${user.id}"><img src="${user.photo}" width="60" height="60"/></a>
 							</li>
 							<li class="name">
-								<h1>${user.name}</h1>
+								<h2>${user.name}</h2>
 							</li>
 							<li class="twitter">
-								<h3>
+								<h4>
 									<c:set var="twitter" value="${user.contact.twitter}"/>
 									<c:if test="${twitter!=null && twitter!='' }">
 										<a href="http://twitter.com/${twitter}" target="_blank">@${twitter}</a>
 									</c:if>
-								</h3>
+								</h4>
 							</li>
 							<li class="follower-count">
-								<h1>${user.friends.count}</h1>
+								<h2>${user.followers.count}</h2>
 							</li>
 						</ul>
 						<c:set var="count" value="${count+1}" scope="request"/>
 					</c:forEach>
 				</div>
+				<br/>
+				<br/>
+				<div class="paging-controls">
+					<div style="float:left;">
+						<c:if test="${offset>0}">
+							<h2>
+								<a href="?page=${page-1}">Previous Page</a>
+							</h2>
+						</c:if>
+					</div>
+					<div style="float:right;">
+						<c:if test="${(offset+limit)<totalCount}">
+							<h2>
+								<a href="?page=${page+1}">Next Page</a>
+							</h2>
+						</c:if>
+					</div>
+				</div>
 			</c:when>
-			<%-- We have no brand or brands, means we couldn't find anything --%>
-			<c:otherwise>
-				<h1>Could Not Find Brand: ${brandId}</h1>
-			</c:otherwise>
 		</c:choose>
-		<br/>
-		<br/>
-		<div class="paging-controls">
-			<div style="float:left;">
-				<c:if test="${offset>0}">
-					<h3>
-						<a href="?page=${page-1}">Previous Page</a>
-					</h3>
-				</c:if>
-			</div>
-			<div style="float:right;">
-				<c:if test="${(offset+limit)<totalCount}">
-					<h3>
-						<a href="?page=${page+1}">Next Page</a>
-					</h3>
-				</c:if>
-			</div>
-		</div>
 	</foursquarebrands:body>
 </foursquarebrands:html>

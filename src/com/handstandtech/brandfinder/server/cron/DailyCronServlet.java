@@ -3,6 +3,7 @@ package com.handstandtech.brandfinder.server.cron;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
@@ -46,12 +47,19 @@ public class DailyCronServlet extends HttpServlet {
 		Date date = new Date();
 		DAO dao = new DAO();
 
-		List<FoursquareUser> brands = dao.getBrands();
+		List<FoursquareUser> users = new ArrayList<FoursquareUser>();
+		users.addAll(dao.getBrands());
+		users.addAll(dao.getCelebrities());
+
+		Collection<String> allIds = new ArrayList<String>();
+		for (FoursquareUser user : users) {
+			allIds.add(user.getId());
+		}
 
 		int count = 0;
 		List<String> URIs = new ArrayList<String>();
-		for (FoursquareUser brand : brands) {
-			String encodedBrandId = FoursquareHelper.encode(brand.getId());
+		for (String id : allIds) {
+			String encodedBrandId = FoursquareHelper.encode(id);
 			URIs.add(FoursquareHelper.getUserURI(encodedBrandId));
 			count++;
 			if (count == 5) {
