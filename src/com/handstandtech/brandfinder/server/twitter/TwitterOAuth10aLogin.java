@@ -27,8 +27,6 @@
 //import oauth.signpost.OAuthConsumer;
 //import oauth.signpost.OAuthProvider;
 //
-//import org.apache.log4j.Logger;
-//
 //import com.google.inject.Singleton;
 //import com.handstandtech.twitter.server.TwitterConstants;
 //import com.socialusage.server.model.SocialUsageUser;

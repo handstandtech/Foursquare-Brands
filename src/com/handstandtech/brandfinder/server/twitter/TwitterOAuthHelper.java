@@ -17,8 +17,6 @@
 //
 //import oauth.signpost.OAuthConsumer;
 //
-//import org.apache.log4j.Logger;
-//
 //import com.google.gson.Gson;
 //import com.google.gson.GsonBuilder;
 //import com.google.gson.JsonDeserializationContext;

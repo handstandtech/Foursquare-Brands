@@ -14,7 +14,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.google.appengine.api.utils.SystemProperty;
 import com.handstandtech.brandfinder.server.util.SessionHelper;
@@ -23,7 +24,7 @@ import com.handstandtech.server.SessionConstants;
 
 public class LoggedInFilter implements Filter {
 
-	private static Logger log = Logger.getLogger(LoggedInFilter.class);
+	private static Logger log = LoggerFactory.getLogger(LoggedInFilter.class);
 
 	private FilterConfig config;
 	private ArrayList<String> secureLocations;

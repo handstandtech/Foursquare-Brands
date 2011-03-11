@@ -17,7 +17,6 @@
 //import oauth.signpost.exception.OAuthNotAuthorizedException;
 //import oauth.signpost.http.HttpParameters;
 //
-//import org.apache.log4j.Logger;
 //
 //import com.handstandtech.brandfinder.server.DAO;
 //import com.handstandtech.server.SessionConstants;
