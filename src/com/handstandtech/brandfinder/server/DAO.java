@@ -38,8 +38,12 @@ public class DAO extends DAOBase {
 		return ofy().put(user);
 	}
 
-	public List<FoursquareUser> getUsers() {
-		return ofy().query(FoursquareUser.class).filter("type", "user").list();
+	public List<User> getRecentlyActiveUsers(Integer limit) {
+		Query<User> usersQuery = ofy().query(User.class).order("-lastLogin");
+		if(limit!=null){
+			usersQuery.limit(limit);
+		}
+		return usersQuery.list();
 	}
 
 	public List<FoursquareUser> getBrands() {
