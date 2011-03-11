@@ -1,8 +1,10 @@
-<%@ page isELIgnored="false" trimDirectiveWhitespaces="true" contentType="text/html;charset=UTF-8"%>
+<%@ page isELIgnored="false" trimDirectiveWhitespaces="true"
+	contentType="text/html;charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<%@ taglib prefix="foursquarebrands" tagdir="/WEB-INF/tags/foursquarebrands"%>
+<%@ taglib prefix="foursquarebrands"
+	tagdir="/WEB-INF/tags/foursquarebrands"%>
 <%@ page import="com.handstandtech.server.SessionConstants"%>
 <%@ page import="java.text.DecimalFormat"%>
 <%@ page import="javax.jdo.PersistenceManager"%>
@@ -10,9 +12,12 @@
 <%@ page import="com.handstandtech.server.RequestConstants"%>
 <%@ page import="oauth.signpost.OAuthConsumer"%>
 <%@ page import="oauth.signpost.basic.DefaultOAuthConsumer"%>
-<%@ page import="com.handstandtech.foursquare.shared.model.v2.FoursquareUser"%>
-<%@ page import="com.handstandtech.foursquare.server.FoursquareConstants"%>
+<%@ page
+	import="com.handstandtech.foursquare.shared.model.v2.FoursquareUser"%>
+<%@ page
+	import="com.handstandtech.foursquare.server.FoursquareConstants"%>
 <%@ page import="com.handstandtech.foursquare.server.FoursquareHelper"%>
+<%@ page import="com.handstandtech.brandfinder.shared.model.User"%>
 <%@ page import="com.handstandtech.brandfinder.server.ParseCSV"%>
 <%@ page import="com.handstandtech.brandfinder.server.DAO"%>
 <%@ page import="com.google.appengine.api.datastore.Key"%>
@@ -22,20 +27,32 @@
 <%@ page import="java.util.HashMap"%>
 <%@ page import="java.util.Collections"%>
 <%@ page import="java.util.Comparator"%>
+<%@ page import="org.slf4j.Logger"%>
+<%@ page import="org.slf4j.LoggerFactory"%>
 
 <%
-	OAuthConsumer consumer = (OAuthConsumer)session.getAttribute(FoursquareConstants.CONSUMER_CONSTANT);
-	
+	Logger log = LoggerFactory.getLogger(this.getClass());
 	DAO dao = new DAO();
-	List<FoursquareUser> brands = dao.getBrands();
-	Collections.sort(brands, new Comparator<FoursquareUser>(){
-		public int compare(FoursquareUser one, FoursquareUser two) {
-			return two.getFriends().getCount().compareTo(one.getFriends().getCount());
+
+	String limitString = request.getParameter("limit");
+
+	Integer limit = null;
+	if (limitString != null) {
+		if(limitString.equals("0")){
+			limit=null;
+		}else {
+			try {
+				limit = Integer.parseInt(limitString);
+			} catch (Exception e) {
+				log.warn(e.getMessage(), e);
+			}
 		}
-	});
-	
-	request.setAttribute("brands", brands);
-	
+	} else {
+		limit = 50;
+	}
+
+	List<User> users = dao.getRecentlyActiveUsers(limit);
+	request.setAttribute("users", users);
 %>
 <pf:html>
 <pf:head>
@@ -46,21 +63,31 @@
 </pf:head>
 <pf:body>
 	<table border="1">
-	<c:forEach var="brand"
-		items="${brands}">
-		<tr style="border-bottom:1px solid black;">
-			<td><img src="${brand.photo}" width="50" height="50"/></td>
-			<td><c:choose>
-			<c:when test="${brand.lastName!=null}">
-				<span>  ${brand.firstName} ${brand.lastName}  </span>
-			</c:when>
-			<c:otherwise>
-				<span>${brand.firstName}</span>
-			</c:otherwise>
-		</c:choose> </td>
-			<td>${brand.friends.count}</td>
+		<tr>
+			<th>Photo</th>
+			<th>Name</th>
+			<th>Location</th>
+			<th>Friend Count</th>
+			<th>Follower Count</th>
+			<th>Badge Count</th>
+			<th>Last Login</th>
 		</tr>
-	</c:forEach>
+		<c:forEach var="user" items="${users}">
+			<c:set var="foursquareUser" value="${user.foursquareUser}"
+				scope="request" />
+			<tr style="border-bottom: 1px solid black;">
+				<td><a href="http://foursquare.com/user/${user.id}"
+					target="_blank"> <img src="${foursquareUser.photo}" width="50"
+					height="50" /> </a></td>
+				<td><span>${foursquareUser.name}</span></td>
+				<td>${foursquareUser.homeCity}</td>
+				<td>${foursquareUser.friends.count}</td>
+				<td>${foursquareUser.friends.count}</td>
+				<td>${foursquareUser.badges.count}</td>
+				<td><fmt:formatDate type="both" value="${user.lastLogin}"
+					timeZone="America/New_York" /></td>
+			</tr>
+		</c:forEach>
 	</table>
 </pf:body>
 </pf:html>
