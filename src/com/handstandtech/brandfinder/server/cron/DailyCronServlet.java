@@ -6,23 +6,26 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Logger;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.appengine.api.labs.taskqueue.Queue;
-import com.google.appengine.api.labs.taskqueue.QueueFactory;
-import com.google.appengine.api.labs.taskqueue.TaskOptions;
-import com.google.appengine.api.labs.taskqueue.TaskOptions.Method;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.google.appengine.api.taskqueue.Queue;
+import com.google.appengine.api.taskqueue.QueueFactory;
+import com.google.appengine.api.taskqueue.TaskOptions;
+import com.google.appengine.api.taskqueue.TaskOptions.Method;
 import com.google.visualization.datasource.datatable.DataTable;
 import com.handstandtech.brandfinder.server.DAO;
 import com.handstandtech.foursquare.server.FoursquareHelper;
 import com.handstandtech.foursquare.shared.model.v2.FoursquareUser;
+import com.handstandtech.server.rest.RESTUtil;
 
 /**
- * The server side implementation of the RPC service.
+ * Daily Cron Servlet
  */
 public class DailyCronServlet extends HttpServlet {
 
@@ -31,7 +34,7 @@ public class DailyCronServlet extends HttpServlet {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	protected final Logger log = Logger.getLogger(getClass().getName());
+	protected final Logger log = LoggerFactory.getLogger(DailyCronServlet.class);
 
 	private static Long ONE_SECOND = 1000L;
 	private static Long ONE_MINUTE = 60 * ONE_SECOND;
@@ -59,7 +62,7 @@ public class DailyCronServlet extends HttpServlet {
 		int count = 0;
 		List<String> URIs = new ArrayList<String>();
 		for (String id : allIds) {
-			String encodedBrandId = FoursquareHelper.encode(id);
+			String encodedBrandId = RESTUtil.encode(id);
 			URIs.add(FoursquareHelper.getUserURI(encodedBrandId));
 			count++;
 			if (count == 5) {
@@ -85,7 +88,7 @@ public class DailyCronServlet extends HttpServlet {
 		followerCountTask.header("Brand Ids", ids);
 		followerCountTask.url("/tasks/store-follower-count");
 		followerCountTask.method(Method.POST);
-		followerCountTask.param("ids", FoursquareHelper.encode(ids));
+		followerCountTask.param("ids", RESTUtil.encode(ids));
 		followerCountTask.param("time", Long.toString(date.getTime()));
 		queue.add(followerCountTask);
 	}

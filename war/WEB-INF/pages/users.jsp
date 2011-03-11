@@ -1,14 +1,11 @@
-<%@ page isELIgnored="false" language="java"
-	contentType="text/html;charset=UTF-8"%>
+<%@ page isELIgnored="false" trimDirectiveWhitespaces="true" contentType="text/html;charset=UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<%@ taglib prefix="foursquarebrands"
-	tagdir="/WEB-INF/tags/foursquarebrands"%>
-<%@page import="com.handstandtech.server.SessionConstants"%>
-<%@page import="java.text.DecimalFormat"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="foursquarebrands" tagdir="/WEB-INF/tags/foursquarebrands"%>
+<%@ page import="com.handstandtech.server.SessionConstants"%>
+<%@ page import="java.text.DecimalFormat"%>
 <%@ page import="javax.jdo.PersistenceManager"%>
-<%@ page import="com.handstandtech.server.db.PMF"%>
 <%@ page import="com.handstandtech.server.SessionConstants"%>
 <%@ page import="com.handstandtech.server.RequestConstants"%>
 <%@ page import="oauth.signpost.OAuthConsumer"%>
@@ -39,13 +36,20 @@
 <%@ page import="java.io.InputStream"%>
 <%@ page import="java.io.BufferedReader"%>
 <%@ page import="java.io.InputStreamReader"%>
+<%@ page import="org.slf4j.Logger"%>
+<%@ page import="org.slf4j.LoggerFactory"%>
 <%
+	String uriString = request.getRequestURI();
+	Logger log = LoggerFactory.getLogger(this.getClass());
+	
 	String pageStr = request.getParameter("page");
 	Integer pageNum = 1;
-	try {
-		pageNum = Integer.parseInt(pageStr);
-	} catch (Exception e){
-		//Do Nothing
+	if(pageStr!=null){
+		try {
+			pageNum = Integer.parseInt(pageStr);
+		} catch (Exception e){
+			log.error(e.getMessage(), e);
+		}
 	}
 	
 	Integer pageSize = 50;
@@ -64,55 +68,52 @@
 	String[] tokens = uri.split("/");
 			
 	List<FoursquareUser> users = null;		
-		String uriString = request.getRequestURI();
-		System.out.println(uriString);
-		String pageTitle=null;
-		String userType=null;
-		if(uriString.startsWith("/brand")){
-			//Get The Current Brands
-			Query<FoursquareUser> brandQuery = dao.createBrandQuery();
-			dao.orderByFollowerCount(brandQuery);
-			totalCount = brandQuery.count();
-			dao.addLimitAndOffset(brandQuery, limit, offset);
-			users = brandQuery.list();
-			userType="brands";
-			pageTitle="Brands";
-		} else {
-			//Get The Current Celebrities
-			Query<FoursquareUser> celebQuery = dao.createCelebQuery();
-			dao.orderByFollowerCount(celebQuery);
-			totalCount = celebQuery.count();
-			dao.addLimitAndOffset(celebQuery, limit, offset);
-			users=celebQuery.list();
-			
-			userType="celebs";
-			pageTitle="Celebrities";
-		}
-		request.setAttribute("pageTitle", pageTitle);
-		request.setAttribute("userType", userType);
-		/*Collections.sort(users, new Comparator<FoursquareUser>(){
-			public int compare(FoursquareUser one, FoursquareUser two) {
-				return two.getFollowers().getCount().compareTo(one.getFollowers().getCount());
-			}
-		});*/
-		request.setAttribute("users", users);
+	String pageTitle=null;
+	String userType=null;
+	if(uriString.startsWith("/brand")){
+		//Get The Current Brands
+		Query<FoursquareUser> brandQuery = dao.createBrandQuery();
+		dao.orderByFollowerCount(brandQuery);
+		totalCount = brandQuery.count();
+		dao.addLimitAndOffset(brandQuery, limit, offset);
+		users = brandQuery.list();
+		userType="brands";
+		pageTitle="Brands";
+	} else {
+		//Get The Current Celebrities
+		Query<FoursquareUser> celebQuery = dao.createCelebQuery();
+		dao.orderByFollowerCount(celebQuery);
+		totalCount = celebQuery.count();
+		dao.addLimitAndOffset(celebQuery, limit, offset);
+		users=celebQuery.list();
+		
+		userType="celebs";
+		pageTitle="Celebrities";
+	}
+	
+	log.info("title -> "+ pageTitle);
+	log.info("userType -> "+ userType);
+	log.info("users -> " + users);
+	
+	request.setAttribute("title", pageTitle);
+	request.setAttribute("userType", userType);
+	request.setAttribute("users", users);
 
 	SimpleDateFormat dateFormat = ModelUtils.getDateFormat();
 	
+	log.info("limit -> " + limit);
+	log.info("offset -> "+ offset);
+	log.info("page -> " + pageNum);
+	log.info("totalCount -> " + totalCount);
 	
-	/*Integer pageSize = 10;
-	Integer limit=pageSize;
-	Integer offset=0;
-	Integer totalCount = 0;*/
+	
 	request.setAttribute("limit", limit);
 	request.setAttribute("offset", offset);
 	request.setAttribute("page", pageNum);
 	request.setAttribute("totalCount", totalCount);
 %>
 <foursquarebrands:html>
-	<c:set var="title" value="${pageTitle}" scope="request"/>
-	<foursquarebrands:head>
-	</foursquarebrands:head>
+	<foursquarebrands:head/>
 	<foursquarebrands:body>
 		<c:set var="toNum" value="${offset+limit}" scope="request"/>
 		<c:if test="${toNum>totalCount}">

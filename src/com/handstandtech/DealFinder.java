@@ -11,16 +11,20 @@ import java.util.Map;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.handstandtech.foursquare.server.FoursquareHelper;
-import com.handstandtech.server.rest.RESTClientImpl;
 import com.handstandtech.server.rest.RESTUtil;
+import com.handstandtech.server.rest.impl.RESTClientJavaNetImpl;
 import com.handstandtech.shared.model.rest.RESTResult;
 import com.handstandtech.shared.model.rest.RequestMethod;
 import com.handstandtech.shared.util.math.GreatCircleDistanceCalculator;
 import com.handstandtech.shared.util.math.LatLon;
 
 public class DealFinder {
+	
+	private static final Logger log = LoggerFactory.getLogger(DealFinder.class);
 
 	public static void main(String args[]) throws UnsupportedEncodingException,
 			FileNotFoundException {
@@ -33,7 +37,7 @@ public class DealFinder {
 		double radiusInKm = diameterInKm / 2;
 		double columnCount = 12;
 		double rowCount = 12;
-		LatLon center = new LatLon(38.990437,-77.0224);
+		LatLon center = new LatLon(38.990437, -77.0224);
 		List<LatLon> points = new ArrayList<LatLon>();
 
 		LatLon topLeft = findTopLeft(center, columnCount, rowCount, radiusInKm);
@@ -84,7 +88,7 @@ public class DealFinder {
 				googleMapsUrl = googleMapsUrl + "+to:"
 						+ latLonPair(points.get(i));
 			}
-			System.out.println(googleMapsUrl);
+			log.info(googleMapsUrl);
 		}
 
 	}
@@ -143,12 +147,14 @@ public class DealFinder {
 			throws UnsupportedEncodingException {
 		Map<String, String> request1Params = new HashMap<String, String>();
 		String request1Endpoint = "/specials/search";
-		request1Params.put("ll",
-				FoursquareHelper.encode(latlon.getLatitude() + "," + latlon.getLongitude()));
-		request1Params.put("limit", FoursquareHelper.encode("50"));
-		return RESTUtil.createParamString(request1Endpoint, request1Params);
+		request1Params.put(
+				"ll",
+				RESTUtil.encode(latlon.getLatitude() + ","
+						+ latlon.getLongitude()));
+		request1Params.put("limit", RESTUtil.encode("50"));
+		return RESTUtil.createFullUrl(request1Endpoint, request1Params);
 	}
-	
+
 	public static void callMultiForURIs(List<String> requestURIs,
 			PrintWriter specialsOut) throws UnsupportedEncodingException {
 		String requestsString = FoursquareHelper.createCSVLine(requestURIs);
@@ -156,12 +162,12 @@ public class DealFinder {
 
 		params.put("oauth_token",
 				"4FOC2MCOPFUEY211YUJJ3ZEMFEJAMVQACPZJNSGVDN5MJCF3");
-		params.put("requests", FoursquareHelper.encode(requestsString));
+		params.put("requests", RESTUtil.encode(requestsString));
 		String endpoint = "https://api.foursquare.com/v2/multi";
 
-		String url = RESTUtil.createParamString(endpoint, params);
+		String url = RESTUtil.createFullUrl(endpoint, params);
 
-		RESTClientImpl client = new RESTClientImpl();
+		RESTClientJavaNetImpl client = new RESTClientJavaNetImpl();
 		RESTResult result = client.request(RequestMethod.GET, url, null);
 
 		try {
@@ -177,7 +183,7 @@ public class DealFinder {
 				if (specialsCount > 0) {
 					for (int j = 0; j < specialsCount; j++) {
 						JSONObject item = items.getJSONObject(j);
-						System.out.println(item.toString());
+						log.info(item.toString());
 						if (specialsOut != null) {
 							specialsOut.println(item.toString() + ",");
 						}
@@ -192,5 +198,4 @@ public class DealFinder {
 		requestURIs.clear();
 	}
 
-	
 }

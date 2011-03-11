@@ -31,7 +31,7 @@
 //	public static void main(String args[]) throws Exception {
 //		String xml = generateSitemapXML();
 //
-//		System.out.println(xml);
+//		log.info(xml);
 //	}
 //
 //	public static String generateSitemapXML() throws Exception {

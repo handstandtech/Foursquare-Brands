@@ -4,11 +4,11 @@
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="foursquarebrands" tagdir="/WEB-INF/tags/foursquarebrands"%>
 <header id="header" class="wrapper">
-	<a href="/" style="float:left;">
-		<img id="logo" src="/assets/images/foursquare-brands-logo.png">
-		<h1 style="display:none;">Foursquare Brands</h1>
-	</a>
-	<div style="float:right;">
-		<foursquarebrands:leaderboard-ad/>
-	</div>
+  <a href="/" style="float:left;">
+    <img id="logo" src="/assets/images/foursquare-brands-logo.png">
+    <h1 style="display:none;">Foursquare Brands</h1>
+  </a>
+  <div style="float:right;">
+    <foursquarebrands:leaderboard-ad/>
+  </div>
 </header>

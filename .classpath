@@ -12,7 +12,6 @@
 	<classpathentry kind="lib" path="war/WEB-INF/lib/opencsv-1.8.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/signpost-commonshttp4-1.2.1.1.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/signpost-core-1.2.1.1.jar"/>
-	<classpathentry kind="lib" path="war/WEB-INF/lib/log4j-1.2.13.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/json-20090211.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/commons-codec-1.2.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/visualization-datasource-1.0.2.jar"/>
@@ -26,5 +25,8 @@
 	<classpathentry kind="lib" path="war/WEB-INF/lib/commons-logging-1.1.1.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/visualization-commons-lang-2.4.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/objectify-2.2.3.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/log4j-1.2.16.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/slf4j-api-1.6.1.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/slf4j-jdk14-1.6.1.jar"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>

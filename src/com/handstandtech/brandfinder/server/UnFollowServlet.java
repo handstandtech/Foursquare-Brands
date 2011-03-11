@@ -1,7 +1,6 @@
 package com.handstandtech.brandfinder.server;
 
 import java.io.IOException;
-import java.util.logging.Logger;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -10,6 +9,8 @@ import javax.servlet.http.HttpSession;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.google.visualization.datasource.datatable.DataTable;
 import com.handstandtech.brandfinder.server.util.SessionHelper;
@@ -27,7 +28,7 @@ public class UnFollowServlet extends HttpServlet {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	protected final Logger log = Logger.getLogger(getClass().getName());
+	protected final Logger log = LoggerFactory.getLogger(getClass().getName());
 
 	/**
 	 * Handle a GET Request and serve the appropriate {@link DataTable}
@@ -39,14 +40,14 @@ public class UnFollowServlet extends HttpServlet {
 	}
 
 
-	/**
-	 * Handle a GET Request and serve the appropriate {@link DataTable}
-	 */
-	@Override
-	protected void doGet(HttpServletRequest request,
-			HttpServletResponse response) throws IOException {
-		doUnFollow(request, response);
-	}
+//	/**
+//	 * Handle a GET Request and serve the appropriate {@link DataTable}
+//	 */
+//	@Override
+//	protected void doGet(HttpServletRequest request,
+//			HttpServletResponse response) throws IOException {
+//		doUnFollow(request, response);
+//	}
 	
 	private void doUnFollow(HttpServletRequest request,
 			HttpServletResponse response) throws IOException {

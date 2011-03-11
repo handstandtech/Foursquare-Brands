@@ -3,7 +3,6 @@ package com.handstandtech.brandfinder.server;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -13,14 +12,17 @@ import javax.servlet.http.HttpSession;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.handstandtech.brandfinder.server.util.SessionHelper;
 import com.handstandtech.brandfinder.shared.model.User;
 import com.handstandtech.foursquare.server.FoursquareConstants;
 import com.handstandtech.foursquare.server.FoursquareHelper;
 import com.handstandtech.foursquare.shared.model.v2.FoursquareUser;
-import com.handstandtech.server.rest.RESTClientImpl;
+import com.handstandtech.server.rest.RESTClient;
 import com.handstandtech.server.rest.RESTUtil;
+import com.handstandtech.server.rest.impl.RESTClientAppEngineURLFetchImpl;
 import com.handstandtech.shared.model.rest.RESTResult;
 import com.handstandtech.shared.model.rest.RequestMethod;
 
@@ -36,7 +38,8 @@ public class FoursquareCallback extends HttpServlet {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	protected final Logger log = Logger.getLogger(getClass().getName());
+	private static final Logger log = LoggerFactory
+			.getLogger(FoursquareCallback.class);
 
 	/**
 	 * Exchange an OAuth request token for an access token, and store the latter
@@ -59,17 +62,17 @@ public class FoursquareCallback extends HttpServlet {
 		params.put("redirect_uri", RESTUtil.getBaseUrl(request)
 				+ FoursquareConstants.FOURSQUARE_CALLBACK);
 		params.put("code", code);
-		String fullUrl = RESTUtil.createParamString(baseUrl, params);
+		String fullUrl = RESTUtil.createFullUrl(baseUrl, params);
 
-		RESTClientImpl client = new RESTClientImpl();
+		RESTClient client = new RESTClientAppEngineURLFetchImpl();
 		RESTResult result = client.request(RequestMethod.GET, fullUrl, null);
-
-		System.out.println(result);
 
 		try {
 			JSONObject jsonObj = new JSONObject(result.getResponseBody());
 			String accessToken = jsonObj.getString("access_token");
-			
+
+			log.info("access_token -> " + accessToken);
+
 			FoursquareHelper helper = new FoursquareHelper(accessToken);
 			FoursquareUser foursquareUser = helper.getUserInfo("self");
 			DAO dao = new DAO();
@@ -88,11 +91,12 @@ public class FoursquareCallback extends HttpServlet {
 		redirectToFoursquareApp(session, response);
 	}
 
-	private void redirectToFoursquareApp(HttpSession session, HttpServletResponse response) {
+	private void redirectToFoursquareApp(HttpSession session,
+			HttpServletResponse response) {
 		try {
 			String continueUrl = SessionHelper.getContinueUrl(session);
-			if(continueUrl==null){
-				continueUrl="/";
+			if (continueUrl == null) {
+				continueUrl = "/";
 			}
 			response.sendRedirect(continueUrl);
 		} catch (IOException e) {

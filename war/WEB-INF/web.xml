@@ -1,10 +1,45 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE web-app
-    PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
-    "http://java.sun.com/dtd/web-app_2_3.dtd">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE web-app PUBLIC
+ "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+ "http://java.sun.com/dtd/web-app_2_3.dtd">
 
-<web-app>
-
+<web-app xmlns="http://java.sun.com/xml/ns/javaee" version="2.5">
+	<display-name>com.handstandtech.brandfinder</display-name>
+	<session-config>
+		<session-timeout>
+			1440
+        </session-timeout>
+	</session-config>
+	
+	<!--********************** Appstats Filter ************************** -->
+	<filter>
+		<filter-name>appstats</filter-name>
+		<filter-class>com.google.appengine.tools.appstats.AppstatsFilter</filter-class>
+		<init-param>
+			<param-name>logMessage</param-name>
+			<param-value>Appstats available: /appstats/details?time={ID}</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>appstats</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>	
+	
+	
+	<!--*********************************** Logged In Filter ******************************* -->
+	<filter>
+		<filter-name>logged-in-filter</filter-name>
+		<filter-class>com.handstandtech.brandfinder.server.LoggedInFilter</filter-class>
+		<init-param>
+			<param-name>secure-locations</param-name>
+			<param-value>/manage</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>logged-in-filter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
 	<!--********************** Pages to serve ************************** -->
 	<servlet>
 		<description>Welcome Page</description>
@@ -183,21 +218,6 @@
 		<servlet-name>sitemap-generator</servlet-name>
 		<servlet-class>com.handstandtech.brandfinder.server.util.SitemapGeneratorServlet</servlet-class>
 	</servlet>
-	
-
-	<!--*********************************** Logged In Filter ******************************* -->
-	<filter>
-		<filter-name>logged-in-filter</filter-name>
-		<filter-class>com.handstandtech.brandfinder.server.LoggedInFilter</filter-class>
-		<init-param>
-			<param-name>secure-locations</param-name>
-			<param-value>/manage</param-value>
-		</init-param>
-	</filter>
-	<filter-mapping>
-		<filter-name>logged-in-filter</filter-name>
-		<url-pattern>/*</url-pattern>
-	</filter-mapping>
 
 	<!-- Remote API Support -->
 	<servlet>
@@ -220,6 +240,16 @@
 		<servlet-name>CSV Example</servlet-name>
 		<url-pattern>/csv/*</url-pattern>
 	</servlet-mapping>
+	
+	<!--********************** Appstats Servlet ************************** -->
+	<servlet>
+        <servlet-name>appstats</servlet-name>
+        <servlet-class>com.google.appengine.tools.appstats.AppstatsServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>appstats</servlet-name>
+        <url-pattern>/appstats/*</url-pattern>
+    </servlet-mapping>
 
 	<!--********************** Default page to serve ************************** -->
 	<welcome-file-list>

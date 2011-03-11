@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Properties;
-import java.util.logging.Logger;
 
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -19,10 +18,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.appengine.api.labs.taskqueue.Queue;
-import com.google.appengine.api.labs.taskqueue.QueueFactory;
-import com.google.appengine.api.labs.taskqueue.TaskOptions;
-import com.google.appengine.api.labs.taskqueue.TaskOptions.Method;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.google.appengine.api.taskqueue.Queue;
+import com.google.appengine.api.taskqueue.QueueFactory;
+import com.google.appengine.api.taskqueue.TaskOptions;
+import com.google.appengine.api.taskqueue.TaskOptions.Method;
 import com.google.visualization.datasource.datatable.DataTable;
 import com.handstandtech.brandfinder.server.DAO;
 import com.handstandtech.brandfinder.server.tasks.FollowerCountTaskServlet;
@@ -33,7 +35,7 @@ import com.handstandtech.foursquare.server.FoursquareHelper;
 import com.handstandtech.foursquare.shared.model.v2.FoursquareUser;
 
 /**
- * The server side implementation of the RPC service.
+ * Hourly Cron Servlet
  */
 public class HourlyCronServlet extends HttpServlet {
 
@@ -42,7 +44,7 @@ public class HourlyCronServlet extends HttpServlet {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	protected final Logger log = Logger.getLogger(getClass().getName());
+	protected final Logger log = LoggerFactory.getLogger(getClass().getName());
 
 	private static Long ONE_SECOND = 1000L;
 	private static Long ONE_MINUTE = 60 * ONE_SECOND;
@@ -117,7 +119,7 @@ public class HourlyCronServlet extends HttpServlet {
 
 				List<String> adminEmails = new ArrayList<String>();
 				adminEmails.add("sam@handstandtech.com");
-				adminEmails.add("kristen.sheriff@gmail.com");
+//				adminEmails.add("kristen.sheriff@gmail.com");
 				for (String adminEmail : adminEmails) {
 					msg.addRecipient(Message.RecipientType.TO,
 							new InternetAddress(adminEmail,
@@ -130,7 +132,7 @@ public class HourlyCronServlet extends HttpServlet {
 				msgBody.append("<ul>\n");
 				msgBody.append(sb.toString());
 				msgBody.append("</ul>\n");
-				System.out.println(msgBody.toString());
+				log.info(msgBody.toString());
 
 				msg.setContent(msgBody.toString(), "text/html");
 				Transport.send(msg);
@@ -140,7 +142,7 @@ public class HourlyCronServlet extends HttpServlet {
 				// ...
 			}
 		} else {
-			System.out.println("No New Brands Found");
+			log.info("No New Brands Found");
 		}
 	}
 }

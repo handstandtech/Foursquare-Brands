@@ -146,7 +146,7 @@
 //		String url = "http://search.twitter.com/search.json?q=" + query;
 //		APICallResult result = callAPIUrl(consumer, url);
 //		Gson gson = new Gson();
-//		System.out.println("Search Response: " + result.getBody());
+//		log.info("Search Response: " + result.getBody());
 //		System.err.println("UNIMPLEMENTED");
 //		return new ArrayList<SearchResult>();
 //	}

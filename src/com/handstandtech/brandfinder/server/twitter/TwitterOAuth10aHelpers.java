@@ -4,8 +4,6 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import oauth.signpost.OAuthConsumer;
 import oauth.signpost.OAuthProvider;
@@ -16,14 +14,17 @@ import oauth.signpost.exception.OAuthExpectationFailedException;
 import oauth.signpost.exception.OAuthMessageSignerException;
 import oauth.signpost.exception.OAuthNotAuthorizedException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.handstandtech.foursquare.server.oauth.OAuthAuthenticator;
-import com.handstandtech.server.rest.RESTClientImpl;
 import com.handstandtech.server.rest.RESTUtil;
+import com.handstandtech.server.rest.impl.RESTClientJavaNetImpl;
 import com.handstandtech.shared.model.rest.RESTResult;
 import com.handstandtech.shared.model.rest.RequestMethod;
 
 public class TwitterOAuth10aHelpers {
-	private static Logger log = Logger.getLogger(TwitterOAuth10aHelpers.class
+	private static Logger log = LoggerFactory.getLogger(TwitterOAuth10aHelpers.class
 			.getCanonicalName());
 
 	private static String FOURSQUAREBRANDS_CONSUMER_KEY = "2EBADuJpc9I0wMLpWn1Pjw";
@@ -86,16 +87,16 @@ public class TwitterOAuth10aHelpers {
 			e.printStackTrace();
 		}
 
-		log.log(Level.INFO, "Auth URL: " + authUrl);
+		log.info("Auth URL: " + authUrl);
 	}
 
 	private static void getCurrentUser(OAuthConsumer consumer) {
 		String baseUrl = "https://api.twitter.com/1/account/verify_credentials.json";
-		RESTClientImpl client = new RESTClientImpl();
+		RESTClientJavaNetImpl client = new RESTClientJavaNetImpl();
 		RESTResult result = client.request(RequestMethod.GET, baseUrl,
 				new OAuthAuthenticator(consumer));
 
-		log.log(Level.INFO, result.toString());
+		log.info(result.toString());
 	}
 
 	public static void updateStatus(OAuthConsumer consumer, String status) {
@@ -108,20 +109,20 @@ public class TwitterOAuth10aHelpers {
 			e.printStackTrace();
 		}
 
-		String url = RESTUtil.createParamString(baseUrl, params);
+		String url = RESTUtil.createFullUrl(baseUrl, params);
 
-		RESTClientImpl client = new RESTClientImpl();
+		RESTClientJavaNetImpl client = new RESTClientJavaNetImpl();
 		RESTResult result = client.request(RequestMethod.POST, url,
 				new OAuthAuthenticator(consumer));
 
-		log.log(Level.INFO, result.toString());
+		log.info(result.toString());
 	}
 
 	public static void printConsumerInfo(OAuthConsumer consumer) {
-		log.log(Level.INFO, "Token: " + consumer.getToken());
-		log.log(Level.INFO, "Token Secret: " + consumer.getTokenSecret());
-		log.log(Level.INFO, "Consumer Key: " + consumer.getConsumerKey());
-		log.log(Level.INFO, "Consumer Secret: " + consumer.getConsumerSecret());
+		log.info("Token: " + consumer.getToken());
+		log.info("Token Secret: " + consumer.getTokenSecret());
+		log.info("Consumer Key: " + consumer.getConsumerKey());
+		log.info("Consumer Secret: " + consumer.getConsumerSecret());
 	}
 
 	public static OAuthConsumer getConsumer() {

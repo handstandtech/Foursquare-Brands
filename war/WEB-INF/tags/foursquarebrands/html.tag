@@ -1,5 +1,3 @@
-<%@ tag isELIgnored="false"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:og="http://ogp.me/ns#" xmlns:fb="http://www.facebook.com/2008/fbml">
 <!--
 Created By Handstand Technologies (http://HandstandTech.com)

@@ -1,15 +1,13 @@
-<%@page import="com.handstandtech.brandfinder.shared.util.ModelUtils"%>
-<%@page import="com.handstandtech.brandfinder.shared.model.DailyFollowerCount"%>
-<%@ page isELIgnored="false" language="java"
-	contentType="text/html;charset=UTF-8"%>
+<%@ page isELIgnored="false" trimDirectiveWhitespaces="true" contentType="text/html;charset=UTF-8"%>
+<%@ page import="com.handstandtech.brandfinder.shared.util.ModelUtils"%>
+<%@ page import="com.handstandtech.brandfinder.shared.model.DailyFollowerCount"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt"%>
-<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="foursquarebrands" tagdir="/WEB-INF/tags/foursquarebrands"%>
-<%@page import="com.handstandtech.server.SessionConstants"%>
-<%@page import="java.text.DecimalFormat"%>
+<%@ page import="com.handstandtech.server.SessionConstants"%>
+<%@ page import="java.text.DecimalFormat"%>
 <%@ page import="javax.jdo.PersistenceManager"%>
-<%@ page import="com.handstandtech.server.db.PMF"%>
 <%@ page import="com.handstandtech.server.SessionConstants"%>
 <%@ page import="com.handstandtech.server.RequestConstants"%>
 <%@ page import="oauth.signpost.OAuthConsumer"%>

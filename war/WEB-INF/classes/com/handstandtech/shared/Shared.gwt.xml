@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module rename-to='teamscape'>
-
-	<inherits name="com.allen_sauer.gwt.log.gwt-log-DEBUG" />
-	<set-property name="log_DivLogger" value="DISABLED" />
-
+<module rename-to='shared'>
 	<!-- Inherit the core Web Toolkit stuff.                        -->
 	<inherits name='com.google.gwt.user.User' />
 
@@ -22,5 +18,4 @@
 	<source path='client' />
 	<source path='interfaces' />
 	<source path='model' />
-
 </module>

@@ -27,7 +27,12 @@ public class SessionHelper {
 	}
 
 	public static String getContinueUrl(HttpSession session) {
-		return (String) session.getAttribute(SessionConstants.CONTINUE_URL);
+		String continueUrl = (String) session
+				.getAttribute(SessionConstants.CONTINUE_URL);
+		if (continueUrl == null) {
+			continueUrl = "/";
+		}
+		return continueUrl;
 	}
 
 }

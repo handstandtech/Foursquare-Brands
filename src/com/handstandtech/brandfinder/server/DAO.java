@@ -4,6 +4,9 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.ObjectifyService;
 import com.googlecode.objectify.Query;
@@ -15,6 +18,9 @@ import com.handstandtech.brandfinder.shared.model.User;
 import com.handstandtech.foursquare.shared.model.v2.FoursquareUser;
 
 public class DAO extends DAOBase {
+	
+	private static Logger log = LoggerFactory.getLogger(DAO.class);
+	
 	static {
 		ObjectifyService.register(FoursquareUser.class);
 		ObjectifyService.register(DailyFollowEventCount.class);

@@ -1,5 +1,4 @@
-<%@ page isELIgnored="false" language="java"
-	contentType="text/html;charset=UTF-8"%>
+<%@ page isELIgnored="false" trimDirectiveWhitespaces="true" contentType="text/html;charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
@@ -7,7 +6,6 @@
 <%@ page import="com.handstandtech.server.SessionConstants"%>
 <%@ page import="java.text.DecimalFormat"%>
 <%@ page import="javax.jdo.PersistenceManager"%>
-<%@ page import="com.handstandtech.server.db.PMF"%>
 <%@ page import="com.handstandtech.server.SessionConstants"%>
 <%@ page import="com.handstandtech.server.RequestConstants"%>
 <%@ page import="oauth.signpost.OAuthConsumer"%>
@@ -38,23 +36,22 @@
 <%@ page import="java.util.Collection"%>
 <%@ page import="java.util.HashSet"%>
 <%@ page import="java.io.InputStreamReader"%>
-<%@ page import="java.util.logging.Logger"%>
-<%@ page import="java.util.logging.Level"%>
+<%@ page import="org.slf4j.Logger"%>
+<%@ page import="org.slf4j.LoggerFactory"%>
 <%@ page import="com.handstandtech.brandfinder.server.Manager" %>
 <%
-	Logger log = Logger.getLogger(request.getRequestURI());
+	Logger log = LoggerFactory.getLogger(this.getClass());
 	User currentUser = SessionHelper.getCurrentUser(session);
 	
-	log.log(Level.INFO, "Get The Current User's Friends");
+	log.info("Get The Current User's Friends");
 	Collection<FoursquareUser> friends = Manager.getCurrentUsersFriends(currentUser);
-	log.log(Level.INFO, currentUser.getFoursquareUser().getName() + " has "+ friends.size() + " Friends");
+	log.info(currentUser.getFoursquareUser().getName() + " has "+ friends.size() + " Friends Total.");
 	
 	
 	Map<String, FoursquareUser> userMap = null;
 	String userType = null;
 	String pageTitle = null;
 	String uriString = request.getRequestURI();
-	System.out.println(uriString);
 	if(uriString.startsWith("/manage/brands")){
 		userType="brands";
 		//Get The Current Brands
@@ -66,31 +63,26 @@
 		userMap = Manager.getCelebMap(session);
 		pageTitle="Celebrities";
 	}
-	log.log(Level.INFO, "User Type: " + userType);
+	log.info("User Type -> " + userType);
+	log.info("Title -> " + pageTitle);
 	request.setAttribute("userType", userType);
-	request.setAttribute("pageTitle", pageTitle);
+	request.setAttribute("title", pageTitle);
 	
-	//log.log(Level.INFO, "Determine who the user is currently following who is followed");
-	//Collection<String> following = PageLoadUtils.getFollowing(friends, userMap);
-	
-	log.log(Level.INFO, "See if they know any new users, if so, add them.");
+	log.info("See if they know any new users, if so, add them.");
 	Collection<FoursquareUser> newUsersFound = Manager.findNewUsers(userType, currentUser, friends);
 	/*for(FoursquareUser newUserFound : newUsersFound){
 		userMap.put(newUserFound.getId(), newUserFound);
 	}*/
 	
-	log.log(Level.INFO, "Prepare followed and notFollowed lists for request.");
+	log.info("Prepare followed and notFollowed lists for request.");
 	Manager.prepareFollowedAndNotFollowedLists(currentUser, friends, userMap, request);
 	
 	request.setAttribute("userMap", userMap);
 %>
-
 <c:set var="numFollowed" value="${fn:length(followed)}" scope="request"/>
 <c:set var="numNotFollowed" value="${fn:length(notFollowed)}" scope="request"/>
 <c:set var="total" value="${numFollowed + numNotFollowed}" scope="request"/>
 <foursquarebrands:html>
-
-	<c:set var="title" value="Manage ${pageTitle}" scope="request"/>
 	<foursquarebrands:head>
 		<link type="text/css" rel="stylesheet" href="/assets/js/fancybox/jquery.fancybox-1.3.4.css" />
 		<script type="text/javascript" src="/assets/js/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
@@ -98,7 +90,7 @@
 	</foursquarebrands:head>
 	<foursquarebrands:body>
 		<div style="overflow: hidden; margin-left: 5px;">
-			<h2 class="following-stats">Hey ${currentUser.foursquareUser.firstName}! You're	Following <span class="percentage">${numFollowed}</span> of ${total} ${userType} on Foursquare.</h2>
+			<h2 class="following-stats">Hey ${currentUser.foursquareUser.firstName}! You're	Following <span class="percentage">${numFollowed}</span>&nbsp;of&nbsp;<span>${total}</span>&nbsp;<span>${userType}</span>&nbsp;on Foursquare.</h2>
 			<p>Follow and UnFollow ${userType} with 1-click.  Use the links to Follow or UnFollow ${userType} with 1-click.  Send us Questions/Comments using the Feedback Tab on the left.</p>
 		</div>
 		<h3 class="section-header">Following:</h3>

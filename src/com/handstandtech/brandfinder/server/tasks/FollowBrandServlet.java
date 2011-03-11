@@ -2,8 +2,6 @@ package com.handstandtech.brandfinder.server.tasks;
 
 import java.io.IOException;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -12,6 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.google.visualization.datasource.datatable.DataTable;
 import com.handstandtech.brandfinder.server.DAO;
@@ -34,7 +34,7 @@ public class FollowBrandServlet extends HttpServlet {
 
 	public static final String OAUTH_TOKEN_HANDSTANDTECH = "2QXKWLFL2VYE2GSEUUPMYC1SKPWT0TJ5ITG4N5O0D2DUS0WZ";
 
-	protected final Logger log = Logger.getLogger(getClass().getName());
+	protected final Logger log = LoggerFactory.getLogger(getClass().getName());
 
 	/**
 	 * Handle a GET Request and serve the appropriate {@link DataTable}
@@ -60,9 +60,8 @@ public class FollowBrandServlet extends HttpServlet {
 				JSONObject jsonResponse = firstResponse
 						.getJSONObject("response");
 				JSONObject userJson = jsonResponse.getJSONObject("user");
-				log.log(Level.INFO, "Storing Brand: " + userJson);
-				log.log(Level.INFO,
-						"Storing " + (i + 1) + " of " + responses.length());
+				log.info("Storing Brand: " + userJson);
+				log.info("Storing " + (i + 1) + " of " + responses.length());
 				FoursquareUser brand = FoursquareUtils
 						.getFoursquareUserFromJson(userJson.toString());
 				storeBrand(brand, time, response);
@@ -73,7 +72,7 @@ public class FollowBrandServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 
-		log.log(Level.INFO, "Stored " + count + " Brands Total.");
+		log.info("Stored " + count + " Brands Total.");
 	}
 
 	private void storeBrand(FoursquareUser brand, Long time,

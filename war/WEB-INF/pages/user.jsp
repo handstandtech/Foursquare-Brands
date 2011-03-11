@@ -1,14 +1,11 @@
-<%@ page isELIgnored="false" language="java"
-	contentType="text/html;charset=UTF-8"%>
+<%@ page isELIgnored="false" trimDirectiveWhitespaces="true" contentType="text/html;charset=UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<%@ taglib prefix="foursquarebrands"
-	tagdir="/WEB-INF/tags/foursquarebrands"%>
-<%@page import="com.handstandtech.server.SessionConstants"%>
-<%@page import="java.text.DecimalFormat"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="foursquarebrands" tagdir="/WEB-INF/tags/foursquarebrands"%>
+<%@ page import="com.handstandtech.server.SessionConstants"%>
+<%@ page import="java.text.DecimalFormat"%>
 <%@ page import="javax.jdo.PersistenceManager"%>
-<%@ page import="com.handstandtech.server.db.PMF"%>
 <%@ page import="com.handstandtech.server.SessionConstants"%>
 <%@ page import="com.handstandtech.server.RequestConstants"%>
 <%@ page import="oauth.signpost.OAuthConsumer"%>
@@ -104,7 +101,6 @@
 	request.setAttribute("chart2Rows", chart2Rows.toString());
 	request.setAttribute("minFollowerCount", minFollowerCount);
 %>
-
 <c:set var="twitter" value="${user.contact.twitter}" scope="request"/>
 <c:if test="${twitter==''}">
 	<c:set var="twitter" value="${null}" scope="request"/>
@@ -113,7 +109,6 @@
 <c:if test="${facebook==''}">
 	<c:set var="facebook" value="${null}" scope="request"/>
 </c:if>
-
 <foursquarebrands:html>
 	<c:set var="title" value="${user.name}" scope="request"/>
 	<foursquarebrands:head>

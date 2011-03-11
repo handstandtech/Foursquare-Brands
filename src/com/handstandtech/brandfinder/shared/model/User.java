@@ -7,8 +7,10 @@ import javax.persistence.Embedded;
 import javax.persistence.Id;
 import javax.persistence.PrePersist;
 
+import com.googlecode.objectify.annotation.Cached;
 import com.handstandtech.foursquare.shared.model.v2.FoursquareUser;
 
+@Cached
 public class User implements Serializable {
 
 	/**
@@ -18,17 +20,14 @@ public class User implements Serializable {
 
 	@Id
 	private String id;
-
-	// @Embedded
-	// private Subscription subscription = new Subscription();
-
+	
 	@Embedded
 	private FoursquareUser foursquareUser;
 
 	private Date lastLogin;
 
 	/**
-	 * Since 02/26/2011
+	 * Since 2011.02.26
 	 */
 	private Date firstLogin;
 
@@ -45,14 +44,6 @@ public class User implements Serializable {
 			firstLogin = now;
 		}
 	}
-
-	// public void setSubscription(Subscription subscription) {
-	// this.subscription = subscription;
-	// }
-	//
-	// public Subscription getSubscription() {
-	// return subscription;
-	// }
 
 	public void setToken(String token) {
 		this.token = token;
@@ -92,36 +83,6 @@ public class User implements Serializable {
 
 	public Date getFirstLogin() {
 		return firstLogin;
-	}
-
-	public static class Subscription implements Serializable {
-
-		/**
-		 * Default Serialization UID
-		 */
-		private static final long serialVersionUID = 1L;
-
-		public enum SubscriptionStatus {
-			NONE, ACTIVE;
-		}
-
-		public enum Type {
-			MONTHLY, YEARLY;
-		}
-
-		private SubscriptionStatus status = SubscriptionStatus.NONE;
-
-		public Subscription() {
-
-		}
-
-		public void setStatus(SubscriptionStatus status) {
-			this.status = status;
-		}
-
-		public SubscriptionStatus getStatus() {
-			return status;
-		}
 	}
 
 }

@@ -15,6 +15,8 @@ import oauth.signpost.OAuthConsumer;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import au.com.bytecode.opencsv.CSVReader;
 
@@ -22,14 +24,17 @@ import com.google.gson.Gson;
 import com.handstandtech.foursquare.server.oauth.OAuthAuthenticator;
 import com.handstandtech.foursquare.shared.model.v2.FoursquareUser;
 import com.handstandtech.foursquare.shared.model.v2.FoursquareUser.Contact;
+import com.handstandtech.foursquare.shared.model.v2.FoursquareUser.Followers;
 import com.handstandtech.foursquare.shared.model.v2.FoursquareUser.Friends;
 import com.handstandtech.foursquare.shared.model.v2.FoursquareUser.Mayorships;
 import com.handstandtech.foursquare.shared.model.v2.FoursquareUser.Todos;
-import com.handstandtech.server.rest.RESTClientImpl;
+import com.handstandtech.server.rest.impl.RESTClientJavaNetImpl;
 import com.handstandtech.shared.model.rest.RESTResult;
 import com.handstandtech.shared.model.rest.RequestMethod;
 
 public class ParseCSV {
+	
+	private static final Logger log = LoggerFactory.getLogger(ParseCSV.class);
 
 	public ParseCSV() {
 
@@ -39,7 +44,7 @@ public class ParseCSV {
 	// ParseCSV parser = new ParseCSV();
 	// List<FoursquareUser> users =
 	// parser.parseBrandsCSV("/Users/ssaammee/Documents/eclipseworkspaces/handstandtechnologies/brandfinder/war/WEB-INF/backup/Brands.csv");
-	// System.out.println("users: " + users);
+	// log.info("users: " + users);
 	//
 	// // BasicAuthenticator auth = new BasicAuthenticator("ssaammee@gmail.com",
 	// "wakefield");
@@ -59,9 +64,9 @@ public class ParseCSV {
 	// // List<FoursquareUser> unfollowed = parser.getUnfollowed(followed,
 	// // brands);
 	// //
-	// // System.out.println("brands: " + brands.size());
-	// // System.out.println("followed: " + followed.size());
-	// // System.out.println("unfollowed: " + unfollowed.size());
+	// // log.info("brands: " + brands.size());
+	// // log.info("followed: " + followed.size());
+	// // log.info("unfollowed: " + unfollowed.size());
 	//
 	//
 	// }
@@ -81,24 +86,26 @@ public class ParseCSV {
 		while (line != null) {
 			// todos.count,photo,firstName,lastUpdate,lastName,contact.facebook,contact.phone,homeCity,type,friends.count
 			// ,key,gender,mayorships.count,contact.email,contact.twitter
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 			FoursquareUser user = new FoursquareUser();
 
-			Long todosCount = Long.parseLong(line[0]);
-			String photo = line[1];
-			String firstName = line[2];
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-			Date lastUpdate = sdf.parse(line[3]);
-			String lastName = line[4];
-			String contactFacebook = line[5];
-			String contactPhone = line[6];
-			String homeCity = line[7];
-			String type = line[8];
-			Long friendsCount = Long.parseLong(line[9]);
-			String key = line[10];
-			String gender = line[11];
-			Long mayorshipsCount = Long.parseLong(line[12]);
-			String contactEmail = line[13];
-			String contactTwitter = line[14];
+			int i=0;
+			Long todosCount = Long.parseLong(line[i++]);
+			String photo = line[i++];
+			String firstName = line[i++];
+			Long followersCount = Long.parseLong(line[i++]);
+			String lastName = line[i++];
+			Date lastUpdate = sdf.parse(line[i++]);
+			String contactFacebook = line[i++];
+			String contactPhone = line[i++];
+			String homeCity = line[i++];
+			String type = line[i++];
+			Long friendsCount = Long.parseLong(line[i++]);
+			String key = line[i++];
+			String gender = line[i++];
+			Long mayorshipsCount = Long.parseLong(line[i++]);
+			String contactEmail = line[i++];
+			String contactTwitter = line[i++];
 
 			Todos todos = new Todos();
 			todos.setCount(todosCount);
@@ -118,6 +125,10 @@ public class ParseCSV {
 			Friends friends = new Friends();
 			friends.setCount(friendsCount);
 			user.setFriends(friends);
+			
+			Followers followers = new Followers();
+			followers.setCount(followersCount);
+			user.setFollowers(followers);
 
 			Contact contact = new Contact();
 			contact.setFacebook(contactFacebook);
@@ -170,7 +181,7 @@ public class ParseCSV {
 		List<FoursquareUser> users = new ArrayList<FoursquareUser>();
 
 		if (consumer != null) {
-			RESTClientImpl client = new RESTClientImpl();
+			RESTClientJavaNetImpl client = new RESTClientJavaNetImpl();
 
 			OAuthAuthenticator auth = new OAuthAuthenticator(consumer);
 			RESTResult result = client.requestWithBody(RequestMethod.GET,
@@ -195,7 +206,7 @@ public class ParseCSV {
 				e.printStackTrace();
 			}
 		} else {
-			System.out.println("Consumer was NULL");
+			log.info("Consumer was NULL");
 		}
 
 		return users;
@@ -236,7 +247,7 @@ public class ParseCSV {
 	// String[] line = reader.readNext();
 	// while (line != null) {
 	// String uid = line[0];
-	// // System.out.println(uid);
+	// // log.info(uid);
 	// RESTResult result = findFriendByName(uid);
 	// line = reader.readNext();
 	// }
@@ -255,7 +266,7 @@ public class ParseCSV {
 //		RESTResult result = client.requestWithBody(RequestMethod.GET,
 //				urlString, auth, null);
 //
-//		System.out.println(result.toString());
+//		log.info(result.toString());
 //
 //		System.out.print("\n");
 //		return result;

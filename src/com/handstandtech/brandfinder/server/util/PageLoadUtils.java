@@ -9,12 +9,17 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.handstandtech.brandfinder.server.DAO;
 import com.handstandtech.brandfinder.server.ParseCSV;
 import com.handstandtech.brandfinder.shared.model.BrandDiscovered;
 import com.handstandtech.foursquare.shared.model.v2.FoursquareUser;
 
 public class PageLoadUtils {
+	
+	private static Logger log = LoggerFactory.getLogger(PageLoadUtils.class);
 
 	public static Collection<String> getFollowing(
 			Collection<FoursquareUser> friends,
@@ -49,7 +54,7 @@ public class PageLoadUtils {
 		DAO dao = new DAO();
 		ParseCSV parser = new ParseCSV();
 		String path = session.getServletContext().getRealPath(
-				"WEB-INF/backup/Brands.csv");
+				"WEB-INF/backup/FoursquareUser.csv");
 		List<FoursquareUser> initList = null;
 		try {
 			initList = parser.parseBrandsCSV(path);
@@ -57,8 +62,7 @@ public class PageLoadUtils {
 				dao.updateFoursquareUser(initBrand);
 			}
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 		}
 	}
 

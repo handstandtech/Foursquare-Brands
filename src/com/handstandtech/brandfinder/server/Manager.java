@@ -6,11 +6,12 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.googlecode.objectify.Key;
 import com.handstandtech.brandfinder.server.twitter.FoursquareBrandsTwitter;
@@ -22,7 +23,7 @@ import com.handstandtech.foursquare.shared.model.v2.FoursquareUser;
 
 public class Manager {
 
-	private static Logger log = Logger.getLogger(Manager.class.getName());
+	private static Logger log = LoggerFactory.getLogger(Manager.class);
 
 	public static Map<String, FoursquareUser> getBrandMap(HttpSession session) {
 		DAO dao = new DAO();
@@ -30,7 +31,7 @@ public class Manager {
 
 		// [INITIALIZATION CASE] -If there are currently no brands
 		if (brands.size() == 0) {
-			System.out.println("Currently... Do Nothing");
+			log.warn("Initialization Case, getting brands from CSV file.");
 			PageLoadUtils.initializeBrandListFromCSVFile(session);
 
 			// re-retreive brands from the database
@@ -46,7 +47,7 @@ public class Manager {
 
 		// [INITIALIZATION CASE] -If there are currently no brands
 		if (users.size() == 0) {
-			System.out.println("Currently... Do Nothing");
+			log.warn("Initialization Case, getting brands from CSV file.");
 			PageLoadUtils.initializeBrandListFromCSVFile(session);
 
 			// re-retreive brands from the database
@@ -67,23 +68,29 @@ public class Manager {
 
 	public static Collection<FoursquareUser> getCurrentUsersFriends(
 			User currentUser) {
-		FoursquareHelper helper = new FoursquareHelper(currentUser.getToken());
 		Collection<FoursquareUser> friends = new HashSet<FoursquareUser>();
-		Boolean keepGoing = true;
-		Integer offset = 0;
-		String userId = "self";
-		List<FoursquareUser> friendResponseList = helper.getFriends(userId,
-				offset);
-		while (keepGoing) {
-			System.out.println("Adding: " + friendResponseList.size());
-			friends.addAll(friendResponseList);
-			if (friendResponseList.size() >= 500) {
-				keepGoing = true;
-				offset = offset + 500;
-				friendResponseList = helper.getFriends(userId, offset);
-			} else {
-				keepGoing = false;
+
+		if (currentUser != null) {
+			FoursquareHelper helper = new FoursquareHelper(
+					currentUser.getToken());
+			Boolean keepGoing = true;
+			Integer offset = 0;
+			String userId = "self";
+			List<FoursquareUser> friendResponseList = helper.getFriends(userId,
+					offset);
+			while (keepGoing) {
+				log.info("Adding More Friends: " + friendResponseList.size());
+				friends.addAll(friendResponseList);
+				if (friendResponseList.size() >= 500) {
+					keepGoing = true;
+					offset = offset + 500;
+					friendResponseList = helper.getFriends(userId, offset);
+				} else {
+					keepGoing = false;
+				}
 			}
+		} else {
+			log.error("User is NULL");
 		}
 		return friends;
 	}
@@ -110,8 +117,8 @@ public class Manager {
 				// Lets make sure we are following them
 				String relationship = friend.getRelationship();
 				if (relationship.equals("followingThem")) {
-					log.log(Level.INFO, "New User We're Following: " + friendId
-							+ " -> " + friend.getName());
+					log.info("New User We're Following: " + friendId + " -> "
+							+ friend.getName());
 					newUsersFound.add(friendId);
 				}
 			}
@@ -124,8 +131,7 @@ public class Manager {
 		Collection<FoursquareUser> newUsersOfType = new ArrayList<FoursquareUser>();
 		for (FoursquareUser user : newUsers) {
 			// Go Through the new Users
-			log.log(Level.INFO,
-					"Adding NEW USER to Database: " + user.getName());
+			log.info("Adding NEW USER to Database: " + user.getName());
 			dao.updateFoursquareUser(user);
 
 			// Add Analytic about Discovered Brand
@@ -143,16 +149,16 @@ public class Manager {
 			Collection<FoursquareUser> friends,
 			Map<String, FoursquareUser> allBrandsOrCelebsMap,
 			HttpServletRequest request) {
-		
+
 		HashSet<String> followingIds = new HashSet<String>();
-		for(FoursquareUser f : friends){
+		for (FoursquareUser f : friends) {
 			followingIds.add(f.getId());
 		}
-		
+
 		Collection<String> followed = new HashSet<String>();
 		Collection<String> notFollowed = new HashSet<String>();
 
-		//Having trouble seeing who is currently followed!
+		// Having trouble seeing who is currently followed!
 		for (String userKey : allBrandsOrCelebsMap.keySet()) {
 			boolean isFollowed = followingIds.contains(userKey);
 

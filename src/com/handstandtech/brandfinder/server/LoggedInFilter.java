@@ -16,8 +16,10 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 
+import com.google.appengine.api.utils.SystemProperty;
 import com.handstandtech.brandfinder.server.util.SessionHelper;
 import com.handstandtech.brandfinder.shared.model.User;
+import com.handstandtech.server.SessionConstants;
 
 public class LoggedInFilter implements Filter {
 
@@ -25,6 +27,19 @@ public class LoggedInFilter implements Filter {
 
 	private FilterConfig config;
 	private ArrayList<String> secureLocations;
+
+	private static HashSet<String> nonBookmarkableUris = new HashSet<String>();
+
+	static {
+		nonBookmarkableUris.add("/foursquare/callback");
+		nonBookmarkableUris.add("/login");
+		nonBookmarkableUris.add("/logout");
+		nonBookmarkableUris.add("/follow");
+		nonBookmarkableUris.add("/unfollow");
+		nonBookmarkableUris.add("/action");
+		nonBookmarkableUris.add("/manage");
+		nonBookmarkableUris.add("/foursquare");
+	}
 
 	/** Creates new SessionFilter */
 	public LoggedInFilter() {
@@ -40,48 +55,76 @@ public class LoggedInFilter implements Filter {
 
 	public void doFilter(ServletRequest req, ServletResponse resp,
 			FilterChain chain) throws java.io.IOException, ServletException {
-		// Start Logged In Filter
 		HttpServletRequest request = (HttpServletRequest) req;
 		HttpServletResponse response = (HttpServletResponse) resp;
-		String requestUri = request.getRequestURI();
-		String requestUrl = request.getRequestURL().toString();
 		HttpSession session = request.getSession();
-
-		HashSet<String> uris = new HashSet<String>();
-		uris.add("/foursquare/callback");
-		uris.add("/login");
-		uris.add("/logout");
-		if (!uris.contains(requestUri)) {
-			SessionHelper.setContinueUrl(session, requestUri);
-		}
-
-		log.debug("Request URL: " + requestUrl);
-		log.debug("Request URI: " + requestUri);
-
+		String requestUri = request.getRequestURI();
 		User currentUser = SessionHelper.getCurrentUser(session);
 
-		boolean loggedIn = false;
 		if (currentUser != null) {
-			loggedIn = true;
+			log.info("Current User is "
+					+ currentUser.getFoursquareUser().getName() + " ["
+					+ currentUser.getId() + "]");
+		} else {
+			log.info("No Current User");
 		}
-		request.setAttribute("loggedIn", loggedIn);
 
-		boolean isSecure = false;
-		for (String exception : secureLocations) {
-			if (requestUri.startsWith(exception)) {
-				log.debug("The Secure URI -- " + requestUri + " -- matches -- "
-						+ exception);
-				isSecure = true;
+		if (requestUri.startsWith("/assets/js")) {
+			log.info("[JavaScript ASSET] " + requestUri);
+		} else if (requestUri.startsWith("/assets/css")) {
+			log.info("[CSS ASSET] " + requestUri);
+		} else if (requestUri.startsWith("/assets/images")) {
+			log.info("[Image ASSET] " + requestUri);
+		} else if (requestUri.startsWith("/appstats")) {
+			log.info("[APPSTATS] " + requestUri);
+		} else {
+			log.info("[URI] " + requestUri);
+			storeRequestUri(request, requestUri);
+			isProduction(request, response, session);
+
+			String continueUrl = SessionHelper.getContinueUrl(session);
+
+			if (isURISecure(requestUri)) {
+				log.info("This is a secure URI");
+				if (currentUser == null) {
+					log.info("No Current User, sending the to the homepage.");
+					response.sendRedirect("/");
+				}
+			}
+
+			if (!nonBookmarkableUris.contains(requestUri)) {
+				log.info("URI was bookmarked.");
+				SessionHelper.setContinueUrl(session, requestUri);
+			} else {
+				log.info("URI cannot be bookmarked.");
 			}
 		}
 
-		if (isSecure && !loggedIn) {
-			response.sendRedirect("/login");
-		}
-
-		log.debug(requestUri + " - is secure? " + isSecure);
-
 		chain.doFilter(req, resp);
+	}
+
+	private boolean isURISecure(String requestUri) {
+		boolean isSecure = false;
+		for (String exception : secureLocations) {
+			if (requestUri.startsWith(exception)) {
+				log.info("This URI is Secure");
+				isSecure = true;
+			}
+		}
+		return isSecure;
+	}
+
+	private void storeRequestUri(HttpServletRequest request, String requestUri) {
+		// Set requestURI in request
+		request.setAttribute(SessionConstants.REQUEST_URI.toString(),
+				requestUri);
+	}
+
+	private void isProduction(HttpServletRequest request,
+			HttpServletResponse response, HttpSession session) {
+		if (SystemProperty.environment.value() == SystemProperty.Environment.Value.Production) {
+			request.setAttribute("production", true);
+		}
 	}
 
 	public void destroy() {
