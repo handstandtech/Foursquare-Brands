@@ -16,10 +16,10 @@
 	import="com.handstandtech.foursquare.shared.model.v2.FoursquareUser"%>
 <%@ page
 	import="com.handstandtech.foursquare.server.FoursquareConstants"%>
-<%@ page import="com.handstandtech.foursquare.server.FoursquareHelper"%>
 <%@ page import="com.handstandtech.brandfinder.shared.model.User"%>
 <%@ page import="com.handstandtech.brandfinder.server.ParseCSV"%>
 <%@ page import="com.handstandtech.brandfinder.server.DAO"%>
+<%@ page import="com.handstandtech.brandfinder.server.CachingDAOImpl"%>
 <%@ page import="com.google.appengine.api.datastore.Key"%>
 <%@ page import="java.util.List"%>
 <%@ page import="java.util.ArrayList"%>
@@ -32,7 +32,7 @@
 
 <%
 	Logger log = LoggerFactory.getLogger(this.getClass());
-	DAO dao = new DAO();
+	DAO dao = new CachingDAOImpl();
 
 	String limitString = request.getParameter("limit");
 

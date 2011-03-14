@@ -19,9 +19,10 @@ import com.google.appengine.api.taskqueue.QueueFactory;
 import com.google.appengine.api.taskqueue.TaskOptions;
 import com.google.appengine.api.taskqueue.TaskOptions.Method;
 import com.google.visualization.datasource.datatable.DataTable;
+import com.handstandtech.brandfinder.server.CachingDAOImpl;
 import com.handstandtech.brandfinder.server.DAO;
-import com.handstandtech.foursquare.server.FoursquareHelper;
 import com.handstandtech.foursquare.shared.model.v2.FoursquareUser;
+import com.handstandtech.foursquare.v2.impl.FoursquareAPIv2Impl;
 import com.handstandtech.server.rest.RESTUtil;
 
 /**
@@ -48,7 +49,7 @@ public class DailyCronServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
 		Date date = new Date();
-		DAO dao = new DAO();
+		DAO dao = new CachingDAOImpl();
 
 		List<FoursquareUser> users = new ArrayList<FoursquareUser>();
 		users.addAll(dao.getBrands());
@@ -63,7 +64,7 @@ public class DailyCronServlet extends HttpServlet {
 		List<String> URIs = new ArrayList<String>();
 		for (String id : allIds) {
 			String encodedBrandId = RESTUtil.encode(id);
-			URIs.add(FoursquareHelper.getUserURI(encodedBrandId));
+			URIs.add(FoursquareAPIv2Impl.getUserURI(encodedBrandId));
 			count++;
 			if (count == 5) {
 				queueTask(URIs, date);
@@ -82,7 +83,7 @@ public class DailyCronServlet extends HttpServlet {
 
 		Queue queue = QueueFactory.getDefaultQueue();
 		
-		String ids = FoursquareHelper.createCSVLine(uris);
+		String ids = FoursquareAPIv2Impl.createCSVLine(uris);
 
 		TaskOptions followerCountTask = TaskOptions.Builder.withDefaults();
 		followerCountTask.header("Brand Ids", ids);

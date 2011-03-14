@@ -256,6 +256,7 @@ div#content .user-info a.hovercard {
 		to(#EEEEEE) );
 }
 
+
 div#content .user-info a.hovercard:hover {
 	background: #FFF90F;
 	/*box-shadow: inset 0 0 10px #000000;*/
@@ -468,6 +469,17 @@ a.first-level {
 	margin-right:10px;
 }
 
+.leaderboard ul li.the-button {
+	float:right;
+	text-align:center;
+	width:120px;
+}
+
+
+.leaderboard ul li.follower-count h2 {
+	float:right;
+}
+
 .leaderboard ul li.photo img {
 	border:1px solid #333;
 } 
@@ -493,4 +505,40 @@ img.user-image {
 }
 
 .chart-div {
+}
+
+a.rounded-button {
+	text-decoration: none;
+}
+
+.rounded-button {
+	color: #000000;
+	font-weight:bold;
+	text-align: center;
+	padding: 5px 10px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	border: 1px solid black;
+	
+	/*CSS 3 Gradient from: http://gradients.glrzad.com/
+	Using Inputs: EEE CCC AAA*/
+	background: -moz-linear-gradient(bottom, #AAAAAA, #EEEEEE);
+	background: -webkit-gradient(linear, center bottom, center top, from(#AAAAAA),
+		to(#EEEEEE) );
+}
+
+.rounded-button:hover {
+	background: -moz-linear-gradient(bottom, #999999, #DDDDDD);
+	background: -webkit-gradient(linear, center bottom, center top, from(#999999),
+		to(#DDDDDD) );
+}
+
+.follow-button.following a{
+	background: #DC143C;
+}
+.follow-button.not-following a{
+	background: #7FFF00;
+}
+.follow-button a:hover {
+	border:5px solid black;
 }

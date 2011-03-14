@@ -8,6 +8,7 @@ import com.google.appengine.api.labs.taskqueue.Queue;
 import com.google.appengine.api.labs.taskqueue.QueueFactory;
 import com.google.appengine.api.labs.taskqueue.TaskOptions;
 import com.google.appengine.api.labs.taskqueue.TaskOptions.Method;
+import com.handstandtech.brandfinder.server.CachingDAOImpl;
 import com.handstandtech.brandfinder.server.DAO;
 import com.handstandtech.foursquare.shared.model.v2.FoursquareUser;
 import com.handstandtech.foursquare.shared.model.v2.FoursquareUser.Contact;
@@ -21,10 +22,10 @@ public class FoursquareBrandsTwitter {
 	public static void sendOutTweetOfNewBrands(String brandId)
 			throws UnsupportedEncodingException {
 
-		DAO dao = new DAO();
+		DAO dao = new CachingDAOImpl();
 
 		StringBuffer sb = new StringBuffer();
-		FoursquareUser brand = dao.getFoursquareUser(brandId);
+		FoursquareUser brand = dao.findFoursquareUser(brandId);
 		String type = brand.getType();
 		if (type.equals("brand")) {
 

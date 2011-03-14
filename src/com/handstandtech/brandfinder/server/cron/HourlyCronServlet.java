@@ -26,13 +26,16 @@ import com.google.appengine.api.taskqueue.QueueFactory;
 import com.google.appengine.api.taskqueue.TaskOptions;
 import com.google.appengine.api.taskqueue.TaskOptions.Method;
 import com.google.visualization.datasource.datatable.DataTable;
+import com.handstandtech.brandfinder.server.CachingDAOImpl;
 import com.handstandtech.brandfinder.server.DAO;
 import com.handstandtech.brandfinder.server.tasks.FollowerCountTaskServlet;
 import com.handstandtech.brandfinder.shared.model.BrandDiscovered;
 import com.handstandtech.brandfinder.shared.model.User;
 import com.handstandtech.brandfinder.shared.util.ModelUtils;
-import com.handstandtech.foursquare.server.FoursquareHelper;
 import com.handstandtech.foursquare.shared.model.v2.FoursquareUser;
+import com.handstandtech.foursquare.v2.FoursquareAPIv2;
+import com.handstandtech.foursquare.v2.exception.FoursquareNot200Exception;
+import com.handstandtech.foursquare.v2.impl.CachingFoursquareAPIv2Impl;
 
 /**
  * Hourly Cron Servlet
@@ -79,7 +82,7 @@ public class HourlyCronServlet extends HttpServlet {
 
 	private void findNewBrandsAndFollow(Date date)
 			throws UnsupportedEncodingException {
-		DAO dao = new DAO();
+		DAO dao = new CachingDAOImpl();
 
 		// See if there are any new brands in the last day
 		List<BrandDiscovered> brandsDiscovered = dao
@@ -87,13 +90,14 @@ public class HourlyCronServlet extends HttpServlet {
 		StringBuffer sb = new StringBuffer();
 		for (BrandDiscovered b : brandsDiscovered) {
 			String brandIdStr = b.getBrandId();
-			FoursquareUser brandFound = dao.getFoursquareUser(brandIdStr);
+			FoursquareUser brandFound = dao.findFoursquareUser(brandIdStr);
 			String discoveredByStr = b.getUserId();
 			User byUser = dao.findUser(discoveredByStr);
 
 			sb.append("<li>[<strong>" + brandFound.getType()
 					+ "</strong>] <a href='http://foursquare.com/user/"
-					+ brandIdStr + "'><h1>" + brandFound.getName() + "</h1></a>");
+					+ brandIdStr + "'><h1>" + brandFound.getName()
+					+ "</h1></a>");
 			sb.append("<br/>");
 			sb.append("Discovered By <a href='http://foursquare.com/user/"
 					+ discoveredByStr + "'>"
@@ -102,9 +106,13 @@ public class HourlyCronServlet extends HttpServlet {
 
 			// If a brand, follow it.
 			if (brandFound.getType().equals("brand")) {
-				FoursquareHelper handstandTechHelper = new FoursquareHelper(
+				FoursquareAPIv2 handstandTechHelper = new CachingFoursquareAPIv2Impl(
 						FollowerCountTaskServlet.OAUTH_TOKEN_FOURSQUAREBRANDS);
-				handstandTechHelper.friendRequest(brandIdStr);
+				try {
+					handstandTechHelper.friendRequest(brandIdStr);
+				} catch (FoursquareNot200Exception e) {
+					log.error(e.getMessage(), e);
+				}
 			}
 		}
 
@@ -119,7 +127,7 @@ public class HourlyCronServlet extends HttpServlet {
 
 				List<String> adminEmails = new ArrayList<String>();
 				adminEmails.add("sam@handstandtech.com");
-//				adminEmails.add("kristen.sheriff@gmail.com");
+				// adminEmails.add("kristen.sheriff@gmail.com");
 				for (String adminEmail : adminEmails) {
 					msg.addRecipient(Message.RecipientType.TO,
 							new InternetAddress(adminEmail,

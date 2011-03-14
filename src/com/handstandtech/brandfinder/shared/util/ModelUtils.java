@@ -1,12 +1,12 @@
 package com.handstandtech.brandfinder.shared.util;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import com.handstandtech.foursquare.shared.model.v2.FoursquareUser;
-import java.text.SimpleDateFormat;
 
 public class ModelUtils {
 

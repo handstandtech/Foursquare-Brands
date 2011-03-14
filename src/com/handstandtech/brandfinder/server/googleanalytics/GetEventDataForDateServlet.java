@@ -20,6 +20,7 @@ import org.slf4j.LoggerFactory;
 import au.com.bytecode.opencsv.CSVWriter;
 
 import com.google.visualization.datasource.datatable.DataTable;
+import com.handstandtech.brandfinder.server.CachingDAOImpl;
 import com.handstandtech.brandfinder.server.DAO;
 import com.handstandtech.brandfinder.shared.model.DailyFollowEventCount;
 import com.handstandtech.brandfinder.shared.util.ModelUtils;
@@ -49,7 +50,7 @@ public class GetEventDataForDateServlet extends HttpServlet {
 
 			Date date = dateFormat.parse(dateString);
 
-			DAO dao = new DAO();
+			DAO dao = new CachingDAOImpl();
 
 			ReportRunner runner = new ReportRunner();
 			List<SingleEventSummaryAnalyticsResult> analytics = runner
@@ -91,7 +92,7 @@ public class GetEventDataForDateServlet extends HttpServlet {
 
 			Collection<DailyFollowEventCount> dailyCounts = dailyCountMap
 					.values();
-			dao.updateCollection(dailyCounts);
+			dao.updateDailyFollowEventCounts(dailyCounts);
 			// Write the Results to the Output
 			response.getWriter().println(writeCSV(dailyCounts));
 

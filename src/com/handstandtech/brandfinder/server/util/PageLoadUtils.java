@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.handstandtech.brandfinder.server.CachingDAOImpl;
 import com.handstandtech.brandfinder.server.DAO;
 import com.handstandtech.brandfinder.server.ParseCSV;
 import com.handstandtech.brandfinder.shared.model.BrandDiscovered;
@@ -51,7 +52,7 @@ public class PageLoadUtils {
 	 * @param session
 	 */
 	public static void initializeBrandListFromCSVFile(HttpSession session) {
-		DAO dao = new DAO();
+		DAO dao = new CachingDAOImpl();
 		ParseCSV parser = new ParseCSV();
 		String path = session.getServletContext().getRealPath(
 				"WEB-INF/backup/FoursquareUser.csv");

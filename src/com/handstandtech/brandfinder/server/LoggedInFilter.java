@@ -1,7 +1,5 @@
 package com.handstandtech.brandfinder.server;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
 
 import javax.servlet.Filter;
@@ -27,19 +25,15 @@ public class LoggedInFilter implements Filter {
 	private static Logger log = LoggerFactory.getLogger(LoggedInFilter.class);
 
 	private FilterConfig config;
-	private ArrayList<String> secureLocations;
+	private static HashSet<String> secureLocations = new HashSet<String>();
 
-	private static HashSet<String> nonBookmarkableUris = new HashSet<String>();
+	private static HashSet<String> bookmarkableUris = new HashSet<String>();
 
 	static {
-		nonBookmarkableUris.add("/foursquare/callback");
-		nonBookmarkableUris.add("/login");
-		nonBookmarkableUris.add("/logout");
-		nonBookmarkableUris.add("/follow");
-		nonBookmarkableUris.add("/unfollow");
-		nonBookmarkableUris.add("/action");
-		nonBookmarkableUris.add("/manage");
-		nonBookmarkableUris.add("/foursquare");
+		bookmarkableUris.add("/celebs");
+		bookmarkableUris.add("/brands");
+
+		secureLocations.add("/manage");
 	}
 
 	/** Creates new SessionFilter */
@@ -49,9 +43,11 @@ public class LoggedInFilter implements Filter {
 	public void init(FilterConfig filterConfig) throws ServletException {
 		log.debug("Instance created of " + getClass().getName());
 		this.config = filterConfig;
-		String exceptionsString = config.getInitParameter("secure-locations");
-		String exceptionsArray[] = exceptionsString.split(",");
-		secureLocations = new ArrayList<String>(Arrays.asList(exceptionsArray));
+		// String exceptionsString =
+		// config.getInitParameter("secure-locations");
+		// String exceptionsArray[] = exceptionsString.split(",");
+		// secureLocations = new
+		// ArrayList<String>(Arrays.asList(exceptionsArray));
 	}
 
 	public void doFilter(ServletRequest req, ServletResponse resp,
@@ -61,6 +57,7 @@ public class LoggedInFilter implements Filter {
 		HttpSession session = request.getSession();
 		String requestUri = request.getRequestURI();
 		User currentUser = SessionHelper.getCurrentUser(session);
+		log.info("[CHAIN] " + chain.toString());
 
 		if (currentUser != null) {
 			log.info("Current User is "
@@ -83,25 +80,35 @@ public class LoggedInFilter implements Filter {
 			storeRequestUri(request, requestUri);
 			isProduction(request, response, session);
 
-			String continueUrl = SessionHelper.getContinueUrl(session);
-
 			if (isURISecure(requestUri)) {
-				log.info("This is a secure URI");
 				if (currentUser == null) {
-					log.info("No Current User, sending the to the homepage.");
+					log.warn("No Current User, sending the to the homepage.");
 					response.sendRedirect("/");
+					return;
 				}
 			}
 
-			if (!nonBookmarkableUris.contains(requestUri)) {
-				log.info("URI was bookmarked.");
+			if (isBookmarkableURI(requestUri)) {
+				log.info("URI was bookmarked. = " + requestUri);
 				SessionHelper.setContinueUrl(session, requestUri);
-			} else {
-				log.info("URI cannot be bookmarked.");
 			}
 		}
 
 		chain.doFilter(req, resp);
+	}
+
+	private boolean isBookmarkableURI(String requestUri) {
+		boolean isBookmarkable = false;
+		if (requestUri.equals("/")) {
+			isBookmarkable = true;
+		} else {
+			for (String curr : bookmarkableUris) {
+				if (requestUri.startsWith(curr)) {
+					isBookmarkable = true;
+				}
+			}
+		}
+		return isBookmarkable;
 	}
 
 	private boolean isURISecure(String requestUri) {

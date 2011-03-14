@@ -18,8 +18,10 @@ import org.slf4j.LoggerFactory;
 import com.handstandtech.brandfinder.server.util.SessionHelper;
 import com.handstandtech.brandfinder.shared.model.User;
 import com.handstandtech.foursquare.server.FoursquareConstants;
-import com.handstandtech.foursquare.server.FoursquareHelper;
 import com.handstandtech.foursquare.shared.model.v2.FoursquareUser;
+import com.handstandtech.foursquare.v2.FoursquareAPIv2;
+import com.handstandtech.foursquare.v2.exception.FoursquareNot200Exception;
+import com.handstandtech.foursquare.v2.impl.CachingFoursquareAPIv2Impl;
 import com.handstandtech.server.rest.RESTClient;
 import com.handstandtech.server.rest.RESTUtil;
 import com.handstandtech.server.rest.impl.RESTClientAppEngineURLFetchImpl;
@@ -73,16 +75,22 @@ public class FoursquareCallback extends HttpServlet {
 
 			log.info("access_token -> " + accessToken);
 
-			FoursquareHelper helper = new FoursquareHelper(accessToken);
-			FoursquareUser foursquareUser = helper.getUserInfo("self");
-			DAO dao = new DAO();
+			FoursquareAPIv2 helper = new CachingFoursquareAPIv2Impl(accessToken);
+			FoursquareUser foursquareUser = null;
+			try {
+				foursquareUser = helper.getUserInfo("self");
+				DAO dao = new CachingDAOImpl();
 
-			User user = new User();
-			user.setToken(accessToken);
-			user.setId(foursquareUser.getId());
-			user.setFoursquareUser(foursquareUser);
-			dao.updateUser(user);
-			SessionHelper.setCurrentUser(session, user);
+				User user = new User();
+				user.setToken(accessToken);
+				user.setId(foursquareUser.getId());
+				user.setFoursquareUser(foursquareUser);
+				dao.updateUser(user);
+				SessionHelper.setCurrentUser(session, user);
+			} catch (FoursquareNot200Exception e) {
+				log.error(e.getMessage(), e);
+			}
+
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

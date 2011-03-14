@@ -42,6 +42,11 @@
 			<location>/Users/ssaammee/dev/git/Handstand-Tech-Libs/src/googleanalytics</location>
 		</link>
 		<link>
+			<name>memcache</name>
+			<type>2</type>
+			<location>/Users/ssaammee/dev/git/Handstand-Tech-Libs/src/memcache</location>
+		</link>
+		<link>
 			<name>restclient</name>
 			<type>2</type>
 			<location>/Users/ssaammee/dev/git/Handstand-Tech-Libs/src/restclient</location>

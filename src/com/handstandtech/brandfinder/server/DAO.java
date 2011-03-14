@@ -2,157 +2,68 @@ package com.handstandtech.brandfinder.server;
 
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.googlecode.objectify.Key;
-import com.googlecode.objectify.ObjectifyService;
-import com.googlecode.objectify.Query;
-import com.googlecode.objectify.helper.DAOBase;
 import com.handstandtech.brandfinder.shared.model.BrandDiscovered;
 import com.handstandtech.brandfinder.shared.model.DailyFollowEventCount;
 import com.handstandtech.brandfinder.shared.model.DailyFollowerCount;
 import com.handstandtech.brandfinder.shared.model.User;
 import com.handstandtech.foursquare.shared.model.v2.FoursquareUser;
 
-public class DAO extends DAOBase {
-	
-	private static Logger log = LoggerFactory.getLogger(DAO.class);
-	
-	static {
-		ObjectifyService.register(FoursquareUser.class);
-		ObjectifyService.register(DailyFollowEventCount.class);
-		ObjectifyService.register(DailyFollowerCount.class);
-		ObjectifyService.register(BrandDiscovered.class);
-		ObjectifyService.register(User.class);
-	}
+public interface DAO {
 
 	/** Your DAO can have your own useful methods */
-	public FoursquareUser getFoursquareUser(String id) {
-		return ofy().find(FoursquareUser.class, id);
-	}
+	public abstract FoursquareUser findFoursquareUser(String id);
 
-	public Key<FoursquareUser> updateFoursquareUser(FoursquareUser user) {
-		return ofy().put(user);
-	}
+	public abstract Key<FoursquareUser> updateFoursquareUser(FoursquareUser user);
 
-	public List<User> getRecentlyActiveUsers(Integer limit) {
-		Query<User> usersQuery = ofy().query(User.class).order("-lastLogin");
-		if(limit!=null){
-			usersQuery.limit(limit);
-		}
-		return usersQuery.list();
-	}
+	public abstract List<User> getRecentlyActiveUsers(Integer limit);
 
-	public List<FoursquareUser> getBrands() {
-		Query<FoursquareUser> brandQuery = createBrandQuery();
-		return brandQuery.list();
-	}
+	public abstract List<FoursquareUser> getBrands();
 
-	public Query<FoursquareUser> createBrandQuery() {
-		return ofy().query(FoursquareUser.class).filter("type", "brand");
-	}
+	public abstract Integer getBrandCount();
 
-	public Query<FoursquareUser> createCelebQuery() {
-		return ofy().query(FoursquareUser.class).filter("type", "celebrity");
-	}
+	public abstract Integer getCelebCount();
 
-	public void orderByFollowerCount(Query<FoursquareUser> query) {
-		query.order("-followers.count");
-	}
+	public abstract List<FoursquareUser> getCelebrities();
 
-	public void addLimitAndOffset(Query query, Integer limit, Integer offset) {
+	public abstract List<FoursquareUser> getCelebrities(Integer offset,
+			Integer limit);
 
-		if (offset != null) {
-			query.offset(offset);
-		}
+	public abstract List<FoursquareUser> getBrands(Integer offset, Integer limit);
 
-		if (limit != null) {
-			query.limit(limit);
-		}
-	}
+	public abstract List<FoursquareUser> getAllFoursquareUserObjects();
 
-	public List<FoursquareUser> getCelebrities() {
-		Query<FoursquareUser> celebQuery = createCelebQuery();
-		return celebQuery.list();
-	}
+	public abstract List<DailyFollowEventCount> getDailyFollowEventsForBrand(
+			String foursquareId, Date start, Date stop);
 
-	public List<FoursquareUser> getAllFoursquareUserObjects() {
-		return ofy().query(FoursquareUser.class).list();
-	}
+	public abstract List<DailyFollowerCount> getDailyFollowCountsForBrand(
+			String foursquareId, Date start, Date stop);
 
-	public void deleteFoursquareUser(FoursquareUser user) {
-		ofy().delete(user);
-	}
+	public abstract List<DailyFollowEventCount> getAllDailyFollowEventCount();
 
-	public List<DailyFollowEventCount> getDailyFollowEventsForBrand(
-			String foursquareId, Date start, Date stop) {
-		Query<DailyFollowEventCount> query = ofy().query(
-				DailyFollowEventCount.class);
-		query.filter("foursquareId", foursquareId);
-		if (start != null) {
-			query.filter("date >=", start);
-		}
+	public abstract void updateDailyFollowerCount(DailyFollowerCount item);
 
-		if (stop != null) {
-			query.filter("date <=", stop);
-		}
-		return query.list();
+	public abstract Key<BrandDiscovered> updateBrandDiscovered(BrandDiscovered item);
 
-	}
+	public abstract List<BrandDiscovered> getBrandDiscoveredSince(Date since);
 
-	public List<DailyFollowerCount> getDailyFollowCountsForBrand(
-			String foursquareId, Date start, Date stop) {
-		Query<DailyFollowerCount> query = ofy().query(DailyFollowerCount.class);
-		query.filter("foursquareId", foursquareId);
-		if (start != null) {
-			query.filter("date >=", start);
-		}
+	public abstract Key<User> updateUser(User user);
 
-		if (stop != null) {
-			query.filter("date <=", stop);
-		}
-		return query.list();
+	public abstract User findUser(String id);
 
-	}
+	public abstract HashSet<String> getCelebIds();
 
-	public void updateCollection(Collection<?> collection) {
-		ofy().put(collection);
-	}
+	public abstract HashSet<String> getBrandIds();
 
-	public void deleteCollection(Collection<?> collection) {
-		ofy().delete(collection);
-	}
+	public abstract void updateDailyFollowEventCounts(
+			Collection<DailyFollowEventCount> dailyCounts);
 
-	public List<DailyFollowEventCount> getAllDailyFollowEventCount() {
-		return ofy().query(DailyFollowEventCount.class).list();
-	}
+	public abstract List<BrandDiscovered> getNewestBrands(Integer limit);
 
-	public void updateDailyFollowerCount(DailyFollowerCount item) {
-		ofy().put(item);
-	}
+	public abstract List<BrandDiscovered> getNewestCelebrities(Integer limit);
 
-	public void updateBrandDiscovered(BrandDiscovered item) {
-		ofy().put(item);
-	}
-
-	public List<BrandDiscovered> getBrandDiscoveredSince(Date since) {
-		Query<BrandDiscovered> query = ofy().query(BrandDiscovered.class);
-		if (since != null) {
-			query.filter("date >=", since);
-		}
-
-		return query.list();
-	}
-
-	public void updateUser(User user) {
-		ofy().put(user);
-	}
-
-	public User findUser(String id) {
-		return ofy().find(User.class, id);
-	}
-
+	public abstract List<FoursquareUser> getFoursquareUsersForIds(Collection<String> foursquareUserIds);
 }

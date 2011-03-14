@@ -6,15 +6,13 @@
       <title>Foursquare Brands - ${title}</title>
     </c:when>
     <c:otherwise>
-      <title>Foursquare Brands - Find and Manage The Brands You Follow on Foursquare.</title>
+      <title>Foursquare Brands - Find and Manage Foursquare Brands and Celebrities.</title>
     </c:otherwise>
   </c:choose>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
   <meta name="author" content="Handstand Technologies, LLC" />
   <meta name="copyright" content="&copy; 2010 Handstand Technologies, LLC" />
   <meta name="robots" content="all" />
-  <meta name="Description" content="Find and Manage The Brands You Follow on Foursquare." />
-  <meta name="Keywords" content="Foursquare, Brands, Finder, Brand" />
   
   <!-- Facebook Properties --> 
   <meta property="fb:admins" content="169406172091"> 
@@ -38,6 +36,12 @@
       formatTimestamps();
     });
   </script>
+  
+	<link type="text/css" rel="stylesheet" href="/assets/js/fancybox/jquery.fancybox-1.3.4.css" />
+	<script type="text/javascript" src="/assets/js/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
+	<script type="text/javascript" src="/assets/js/foursquarebrands.js"></script>
+		
+  
   
   <!-- Style -->
   <link type="text/css" rel="stylesheet" href="/assets/css/style.css" />

@@ -3,20 +3,17 @@ package com.handstandtech.brandfinder.server.util;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import sun.net.util.URLUtil;
-
 import com.google.visualization.datasource.datatable.DataTable;
+import com.handstandtech.brandfinder.server.CachingDAOImpl;
 import com.handstandtech.brandfinder.server.DAO;
 import com.handstandtech.foursquare.shared.model.v2.FoursquareUser;
 
@@ -65,7 +62,7 @@ public class SitemapGeneratorServlet extends HttpServlet {
 		out.println("<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
 				+ "<urlset xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd\" xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">");
 
-		DAO dao = new DAO();
+		DAO dao = new CachingDAOImpl();
 
 		// Homepage
 		SiteUrl homepage = new SiteUrl(BASE_ADDRESS, "daily", 1.0, null);

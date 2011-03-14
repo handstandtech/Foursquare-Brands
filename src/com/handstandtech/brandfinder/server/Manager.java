@@ -18,15 +18,16 @@ import com.handstandtech.brandfinder.server.twitter.FoursquareBrandsTwitter;
 import com.handstandtech.brandfinder.server.util.PageLoadUtils;
 import com.handstandtech.brandfinder.shared.model.BrandDiscovered;
 import com.handstandtech.brandfinder.shared.model.User;
-import com.handstandtech.foursquare.server.FoursquareHelper;
 import com.handstandtech.foursquare.shared.model.v2.FoursquareUser;
+import com.handstandtech.foursquare.v2.FoursquareAPIv2;
+import com.handstandtech.foursquare.v2.impl.CachingFoursquareAPIv2Impl;
 
 public class Manager {
 
 	private static Logger log = LoggerFactory.getLogger(Manager.class);
 
 	public static Map<String, FoursquareUser> getBrandMap(HttpSession session) {
-		DAO dao = new DAO();
+		DAO dao = new CachingDAOImpl();
 		List<FoursquareUser> brands = dao.getBrands();
 
 		// [INITIALIZATION CASE] -If there are currently no brands
@@ -42,7 +43,7 @@ public class Manager {
 	}
 
 	public static Map<String, FoursquareUser> getCelebMap(HttpSession session) {
-		DAO dao = new DAO();
+		DAO dao = new CachingDAOImpl();
 		List<FoursquareUser> users = dao.getCelebrities();
 
 		// [INITIALIZATION CASE] -If there are currently no brands
@@ -58,7 +59,7 @@ public class Manager {
 	}
 
 	public static Map<String, FoursquareUser> createUserMap(
-			List<FoursquareUser> users) {
+			Collection<FoursquareUser> users) {
 		Map<String, FoursquareUser> userMap = new HashMap<String, FoursquareUser>();
 		for (FoursquareUser user : users) {
 			userMap.put(user.getId(), user);
@@ -69,26 +70,10 @@ public class Manager {
 	public static Collection<FoursquareUser> getCurrentUsersFriends(
 			User currentUser) {
 		Collection<FoursquareUser> friends = new HashSet<FoursquareUser>();
-
 		if (currentUser != null) {
-			FoursquareHelper helper = new FoursquareHelper(
+			FoursquareAPIv2 helper = new CachingFoursquareAPIv2Impl(
 					currentUser.getToken());
-			Boolean keepGoing = true;
-			Integer offset = 0;
-			String userId = "self";
-			List<FoursquareUser> friendResponseList = helper.getFriends(userId,
-					offset);
-			while (keepGoing) {
-				log.info("Adding More Friends: " + friendResponseList.size());
-				friends.addAll(friendResponseList);
-				if (friendResponseList.size() >= 500) {
-					keepGoing = true;
-					offset = offset + 500;
-					friendResponseList = helper.getFriends(userId, offset);
-				} else {
-					keepGoing = false;
-				}
-			}
+			friends=helper.getAllFriends();
 		} else {
 			log.error("User is NULL");
 		}
@@ -97,17 +82,11 @@ public class Manager {
 
 	public static Collection<FoursquareUser> findNewUsers(String userType,
 			User currentUser, Collection<FoursquareUser> friends) {
-		DAO dao = new DAO();
-
-		Collection<Key<FoursquareUser>> existingKeys = new HashSet<Key<FoursquareUser>>();
-		existingKeys.addAll(dao.createBrandQuery().listKeys());
-		existingKeys.addAll(dao.createCelebQuery().listKeys());
+		DAO dao = new CachingDAOImpl();
 
 		HashSet<String> ids = new HashSet<String>();
-		for (Key<FoursquareUser> key : existingKeys) {
-			String id = key.getName();
-			ids.add(id);
-		}
+		ids.addAll(dao.getCelebIds());
+		ids.addAll(dao.getBrandIds());
 
 		Collection<String> newUsersFound = new ArrayList<String>();
 		for (FoursquareUser friend : friends) {
@@ -124,7 +103,8 @@ public class Manager {
 			}
 		}
 
-		FoursquareHelper helper = new FoursquareHelper(currentUser.getToken());
+		FoursquareAPIv2 helper = new CachingFoursquareAPIv2Impl(
+				currentUser.getToken());
 		Collection<FoursquareUser> newUsers = helper
 				.getUserInfosForIds(newUsersFound);
 
@@ -137,6 +117,7 @@ public class Manager {
 			// Add Analytic about Discovered Brand
 			BrandDiscovered brandDiscovered = new BrandDiscovered();
 			brandDiscovered.setBrandId(user.getId());
+			brandDiscovered.setType(user.getType());
 			brandDiscovered.setUserId(currentUser.getId());
 			dao.updateBrandDiscovered(brandDiscovered);
 			FoursquareBrandsTwitter.queueTweet(user.getId());
@@ -172,28 +153,13 @@ public class Manager {
 			}
 		}
 
-		// List<BrandDiscovered> discoveredBrands = dao
-		// .getBrandDiscoveredSince(null);
-		// final Map<String, BrandDiscovered> discovered = PageLoadUtils
-		// .createMap(discoveredBrands);
-		//
-		// try {
-		// Collections.sort(followed,
-		// PageLoadUtils.getBrandCompare(discovered));
-		// Collections.sort(notFollowed,
-		// PageLoadUtils.getBrandCompare(discovered));
-		// } catch (Exception e) {
-		// // DO nothing...
-		// e.printStackTrace();
-		// }
-
 		request.setAttribute("followed", followed);
 		request.setAttribute("notFollowed", notFollowed);
 	}
 
 	public static Map<String, FoursquareUser> getAllUsersMap() {
 		Map<String, FoursquareUser> map = new HashMap<String, FoursquareUser>();
-		DAO dao = new DAO();
+		DAO dao = new CachingDAOImpl();
 		Collection<FoursquareUser> users = new ArrayList<FoursquareUser>();
 		users.addAll(dao.getBrands());
 		users.addAll(dao.getCelebrities());
@@ -202,4 +168,12 @@ public class Manager {
 		}
 		return map;
 	}
+	
+//	public static Map<String, BrandDiscovered> createBrandDiscoveredMap(List<BrandDiscovered> newOnes) {
+//		Map<String, BrandDiscovered> map = new HashMap<String, BrandDiscovered>();
+//		for (BrandDiscovered brandDiscovered : newOnes) {
+//			map.put(brandDiscovered.getBrandId(), brandDiscovered);
+//		}
+//		return map;
+//	}
 }

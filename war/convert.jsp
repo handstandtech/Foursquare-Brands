@@ -12,12 +12,11 @@
 <%@ page import="com.handstandtech.server.RequestConstants"%>
 <%@ page import="oauth.signpost.OAuthConsumer"%>
 <%@ page import="oauth.signpost.basic.DefaultOAuthConsumer"%>
-<%@ page import="com.handstandtech.foursquare.shared.model.v2.FoursquareUser"%>
 <%@ page import="com.handstandtech.foursquare.server.FoursquareConstants"%>
-<%@ page import="com.handstandtech.foursquare.server.FoursquareHelper"%>
 <%@ page import="com.handstandtech.brandfinder.server.tasks.FollowerCountTaskServlet"%>
 <%@ page import="com.handstandtech.brandfinder.server.ParseCSV"%>
 <%@ page import="com.handstandtech.brandfinder.server.DAO"%>
+<%@ page import="com.handstandtech.brandfinder.server.CachingDAOImpl"%>
 <%@ page import="com.handstandtech.brandfinder.server.util.PageLoadUtils"%>
 <%@ page import="com.handstandtech.brandfinder.server.util.SessionHelper"%>
 <%@ page import="com.handstandtech.brandfinder.shared.model.DailyFollowEventCount"%>
@@ -25,7 +24,7 @@
 <%@ page import="com.handstandtech.brandfinder.shared.model.BrandDiscovered"%>
 <%@ page import="com.google.appengine.api.datastore.Key"%>
 <%@ page import="com.handstandtech.shared.model.rest.RESTResult"%>
-<%@ page import="com.handstandtech.foursquare.server.FoursquareUtils"%>
+<%@ page import="com.handstandtech.foursquare.v2.util.FoursquareUtils"%>
 <%@ page import="java.util.List"%>
 <%@ page import="java.util.ArrayList"%>
 <%@ page import="java.util.Map"%>
@@ -37,6 +36,6 @@
 <%@ page import="java.io.BufferedReader"%>
 <%@ page import="java.io.InputStreamReader"%>
 <%
-	DAO dao = new DAO();
+	DAO dao = new CachingDAOImpl();
 %>
 DONE

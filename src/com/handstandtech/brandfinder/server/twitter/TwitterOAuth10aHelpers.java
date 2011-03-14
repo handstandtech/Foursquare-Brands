@@ -17,7 +17,7 @@ import oauth.signpost.exception.OAuthNotAuthorizedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.handstandtech.foursquare.server.oauth.OAuthAuthenticator;
+import com.handstandtech.foursquare.oauth.OAuthAuthenticator;
 import com.handstandtech.server.rest.RESTUtil;
 import com.handstandtech.server.rest.impl.RESTClientJavaNetImpl;
 import com.handstandtech.shared.model.rest.RESTResult;

@@ -21,7 +21,7 @@ import org.slf4j.LoggerFactory;
 import au.com.bytecode.opencsv.CSVReader;
 
 import com.google.gson.Gson;
-import com.handstandtech.foursquare.server.oauth.OAuthAuthenticator;
+import com.handstandtech.foursquare.oauth.OAuthAuthenticator;
 import com.handstandtech.foursquare.shared.model.v2.FoursquareUser;
 import com.handstandtech.foursquare.shared.model.v2.FoursquareUser.Contact;
 import com.handstandtech.foursquare.shared.model.v2.FoursquareUser.Followers;

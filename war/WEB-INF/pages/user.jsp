@@ -12,10 +12,10 @@
 <%@ page import="oauth.signpost.basic.DefaultOAuthConsumer"%>
 <%@ page import="com.handstandtech.foursquare.shared.model.v2.FoursquareUser"%>
 <%@ page import="com.handstandtech.foursquare.server.FoursquareConstants"%>
-<%@ page import="com.handstandtech.foursquare.server.FoursquareHelper"%>
 <%@ page import="com.handstandtech.brandfinder.server.tasks.FollowerCountTaskServlet"%>
 <%@ page import="com.handstandtech.brandfinder.server.ParseCSV"%>
 <%@ page import="com.handstandtech.brandfinder.server.DAO"%>
+<%@ page import="com.handstandtech.brandfinder.server.CachingDAOImpl"%>
 <%@ page import="com.handstandtech.brandfinder.server.util.PageLoadUtils"%>
 <%@ page import="com.handstandtech.brandfinder.server.util.SessionHelper"%>
 <%@ page import="com.handstandtech.brandfinder.shared.model.DailyFollowEventCount"%>
@@ -23,7 +23,7 @@
 <%@ page import="com.handstandtech.brandfinder.shared.util.ModelUtils"%>
 <%@ page import="com.google.appengine.api.datastore.Key"%>
 <%@ page import="com.handstandtech.shared.model.rest.RESTResult"%>
-<%@ page import="com.handstandtech.foursquare.server.FoursquareUtils"%>
+<%@ page import="com.handstandtech.foursquare.v2.util.FoursquareUtils"%>
 <%@ page import="java.util.List"%>
 <%@ page import="java.util.ArrayList"%>
 <%@ page import="java.util.Map"%>
@@ -34,11 +34,27 @@
 <%@ page import="java.util.Comparator"%>
 <%@ page import="java.io.InputStream"%>
 <%@ page import="java.io.BufferedReader"%>
+<%@ page import="java.util.Collection"%>
 <%@ page import="java.io.InputStreamReader"%>
+<%@ page import="org.slf4j.Logger"%>
+<%@ page import="org.slf4j.LoggerFactory"%>
+<%@ page import="com.handstandtech.brandfinder.shared.model.User"%>
+<%@ page import="com.handstandtech.brandfinder.server.Manager" %>
 <%
-	DAO dao = new DAO();
-
+	Logger log = LoggerFactory.getLogger(this.getClass());
+	DAO dao = new CachingDAOImpl();
 	String uri = request.getRequestURI();
+	User currentUser = SessionHelper.getCurrentUser(session);
+	
+	if(currentUser!=null){
+		log.info("Get The Current User's Friends");
+		Collection<FoursquareUser> friends = Manager.getCurrentUsersFriends(currentUser);
+		log.info(currentUser.getFoursquareUser().getName() + " has "+ friends.size() + " Friends Total.");
+		
+		Map<String, FoursquareUser> friendsMap = Manager.createUserMap(friends);
+		request.setAttribute("friendsMap", friendsMap);
+	}
+	
 	String[] tokens = uri.split("/");
 	
 	String userId = null;
@@ -48,7 +64,7 @@
 	}
 	
 	if(userId!=null){
-		FoursquareUser brand = dao.getFoursquareUser(userId);
+		FoursquareUser brand = dao.findFoursquareUser(userId);
 		request.setAttribute("user", brand);
 	}
 
@@ -149,8 +165,18 @@
 		        chart.draw(data, {displayAnnotations: true});
 		      }
 	    </script>
+	    
+	    <script type="text/javascript" src="/assets/js/basicfollow.js"></script>
 	</foursquarebrands:head>
 	<foursquarebrands:body>
+		<c:if test="${currentUser!=null}">
+			<div style="float:right;">
+				<foursquarebrands:followunfollowbutton/>
+			</div>
+			<br/>
+			<br/>
+		</c:if>
+		
 		<c:choose>
 			<c:when test="${user!=null}">
 				<div style="overflow:hidden;margin-bottom:10px;">

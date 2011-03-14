@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="memcache"/>
 	<classpathentry kind="src" path="googleanalytics"/>
 	<classpathentry kind="src" path="restclient"/>
 	<classpathentry kind="src" path="foursquare"/>
@@ -27,6 +28,5 @@
 	<classpathentry kind="lib" path="war/WEB-INF/lib/objectify-2.2.3.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/log4j-1.2.16.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/slf4j-api-1.6.1.jar"/>
-	<classpathentry kind="lib" path="war/WEB-INF/lib/slf4j-jdk14-1.6.1.jar"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>

@@ -24,6 +24,8 @@ public class BrandDiscovered implements Serializable {
 	private String userId;
 
 	private String brandId;
+	
+	private String type;
 
 	public BrandDiscovered() {
 	}
@@ -65,5 +67,13 @@ public class BrandDiscovered implements Serializable {
 
 	public void setBrandId(String brandId) {
 		this.brandId = brandId;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public String getType() {
+		return type;
 	}
 }

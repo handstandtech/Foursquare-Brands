@@ -14,12 +14,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.visualization.datasource.datatable.DataTable;
+import com.handstandtech.brandfinder.server.CachingDAOImpl;
 import com.handstandtech.brandfinder.server.DAO;
 import com.handstandtech.brandfinder.shared.model.DailyFollowerCount;
 import com.handstandtech.brandfinder.shared.util.ModelUtils;
-import com.handstandtech.foursquare.server.FoursquareHelper;
-import com.handstandtech.foursquare.server.FoursquareUtils;
 import com.handstandtech.foursquare.shared.model.v2.FoursquareUser;
+import com.handstandtech.foursquare.v2.FoursquareAPIv2;
+import com.handstandtech.foursquare.v2.impl.CachingFoursquareAPIv2Impl;
+import com.handstandtech.foursquare.v2.util.FoursquareUtils;
 import com.handstandtech.shared.model.rest.RESTResult;
 
 /**
@@ -46,7 +48,7 @@ public class FollowBrandServlet extends HttpServlet {
 		String timeStr = request.getParameter("time");
 		Long time = Long.parseLong(timeStr);
 
-		FoursquareHelper helper = new FoursquareHelper(
+		FoursquareAPIv2 helper = new CachingFoursquareAPIv2Impl(
 				OAUTH_TOKEN_HANDSTANDTECH);
 		RESTResult result = helper.getMultiResult(multi);
 
@@ -77,7 +79,7 @@ public class FollowBrandServlet extends HttpServlet {
 
 	private void storeBrand(FoursquareUser brand, Long time,
 			HttpServletResponse response) {
-		DAO dao = new DAO();
+		DAO dao = new CachingDAOImpl();
 		if (brand != null) {
 			String brandName = brand.getFirstName();
 			if (brand.getLastName() != null) {

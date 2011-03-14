@@ -14,7 +14,7 @@ import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.handstandtech.foursquare.server.FoursquareHelper;
+import com.handstandtech.foursquare.v2.impl.FoursquareAPIv2Impl;
 import com.handstandtech.server.rest.RESTUtil;
 import com.handstandtech.server.rest.impl.RESTClientJavaNetImpl;
 import com.handstandtech.shared.model.rest.RESTResult;
@@ -157,7 +157,7 @@ public class DealFinder {
 
 	public static void callMultiForURIs(List<String> requestURIs,
 			PrintWriter specialsOut) throws UnsupportedEncodingException {
-		String requestsString = FoursquareHelper.createCSVLine(requestURIs);
+		String requestsString = FoursquareAPIv2Impl.createCSVLine(requestURIs);
 		Map<String, String> params = new HashMap<String, String>();
 
 		params.put("oauth_token",
