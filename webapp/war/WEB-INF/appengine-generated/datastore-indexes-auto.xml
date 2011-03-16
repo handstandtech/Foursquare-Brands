@@ -1,17 +1,11 @@
-<!-- Indices written at Mon, 14 Mar 2011 16:38:28 UTC -->
+<!-- Indices written at Wed, 16 Mar 2011 21:42:50 UTC -->
 
 <datastore-indexes>
 
-    <!-- Used 6 times in query history -->
+    <!-- Used 5 times in query history -->
     <datastore-index kind="FoursquareUser" ancestor="false" source="auto">
         <property name="type" direction="asc"/>
         <property name="followers.count" direction="desc"/>
-    </datastore-index>
-
-    <!-- Used 4 times in query history -->
-    <datastore-index kind="BrandDiscovered" ancestor="false" source="auto">
-        <property name="type" direction="asc"/>
-        <property name="date" direction="desc"/>
     </datastore-index>
 
 </datastore-indexes>

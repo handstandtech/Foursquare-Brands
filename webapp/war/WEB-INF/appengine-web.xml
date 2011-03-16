@@ -8,7 +8,7 @@
 	<!--precompilation-enabled>false</precompilation-enabled-->
 
 	<static-files>
-        <exclude path="/assets/**" />
+        <include path="/assets/**" />
     </static-files>
 
 	<!-- Configure java.util.logging -->
