@@ -1,4 +1,4 @@
-# FoursquareBrands.com(http://FoursquareBrands.com) by Handstand Technologies, LLC
+# [FoursquareBrands.com](http://FoursquareBrands.com) by Handstand Technologies, LLC
 
 
 
