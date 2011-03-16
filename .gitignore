@@ -11,3 +11,6 @@ Java Binary Files
 #No Libraries
 #Binaries Directory
 bin/*
+
+#No App-Engine Generated Files
+war/WEB-INF/appengine-generated*
