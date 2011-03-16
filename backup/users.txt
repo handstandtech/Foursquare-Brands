@@ -1,3 +1,0 @@
-peeweeherman,{"id":1483804,"twitter":"peeweeherman","gender":"male","homecity":"Los Angeles, CA","firstname":"Pee-wee Herman","photo":"http://playfoursquare.s3.amazonaws.com/userpix_thumbs/MWCWWB05PPKCSJUH.jpg"}
-visitbrasil,{"id":921601,"twitter":"visitbrasil","gender":"none","homecity":"S√£o Paulo, Brasil","firstname":"Visit Brasil","photo":"http://playfoursquare.s3.amazonaws.com/userpix_thumbs/1RQAWXJXX0M2LFYW.jpg"}
-
