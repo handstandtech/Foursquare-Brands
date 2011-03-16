@@ -62,10 +62,10 @@
 	}
 	
 	if(currentUser!=null){
-		log.info("Get The Current User's Friends");
+		log.info("Get The Current User's Friends and check for new ones");
 		Collection<FoursquareUser> friends = Manager.getCurrentUsersFriends(currentUser);
 		log.info(currentUser.getFoursquareUser().getName() + " has "+ friends.size() + " Friends Total.");
-		
+			
 		Map<String, FoursquareUser> friendsMap = Manager.createUserMap(friends);
 		request.setAttribute("friendsMap", friendsMap);
 	}
@@ -94,13 +94,13 @@
 	String userType = null;
 	if (uriString.startsWith("/brand")) {
 		//Get The Current Brands
-		totalCount = dao.getBrandCount();
+		totalCount = dao.getBrandIds().size();
 		users = dao.getBrands(offset, limit);
 		userType = "brands";
 		pageTitle = "Brands";
 	} else {
 		//Get The Current Celebrities
-		totalCount = dao.getCelebCount();
+		totalCount = dao.getCelebIds().size();
 		users = dao.getCelebrities(offset, limit);
 
 		userType = "celebs";

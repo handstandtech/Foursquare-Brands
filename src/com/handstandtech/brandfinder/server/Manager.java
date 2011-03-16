@@ -13,7 +13,6 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.googlecode.objectify.Key;
 import com.handstandtech.brandfinder.server.twitter.FoursquareBrandsTwitter;
 import com.handstandtech.brandfinder.server.util.PageLoadUtils;
 import com.handstandtech.brandfinder.shared.model.BrandDiscovered;
@@ -73,15 +72,19 @@ public class Manager {
 		if (currentUser != null) {
 			FoursquareAPIv2 helper = new CachingFoursquareAPIv2Impl(
 					currentUser.getToken());
-			friends=helper.getAllFriends();
+			friends = helper.getAllFriends();
 		} else {
 			log.error("User is NULL");
 		}
+
+		log.info("See if they know any new users, if so, add them.");
+		Manager.findNewUsers(currentUser, friends);
+
 		return friends;
 	}
 
-	public static Collection<FoursquareUser> findNewUsers(String userType,
-			User currentUser, Collection<FoursquareUser> friends) {
+	private static Collection<FoursquareUser> findNewUsers(User currentUser,
+			Collection<FoursquareUser> friends) {
 		DAO dao = new CachingDAOImpl();
 
 		HashSet<String> ids = new HashSet<String>();
@@ -110,17 +113,25 @@ public class Manager {
 
 		Collection<FoursquareUser> newUsersOfType = new ArrayList<FoursquareUser>();
 		for (FoursquareUser user : newUsers) {
-			// Go Through the new Users
-			log.info("Adding NEW USER to Database: " + user.getName());
-			dao.updateFoursquareUser(user);
+			String newUserId = user.getId();
+			BrandDiscovered brandDiscovered = dao.getBrandDiscovered(newUserId);
+			if (brandDiscovered == null) {
+				// Go Through the new Users
+				log.info("Adding NEW USER to Database: " + user.getName());
+				dao.updateFoursquareUser(user);
 
-			// Add Analytic about Discovered Brand
-			BrandDiscovered brandDiscovered = new BrandDiscovered();
-			brandDiscovered.setBrandId(user.getId());
-			brandDiscovered.setType(user.getType());
-			brandDiscovered.setUserId(currentUser.getId());
-			dao.updateBrandDiscovered(brandDiscovered);
-			FoursquareBrandsTwitter.queueTweet(user.getId());
+				// Add Analytic about Discovered Brand
+				brandDiscovered = new BrandDiscovered();
+				brandDiscovered.setBrandId(newUserId);
+				brandDiscovered.setType(user.getType());
+				brandDiscovered.setUserId(currentUser.getId());
+				dao.updateBrandDiscovered(brandDiscovered);
+				FoursquareBrandsTwitter.queueTweet(user.getId());
+			} else {
+				log.warn("Someone already added the brand first! -> "
+						+ brandDiscovered.getUserId() + " -- ["
+						+ brandDiscovered.getId() + "]");
+			}
 		}
 
 		return newUsersOfType;
@@ -168,12 +179,4 @@ public class Manager {
 		}
 		return map;
 	}
-	
-//	public static Map<String, BrandDiscovered> createBrandDiscoveredMap(List<BrandDiscovered> newOnes) {
-//		Map<String, BrandDiscovered> map = new HashMap<String, BrandDiscovered>();
-//		for (BrandDiscovered brandDiscovered : newOnes) {
-//			map.put(brandDiscovered.getBrandId(), brandDiscovered);
-//		}
-//		return map;
-//	}
 }

@@ -23,11 +23,11 @@ public interface DAO {
 
 	public abstract List<FoursquareUser> getBrands();
 
-	public abstract Integer getBrandCount();
-
-	public abstract Integer getCelebCount();
-
 	public abstract List<FoursquareUser> getCelebrities();
+
+	public abstract HashSet<String> getCelebIds();
+
+	public abstract HashSet<String> getBrandIds();
 
 	public abstract List<FoursquareUser> getCelebrities(Integer offset,
 			Integer limit);
@@ -46,7 +46,8 @@ public interface DAO {
 
 	public abstract void updateDailyFollowerCount(DailyFollowerCount item);
 
-	public abstract Key<BrandDiscovered> updateBrandDiscovered(BrandDiscovered item);
+	public abstract Key<BrandDiscovered> updateBrandDiscovered(
+			BrandDiscovered item);
 
 	public abstract List<BrandDiscovered> getBrandDiscoveredSince(Date since);
 
@@ -54,16 +55,15 @@ public interface DAO {
 
 	public abstract User findUser(String id);
 
-	public abstract HashSet<String> getCelebIds();
-
-	public abstract HashSet<String> getBrandIds();
-
 	public abstract void updateDailyFollowEventCounts(
 			Collection<DailyFollowEventCount> dailyCounts);
 
 	public abstract List<BrandDiscovered> getNewestBrands(Integer limit);
 
+	public abstract BrandDiscovered getBrandDiscovered(String foursquareId);
+	
 	public abstract List<BrandDiscovered> getNewestCelebrities(Integer limit);
 
-	public abstract List<FoursquareUser> getFoursquareUsersForIds(Collection<String> foursquareUserIds);
+	public abstract List<FoursquareUser> getFoursquareUsersForIds(
+			Collection<String> foursquareUserIds);
 }

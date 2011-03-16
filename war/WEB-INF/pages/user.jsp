@@ -47,7 +47,7 @@
 	User currentUser = SessionHelper.getCurrentUser(session);
 	
 	if(currentUser!=null){
-		log.info("Get The Current User's Friends");
+		log.info("Get The Current User's Friends and check for new ones");
 		Collection<FoursquareUser> friends = Manager.getCurrentUsersFriends(currentUser);
 		log.info(currentUser.getFoursquareUser().getName() + " has "+ friends.size() + " Friends Total.");
 		

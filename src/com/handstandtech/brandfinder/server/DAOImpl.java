@@ -44,10 +44,7 @@ public abstract class DAOImpl extends DAOBase implements DAO {
 	 */
 	@Override
 	public Key<FoursquareUser> updateFoursquareUser(FoursquareUser user) {
-		log.info("Using a transaction to update the user - "+ user.getId());
-		Objectify ofy = ObjectifyService.beginTransaction();
 		Key<FoursquareUser> foursquareUserKey = ofy().put(user);
-		ofy.getTxn().commit();
 		return foursquareUserKey;
 	}
 
@@ -161,7 +158,25 @@ public abstract class DAOImpl extends DAOBase implements DAO {
 	 */
 	@Override
 	public Key<BrandDiscovered> updateBrandDiscovered(BrandDiscovered item) {
-		return ofy().put(item);
+		log.info("Using a transaction to update the discovered user - "
+				+ item.getBrandId() + " " + item.getType());
+		Objectify ofy = ObjectifyService.beginTransaction();
+		Key<BrandDiscovered> key = ofy.put(item);
+		ofy.getTxn().commit();
+		return key;
+	}
+
+	/**
+	 * @see com.handstandtech.brandfinder.server.DAO#getBrandDiscovered(String)
+	 */
+	@Override
+	public BrandDiscovered getBrandDiscovered(String foursquareId) {
+		Objectify ofy = ObjectifyService.beginTransaction();
+		Query<BrandDiscovered> query = ofy.query(BrandDiscovered.class).filter(
+				"brandId", foursquareId);
+		BrandDiscovered brandDiscovered = query.get();
+		ofy.getTxn().commit();
+		return brandDiscovered;
 	}
 
 	/**
@@ -173,8 +188,8 @@ public abstract class DAOImpl extends DAOBase implements DAO {
 		if (since != null) {
 			query.filter("date >=", since);
 		}
-
-		return query.list();
+		List<BrandDiscovered> list = query.list();
+		return list;
 	}
 
 	/**
@@ -191,22 +206,6 @@ public abstract class DAOImpl extends DAOBase implements DAO {
 	@Override
 	public final User findUser(String id) {
 		return ofy().find(User.class, id);
-	}
-
-	/**
-	 * @see com.handstandtech.brandfinder.server.DAO#getBrandCount()
-	 */
-	@Override
-	public Integer getBrandCount() {
-		return createBrandQuery().count();
-	}
-
-	/**
-	 * @see com.handstandtech.brandfinder.server.DAO#getCelebCount()
-	 */
-	@Override
-	public Integer getCelebCount() {
-		return createBrandQuery().count();
 	}
 
 	@Override

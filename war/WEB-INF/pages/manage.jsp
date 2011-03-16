@@ -42,7 +42,7 @@
 	Logger log = LoggerFactory.getLogger(this.getClass());
 	User currentUser = SessionHelper.getCurrentUser(session);
 	
-	log.info("Get The Current User's Friends");
+	log.info("Get The Current User's Friends and check for new ones");
 	Collection<FoursquareUser> friends = Manager.getCurrentUsersFriends(currentUser);
 	log.info(currentUser.getFoursquareUser().getName() + " has "+ friends.size() + " Friends Total.");
 	
@@ -66,9 +66,6 @@
 	request.setAttribute("userType", userType);
 	request.setAttribute("title", pageTitle);
 	
-	log.info("See if they know any new users, if so, add them.");
-	Collection<FoursquareUser> newUsersFound = Manager.findNewUsers(userType, currentUser, friends);
-
 	log.info("Prepare followed and notFollowed lists for request.");
 	Manager.prepareFollowedAndNotFollowedLists(currentUser, friends, userMap, request);
 	

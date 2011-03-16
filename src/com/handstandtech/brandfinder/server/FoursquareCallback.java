@@ -24,6 +24,7 @@ import com.handstandtech.foursquare.v2.exception.FoursquareNot200Exception;
 import com.handstandtech.foursquare.v2.impl.CachingFoursquareAPIv2Impl;
 import com.handstandtech.server.rest.RESTClient;
 import com.handstandtech.server.rest.RESTUtil;
+import com.handstandtech.server.rest.auth.NullAuthenticator;
 import com.handstandtech.server.rest.impl.RESTClientAppEngineURLFetchImpl;
 import com.handstandtech.shared.model.rest.RESTResult;
 import com.handstandtech.shared.model.rest.RequestMethod;
@@ -67,7 +68,7 @@ public class FoursquareCallback extends HttpServlet {
 		String fullUrl = RESTUtil.createFullUrl(baseUrl, params);
 
 		RESTClient client = new RESTClientAppEngineURLFetchImpl();
-		RESTResult result = client.request(RequestMethod.GET, fullUrl, null);
+		RESTResult result = client.request(RequestMethod.GET, fullUrl);
 
 		try {
 			JSONObject jsonObj = new JSONObject(result.getResponseBody());

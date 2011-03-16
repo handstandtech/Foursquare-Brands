@@ -185,6 +185,9 @@ transformers:
       external_name: date
       import_transform: transform.import_date_time('%Y-%m-%dT%H:%M:%S')
       export_transform: transform.export_date_time('%Y-%m-%dT%H:%M:%S')
+      
+    - property: type
+      external_name: type
 
 
 - kind: DailyFollowEventCount

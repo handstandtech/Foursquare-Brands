@@ -3,7 +3,7 @@
 ./download.sh \
 4sqbrands \
 config.yml \
-http://www.foursquarebrands.com/remote_api \
+http://backup.latest.4sqbrands.appspot.com/remote_api \
 BrandDiscovered \
 DailyFollowEventCount \
 DailyFollowerCount \

@@ -1,6 +1,7 @@
 package com.handstandtech.brandfinder.server.cron;
 
 import java.io.IOException;
+import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -94,11 +95,20 @@ public class HourlyCronServlet extends HttpServlet {
 			String discoveredByStr = b.getUserId();
 			User byUser = dao.findUser(discoveredByStr);
 
+			StringBuilder brandUrl = new StringBuilder();
+			brandUrl.append("http://foursquarebrands.com/");
+			if ("brand".equals(brandFound.getType())) {
+				brandUrl.append("brands");
+			} else {
+				brandUrl.append("celebs");
+			}
+			brandUrl.append("/" + brandIdStr);
+
 			sb.append("<li>[<strong>" + brandFound.getType()
-					+ "</strong>] <a href='http://foursquare.com/user/"
-					+ brandIdStr + "'><h1>" + brandFound.getName()
-					+ "</h1></a>");
+					+ "</strong>] <a href='" + brandUrl + "'><h1>"
+					+ brandFound.getName() + "</h1></a>");
 			sb.append("<br/>");
+
 			sb.append("Discovered By <a href='http://foursquare.com/user/"
 					+ discoveredByStr + "'>"
 					+ byUser.getFoursquareUser().getName() + "</a>");

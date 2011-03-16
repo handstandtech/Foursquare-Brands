@@ -53,7 +53,8 @@ public class CachingDAOImpl extends DAOImpl {
 			Collection<String> foursquareUserIds) {
 		String scope = getScope(FoursquareUser.class);
 		Map<String, Object> params = new HashMap<String, Object>();
-		CacheKeyMaker.addParam(params, String.class, "foursquareUserIds", foursquareUserIds);
+		CacheKeyMaker.addParam(params, String.class, "foursquareUserIds",
+				foursquareUserIds);
 		String key = CacheKeyMaker.createKey(params);
 		List<FoursquareUser> items = (List<FoursquareUser>) MemcacheScopeManager
 				.getFromCache(scope, key);
@@ -180,30 +181,6 @@ public class CachingDAOImpl extends DAOImpl {
 				.getFromCache(scope, key);
 		if (items == null) {
 			items = super.getBrandDiscoveredSince(since);
-			MemcacheScopeManager.setClean(scope, key, items);
-		}
-		return items;
-	}
-
-	@Override
-	public Integer getBrandCount() {
-		String scope = getScope(FoursquareUser.class);
-		String key = CacheKeyMaker.createKey(null);
-		Integer items = (Integer) MemcacheScopeManager.getFromCache(scope, key);
-		if (items == null) {
-			items = super.getBrandCount();
-			MemcacheScopeManager.setClean(scope, key, items);
-		}
-		return items;
-	}
-
-	@Override
-	public Integer getCelebCount() {
-		String scope = getScope(FoursquareUser.class);
-		String key = CacheKeyMaker.createKey(null);
-		Integer items = (Integer) MemcacheScopeManager.getFromCache(scope, key);
-		if (items == null) {
-			items = super.getBrandCount();
 			MemcacheScopeManager.setClean(scope, key, items);
 		}
 		return items;

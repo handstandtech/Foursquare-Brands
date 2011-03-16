@@ -168,7 +168,7 @@ public class DealFinder {
 		String url = RESTUtil.createFullUrl(endpoint, params);
 
 		RESTClientJavaNetImpl client = new RESTClientJavaNetImpl();
-		RESTResult result = client.request(RequestMethod.GET, url, null);
+		RESTResult result = client.request(RequestMethod.GET, url);
 
 		try {
 			JSONObject obj = new JSONObject(result.getResponseBody());
