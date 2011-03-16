@@ -9,7 +9,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.googlecode.objectify.Key;
-import com.googlecode.objectify.Objectify;
 import com.googlecode.objectify.ObjectifyService;
 import com.googlecode.objectify.Query;
 import com.googlecode.objectify.helper.DAOBase;
@@ -158,11 +157,11 @@ public abstract class DAOImpl extends DAOBase implements DAO {
 	 */
 	@Override
 	public Key<BrandDiscovered> updateBrandDiscovered(BrandDiscovered item) {
-		log.info("Using a transaction to update the discovered user - "
-				+ item.getBrandId() + " " + item.getType());
-		Objectify ofy = ObjectifyService.beginTransaction();
-		Key<BrandDiscovered> key = ofy.put(item);
-		ofy.getTxn().commit();
+		// log.info("Using a transaction to update the discovered user - "
+		// + item.getBrandId() + " " + item.getType());
+//		Objectify ofy = ObjectifyService.beginTransaction();
+		Key<BrandDiscovered> key = ofy().put(item);
+//		ofy.getTxn().commit();
 		return key;
 	}
 
@@ -171,11 +170,9 @@ public abstract class DAOImpl extends DAOBase implements DAO {
 	 */
 	@Override
 	public BrandDiscovered getBrandDiscovered(String foursquareId) {
-		Objectify ofy = ObjectifyService.beginTransaction();
-		Query<BrandDiscovered> query = ofy.query(BrandDiscovered.class).filter(
+		Query<BrandDiscovered> query = ofy().query(BrandDiscovered.class).filter(
 				"brandId", foursquareId);
 		BrandDiscovered brandDiscovered = query.get();
-		ofy.getTxn().commit();
 		return brandDiscovered;
 	}
 
