@@ -7,9 +7,7 @@
 	<classpathentry kind="src" path="foursquare"/>
 	<classpathentry kind="src" path="server"/>
 	<classpathentry kind="src" path="shared"/>
-	<classpathentry kind="con" path="com.google.appengine.eclipse.core.GAE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="war/WEB-INF/lib/gson-1.4.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/opencsv-1.8.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/signpost-commonshttp4-1.2.1.1.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/signpost-core-1.2.1.1.jar"/>
@@ -28,5 +26,7 @@
 	<classpathentry kind="lib" path="war/WEB-INF/lib/objectify-2.2.3.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/log4j-1.2.16.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/slf4j-api-1.6.1.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/gson-1.6.jar"/>
+	<classpathentry kind="con" path="com.google.appengine.eclipse.core.GAE_CONTAINER"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>
