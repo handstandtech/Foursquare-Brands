@@ -6,3 +6,4 @@
 
 - Google App Engine 1.4.2 or Higher
 - Objectify
+- [Gson](http://code.google.com/p/google-gson/)
