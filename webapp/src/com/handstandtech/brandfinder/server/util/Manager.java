@@ -77,21 +77,17 @@ public class Manager {
 		} else {
 			log.error("User is NULL");
 		}
-
-		Manager.findNewUsers(currentUser, friends);
-
 		return friends;
 	}
 
 	private static Collection<FoursquareUser> findNewUsers(User currentUser,
 			Collection<FoursquareUser> friends) {
-		log.info("[Looking for new users]");
+		log.info("[Looking for new Users]");
 
 		DAO dao = new CachingDAOImpl();
 
 		HashSet<String> ids = new HashSet<String>();
-		ids.addAll(dao.getCelebIds());
-		ids.addAll(dao.getBrandIds());
+		ids.addAll(dao.getAllFoursquareUserObjectIds());
 
 		Collection<String> newUsersFound = new ArrayList<String>();
 		for (FoursquareUser friend : friends) {
@@ -189,9 +185,13 @@ public class Manager {
 				.getCurrentUsersFriends(currentUser);
 		log.info(currentUser.getFoursquareUser().getName() + " has "
 				+ friends.size() + " Friends Total.");
+		
 
-		Map<String, FoursquareUser> friendsMap = Manager.createUserMap(friends);
+		Map<String, FoursquareUser> friendsMap = createUserMap(friends);
 		request.setAttribute("friendsMap", friendsMap);
+
+		findNewUsers(currentUser, friends);
+		
 		return friendsMap;
 	}
 

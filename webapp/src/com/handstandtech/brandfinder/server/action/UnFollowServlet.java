@@ -11,7 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.gson.Gson;
-import com.google.visualization.datasource.datatable.DataTable;
+import com.handstandtech.brandfinder.server.util.ContentTypes;
 import com.handstandtech.brandfinder.server.util.SessionHelper;
 import com.handstandtech.brandfinder.shared.model.User;
 import com.handstandtech.foursquare.v2.FoursquareAPIv2;
@@ -22,17 +22,13 @@ import com.handstandtech.foursquare.v2.server.model.FoursquareMeta;
 /**
  * The server side implementation of the RPC service.
  */
+@SuppressWarnings("serial")
 public class UnFollowServlet extends HttpServlet {
-
-	/**
-	 * Default Serialization UID
-	 */
-	private static final long serialVersionUID = 1L;
 
 	protected final Logger log = LoggerFactory.getLogger(getClass().getName());
 
 	/**
-	 * Handle a GET Request and serve the appropriate {@link DataTable}
+	 * Handle a GET Request
 	 */
 	@Override
 	protected void doPost(HttpServletRequest request,
@@ -55,11 +51,10 @@ public class UnFollowServlet extends HttpServlet {
 			meta = e.getMeta();
 		}
 
-
 		String metaJson = new Gson().toJson(meta);
-		log.info("Meta: "+ metaJson);
-		
-		response.setContentType("application/json");
+		log.info("Meta: " + metaJson);
+
+		response.setContentType(ContentTypes.APPLICATION_JSON_UTF8);
 		response.getWriter().write(metaJson);
 	}
 }

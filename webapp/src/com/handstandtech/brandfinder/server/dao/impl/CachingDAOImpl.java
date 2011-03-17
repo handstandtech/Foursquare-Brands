@@ -18,6 +18,12 @@ import com.handstandtech.memcache.MemcacheScopeManager;
 
 public class CachingDAOImpl extends DAOImpl {
 
+	private static final String ALL_USERS = "ALL_USERS";
+
+	public CachingDAOImpl() {
+		super();
+	}
+
 	@Override
 	public List<BrandDiscovered> getNewestBrands(Integer limit) {
 		String scope = getScope(BrandDiscovered.class);
@@ -65,10 +71,6 @@ public class CachingDAOImpl extends DAOImpl {
 		return items;
 	}
 
-	public CachingDAOImpl() {
-		super();
-	}
-
 	/**
 	 * @see DAOImpl#updateFoursquareUser(FoursquareUser)
 	 */
@@ -79,6 +81,19 @@ public class CachingDAOImpl extends DAOImpl {
 		return super.updateFoursquareUser(user);
 	}
 
+	/**
+	 * @see DAOImpl#updateFoursquareUsers(Collection)
+	 */
+	@Override
+	public void updateFoursquareUsers(Collection<FoursquareUser> users) {
+		String scope = getScope(FoursquareUser.class);
+		MemcacheScopeManager.setDirty(scope);
+		super.updateFoursquareUsers(users);
+	}
+
+	/**
+	 * @see DAOImpl#getBrands()
+	 */
 	@Override
 	public List<FoursquareUser> getBrands() {
 		String scope = getScope(FoursquareUser.class);
@@ -92,6 +107,9 @@ public class CachingDAOImpl extends DAOImpl {
 		return items;
 	}
 
+	/**
+	 * @see DAOImpl#getCelebrities()
+	 */
 	@Override
 	public List<FoursquareUser> getCelebrities() {
 		String scope = getScope(FoursquareUser.class);
@@ -105,18 +123,21 @@ public class CachingDAOImpl extends DAOImpl {
 		return items;
 	}
 
-	@Override
-	public List<FoursquareUser> getAllFoursquareUserObjects() {
-		String scope = getScope(FoursquareUser.class);
-		String key = CacheKeyMaker.createKey(null);
-		List<FoursquareUser> items = (List<FoursquareUser>) MemcacheScopeManager
-				.getFromCache(scope, key);
-		if (items == null) {
-			items = super.getAllFoursquareUserObjects();
-			MemcacheScopeManager.setClean(scope, key, items);
-		}
-		return items;
-	}
+	// /**
+	// * @see DAOImpl#getAllFoursquareUserObjects()
+	// */
+	// @Override
+	// public List<FoursquareUser> getAllFoursquareUserObjects() {
+	// String scope = getScope(FoursquareUser.class);
+	// String key = CacheKeyMaker.createKey(null);
+	// List<FoursquareUser> items = (List<FoursquareUser>) MemcacheScopeManager
+	// .getFromCache(scope, key);
+	// if (items == null) {
+	// items = super.getAllFoursquareUserObjects();
+	// MemcacheScopeManager.setClean(scope, key, items);
+	// }
+	// return items;
+	// }
 
 	@Override
 	public List<DailyFollowEventCount> getDailyFollowEventsForBrand(
@@ -170,6 +191,32 @@ public class CachingDAOImpl extends DAOImpl {
 		}
 		return items;
 	}
+	
+	@Override
+	public HashSet<String> getAllFoursquareUserObjectIds() {
+		String scope = getScope(FoursquareUser.class);
+		String key = CacheKeyMaker.createKey(null);
+		HashSet<String> items = (HashSet<String>) MemcacheScopeManager
+				.getFromCache(scope, key);
+		if (items == null) {
+			items = super.getAllFoursquareUserObjectIds();
+			MemcacheScopeManager.setClean(scope, key, items);
+		}
+		return items;
+	}
+
+	@Override
+	public List<FoursquareUser> getAllFoursquareUserObjects() {
+		String scope = getScope(FoursquareUser.class);
+		String key = CacheKeyMaker.createKey(null);
+		List<FoursquareUser> items = (List<FoursquareUser>) MemcacheScopeManager
+				.getFromCache(scope, key);
+		if (items == null) {
+			items = super.getAllFoursquareUserObjects();
+			MemcacheScopeManager.setClean(scope, key, items);
+		}
+		return items;
+	}
 
 	@Override
 	public List<BrandDiscovered> getBrandDiscoveredSince(Date since) {
@@ -181,32 +228,6 @@ public class CachingDAOImpl extends DAOImpl {
 				.getFromCache(scope, key);
 		if (items == null) {
 			items = super.getBrandDiscoveredSince(since);
-			MemcacheScopeManager.setClean(scope, key, items);
-		}
-		return items;
-	}
-
-	@Override
-	public HashSet<String> getCelebIds() {
-		String scope = getScope(FoursquareUser.class);
-		String key = CacheKeyMaker.createKey(null);
-		HashSet<String> items = (HashSet<String>) MemcacheScopeManager
-				.getFromCache(scope, key);
-		if (items == null) {
-			items = super.getCelebIds();
-			MemcacheScopeManager.setClean(scope, key, items);
-		}
-		return items;
-	}
-
-	@Override
-	public HashSet<String> getBrandIds() {
-		String scope = getScope(FoursquareUser.class);
-		String key = CacheKeyMaker.createKey(null);
-		HashSet<String> items = (HashSet<String>) MemcacheScopeManager
-				.getFromCache(scope, key);
-		if (items == null) {
-			items = super.getBrandIds();
 			MemcacheScopeManager.setClean(scope, key, items);
 		}
 		return items;
@@ -278,6 +299,9 @@ public class CachingDAOImpl extends DAOImpl {
 		}
 		return items;
 	}
+	
+	
+	
 
 	private String getScope(Class<?> clazz) {
 		return "DAO-" + clazz.getSimpleName();

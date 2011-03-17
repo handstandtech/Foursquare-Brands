@@ -1,6 +1,9 @@
 package com.handstandtech.brandfinder.server.action;
 
 import java.io.IOException;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -13,6 +16,7 @@ import org.slf4j.LoggerFactory;
 import com.google.gson.Gson;
 import com.handstandtech.brandfinder.server.dao.DAO;
 import com.handstandtech.brandfinder.server.dao.impl.CachingDAOImpl;
+import com.handstandtech.brandfinder.server.util.ContentTypes;
 import com.handstandtech.brandfinder.server.util.SessionHelper;
 import com.handstandtech.brandfinder.shared.model.User;
 import com.handstandtech.foursquare.shared.model.v2.FoursquareUser;
@@ -20,6 +24,8 @@ import com.handstandtech.foursquare.v2.FoursquareAPIv2;
 import com.handstandtech.foursquare.v2.exception.FoursquareNot200Exception;
 import com.handstandtech.foursquare.v2.impl.CachingFoursquareAPIv2Impl;
 import com.handstandtech.foursquare.v2.server.model.FoursquareMeta;
+import com.handstandtech.memcache.CF;
+import com.handstandtech.memcache.TimesInMilliseconds;
 
 /**
  * The server side implementation of the RPC service.
@@ -30,6 +36,9 @@ public class FollowServlet extends HttpServlet {
 	 * Default Serialization UID
 	 */
 	private static final long serialVersionUID = 1L;
+
+	private static final String FOURSQUARE_BRANDS_TO_UPDATE = "FoursquareBrandsToUpdate";
+	private static final String FOURSQUARE_BRANDS_TO_UPDATE_TIME = "FoursquareBrandsToUpdateTime";
 
 	protected final Logger log = LoggerFactory.getLogger(getClass().getName());
 
@@ -56,8 +65,34 @@ public class FollowServlet extends HttpServlet {
 				FoursquareUser user = helper.friendRequest(id);
 				if (user != null) {
 					log.info("Successfully Followed: " + user.getName());
-					DAO dao = new CachingDAOImpl();
-					dao.updateFoursquareUser(user);
+
+					Map<String, FoursquareUser> usersToUpdate = getUsersToUpdate();
+
+					usersToUpdate.put(user.getId(), user);
+
+					Date timeToRunUpdate = (Date) CF
+							.get(FOURSQUARE_BRANDS_TO_UPDATE_TIME);
+					Date now = new Date();
+					if (timeToRunUpdate == null) {
+						Long time = now.getTime()
+								+ TimesInMilliseconds.ONE_MINUTE * 20;
+						timeToRunUpdate = new Date(time);
+						CF.put(FOURSQUARE_BRANDS_TO_UPDATE_TIME,
+								timeToRunUpdate);
+					}
+
+					log.info("Seeing if it's time, comparing...\n" + now
+							+ ">=" + timeToRunUpdate);
+					if (now.getTime() >= timeToRunUpdate.getTime()) {
+						CF.put(FOURSQUARE_BRANDS_TO_UPDATE, null);
+						CF.put(FOURSQUARE_BRANDS_TO_UPDATE_TIME, null);
+						log.info("[Running Update on Brands!]");
+						DAO dao = new CachingDAOImpl();
+						dao.updateFoursquareUsers(usersToUpdate.values());
+					} else {
+						log.info("[Not time to update the list!]");
+					}
+
 				}
 			} catch (FoursquareNot200Exception e) {
 				meta = e.getMeta();
@@ -67,11 +102,20 @@ public class FollowServlet extends HttpServlet {
 			meta.setErrorType("Not Logged into FoursquareBrands.com");
 			meta.setErrorDetail("Please Login to FoursquareBrands.com to continue.");
 		}
-		
+
 		String metaJson = new Gson().toJson(meta);
 		log.info(metaJson);
 
-		response.setContentType("application/json");
+		response.setContentType(ContentTypes.APPLICATION_JSON_UTF8);
 		response.getWriter().write(metaJson);
+	}
+
+	private Map<String, FoursquareUser> getUsersToUpdate() {
+		Map<String, FoursquareUser> usersToUpdate = (Map<String, FoursquareUser>) CF
+				.get(FOURSQUARE_BRANDS_TO_UPDATE);
+		if (usersToUpdate == null) {
+			usersToUpdate = new HashMap<String, FoursquareUser>();
+		}
+		return usersToUpdate;
 	}
 }

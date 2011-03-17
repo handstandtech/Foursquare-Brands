@@ -38,8 +38,6 @@ public class BrandOrCelebPageController extends BaseController {
 		User currentUser = SessionHelper.getCurrentUser(session);
 		if (currentUser != null) {
 			Manager.createFriendsMap(request, currentUser);
-		} else {
-			log.error("No current user, shouldn't be here.");
 		}
 
 		// See if this is a "users" or "user" page, and prepare information
@@ -133,13 +131,13 @@ public class BrandOrCelebPageController extends BaseController {
 		String uriString = request.getRequestURI();
 		if (uriString.startsWith("/brand")) {
 			// Get The Current Brands
-			totalCount = dao.getBrandIds().size();
+			totalCount = dao.getBrands().size();
 			users = dao.getBrands(offset, PAGE_SIZE);
 			userType = "brands";
 			title = "Brands";
 		} else {
 			// Get The Current Celebrities
-			totalCount = dao.getCelebIds().size();
+			totalCount = dao.getCelebrities().size();
 			users = dao.getCelebrities(offset, PAGE_SIZE);
 			userType = "celebs";
 			title = "Celebrities";

@@ -1,5 +1,6 @@
 package com.handstandtech.brandfinder.server.dao.impl;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
@@ -93,7 +94,10 @@ public abstract class DAOImpl extends DAOBase implements DAO {
 	 */
 	@Override
 	public List<FoursquareUser> getAllFoursquareUserObjects() {
-		return ofy().query(FoursquareUser.class).list();
+		List<FoursquareUser> list = new ArrayList<FoursquareUser>();
+		list.addAll(getBrands());
+		list.addAll(getCelebrities());
+		return list;
 	}
 
 	/**
@@ -160,9 +164,9 @@ public abstract class DAOImpl extends DAOBase implements DAO {
 	public Key<BrandDiscovered> updateBrandDiscovered(BrandDiscovered item) {
 		// log.info("Using a transaction to update the discovered user - "
 		// + item.getBrandId() + " " + item.getType());
-//		Objectify ofy = ObjectifyService.beginTransaction();
+		// Objectify ofy = ObjectifyService.beginTransaction();
 		Key<BrandDiscovered> key = ofy().put(item);
-//		ofy.getTxn().commit();
+		// ofy.getTxn().commit();
 		return key;
 	}
 
@@ -171,8 +175,8 @@ public abstract class DAOImpl extends DAOBase implements DAO {
 	 */
 	@Override
 	public BrandDiscovered getBrandDiscovered(String foursquareId) {
-		Query<BrandDiscovered> query = ofy().query(BrandDiscovered.class).filter(
-				"brandId", foursquareId);
+		Query<BrandDiscovered> query = ofy().query(BrandDiscovered.class)
+				.filter("brandId", foursquareId);
 		BrandDiscovered brandDiscovered = query.get();
 		return brandDiscovered;
 	}
@@ -206,15 +210,15 @@ public abstract class DAOImpl extends DAOBase implements DAO {
 		return ofy().find(User.class, id);
 	}
 
-	@Override
-	public HashSet<String> getCelebIds() {
-		return getKeyHashset(createCelebQuery().listKeys());
-	}
-
-	@Override
-	public HashSet<String> getBrandIds() {
-		return getKeyHashset(createBrandQuery().listKeys());
-	}
+	// @Override
+	// public HashSet<String> getCelebIds() {
+	// return getKeyHashset(createCelebQuery().listKeys());
+	// }
+	//
+	// @Override
+	// public HashSet<String> getBrandIds() {
+	// return getKeyHashset(createBrandQuery().listKeys());
+	// }
 
 	private HashSet<String> getKeyHashset(List<Key<FoursquareUser>> keys) {
 		HashSet<String> ids = new HashSet<String>();
@@ -294,5 +298,21 @@ public abstract class DAOImpl extends DAOBase implements DAO {
 			log.error("List of User Ids cannot be empty or null!");
 			return null;
 		}
+	}
+
+	@Override
+	public HashSet<String> getAllFoursquareUserObjectIds() {
+		Query<FoursquareUser> query = ofy().query(FoursquareUser.class);
+		List<Key<FoursquareUser>> keys = query.listKeys();
+		HashSet<String> ids = new HashSet<String>();
+		for (Key<FoursquareUser> user : keys) {
+			ids.add(user.getName());
+		}
+		return ids;
+	}
+
+	@Override
+	public void updateFoursquareUsers(Collection<FoursquareUser> usersToUpdate) {
+		ofy().put(usersToUpdate);
 	}
 }
