@@ -14,8 +14,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.visualization.datasource.datatable.DataTable;
-import com.handstandtech.brandfinder.server.CachingDAOImpl;
-import com.handstandtech.brandfinder.server.DAO;
+import com.handstandtech.brandfinder.server.dao.DAO;
+import com.handstandtech.brandfinder.server.dao.impl.CachingDAOImpl;
 import com.handstandtech.brandfinder.shared.model.DailyFollowerCount;
 import com.handstandtech.brandfinder.shared.util.ModelUtils;
 import com.handstandtech.foursquare.shared.model.v2.FoursquareUser;

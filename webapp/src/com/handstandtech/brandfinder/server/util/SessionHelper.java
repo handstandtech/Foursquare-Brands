@@ -3,7 +3,6 @@ package com.handstandtech.brandfinder.server.util;
 import javax.servlet.http.HttpSession;
 
 import com.handstandtech.brandfinder.shared.model.User;
-import com.handstandtech.server.SessionConstants;
 
 public class SessionHelper {
 

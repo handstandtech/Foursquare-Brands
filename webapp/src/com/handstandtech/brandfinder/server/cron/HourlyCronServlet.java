@@ -1,7 +1,6 @@
 package com.handstandtech.brandfinder.server.cron;
 
 import java.io.IOException;
-import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -27,8 +26,8 @@ import com.google.appengine.api.taskqueue.QueueFactory;
 import com.google.appengine.api.taskqueue.TaskOptions;
 import com.google.appengine.api.taskqueue.TaskOptions.Method;
 import com.google.visualization.datasource.datatable.DataTable;
-import com.handstandtech.brandfinder.server.CachingDAOImpl;
-import com.handstandtech.brandfinder.server.DAO;
+import com.handstandtech.brandfinder.server.dao.DAO;
+import com.handstandtech.brandfinder.server.dao.impl.CachingDAOImpl;
 import com.handstandtech.brandfinder.server.tasks.FollowerCountTaskServlet;
 import com.handstandtech.brandfinder.shared.model.BrandDiscovered;
 import com.handstandtech.brandfinder.shared.model.User;
@@ -37,6 +36,7 @@ import com.handstandtech.foursquare.shared.model.v2.FoursquareUser;
 import com.handstandtech.foursquare.v2.FoursquareAPIv2;
 import com.handstandtech.foursquare.v2.exception.FoursquareNot200Exception;
 import com.handstandtech.foursquare.v2.impl.CachingFoursquareAPIv2Impl;
+import com.handstandtech.memcache.TimesInMilliseconds;
 
 /**
  * Hourly Cron Servlet
@@ -49,11 +49,6 @@ public class HourlyCronServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected final Logger log = LoggerFactory.getLogger(getClass().getName());
-
-	private static Long ONE_SECOND = 1000L;
-	private static Long ONE_MINUTE = 60 * ONE_SECOND;
-	private static Long ONE_HOUR = 60 * ONE_MINUTE;
-	private static Long ONE_DAY = 24 * ONE_HOUR;
 
 	/**
 	 * Handle a GET Request and serve the appropriate {@link DataTable}
@@ -75,7 +70,7 @@ public class HourlyCronServlet extends HttpServlet {
 		TaskOptions googleAnalyticsTask = TaskOptions.Builder.withDefaults();
 		googleAnalyticsTask.url("/tasks/get-google-analytics");
 		googleAnalyticsTask.method(Method.GET);
-		Date yesterday = new Date(date.getTime() - ONE_DAY);
+		Date yesterday = new Date(date.getTime() - TimesInMilliseconds.ONE_DAY);
 		googleAnalyticsTask.param("date",
 				ModelUtils.getDateFormat().format(yesterday));
 		queue.add(googleAnalyticsTask);
@@ -87,7 +82,7 @@ public class HourlyCronServlet extends HttpServlet {
 
 		// See if there are any new brands in the last day
 		List<BrandDiscovered> brandsDiscovered = dao
-				.getBrandDiscoveredSince(new Date(date.getTime() - ONE_HOUR));
+				.getBrandDiscoveredSince(new Date(date.getTime() - TimesInMilliseconds.ONE_HOUR));
 		StringBuffer sb = new StringBuffer();
 		for (BrandDiscovered b : brandsDiscovered) {
 			String brandIdStr = b.getBrandId();

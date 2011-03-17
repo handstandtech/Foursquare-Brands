@@ -20,8 +20,8 @@ import org.slf4j.LoggerFactory;
 import au.com.bytecode.opencsv.CSVWriter;
 
 import com.google.visualization.datasource.datatable.DataTable;
-import com.handstandtech.brandfinder.server.CachingDAOImpl;
-import com.handstandtech.brandfinder.server.DAO;
+import com.handstandtech.brandfinder.server.dao.DAO;
+import com.handstandtech.brandfinder.server.dao.impl.CachingDAOImpl;
 import com.handstandtech.brandfinder.shared.model.DailyFollowEventCount;
 import com.handstandtech.brandfinder.shared.util.ModelUtils;
 import com.handstandtech.googleanalytics.ReportRunner;

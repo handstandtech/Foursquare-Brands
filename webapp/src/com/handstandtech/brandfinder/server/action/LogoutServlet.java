@@ -35,7 +35,9 @@ public class LogoutServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		User currentUser = SessionHelper.getCurrentUser(session);
 		if (currentUser != null) {
-			FoursquareAPIv2 foursquare = new CachingFoursquareAPIv2Impl(currentUser.getToken());
+			log.info("Logging Out: " + currentUser.getId());
+			FoursquareAPIv2 foursquare = new CachingFoursquareAPIv2Impl(
+					currentUser.getToken());
 			foursquare.logout();
 		}
 		String continueUrl = SessionHelper.getContinueUrl(session);

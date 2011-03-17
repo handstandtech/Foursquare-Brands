@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="twitter"/>
 	<classpathentry kind="src" path="memcache"/>
 	<classpathentry kind="src" path="googleanalytics"/>
 	<classpathentry kind="src" path="restclient"/>
 	<classpathentry kind="src" path="foursquare"/>
-	<classpathentry kind="src" path="server"/>
 	<classpathentry kind="src" path="shared"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/opencsv-1.8.jar"/>

@@ -19,8 +19,8 @@ import com.google.appengine.api.taskqueue.QueueFactory;
 import com.google.appengine.api.taskqueue.TaskOptions;
 import com.google.appengine.api.taskqueue.TaskOptions.Method;
 import com.google.visualization.datasource.datatable.DataTable;
-import com.handstandtech.brandfinder.server.CachingDAOImpl;
-import com.handstandtech.brandfinder.server.DAO;
+import com.handstandtech.brandfinder.server.dao.DAO;
+import com.handstandtech.brandfinder.server.dao.impl.CachingDAOImpl;
 import com.handstandtech.foursquare.shared.model.v2.FoursquareUser;
 import com.handstandtech.foursquare.v2.impl.FoursquareAPIv2Impl;
 import com.handstandtech.server.rest.RESTUtil;
@@ -36,11 +36,6 @@ public class DailyCronServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected final Logger log = LoggerFactory.getLogger(DailyCronServlet.class);
-
-	private static Long ONE_SECOND = 1000L;
-	private static Long ONE_MINUTE = 60 * ONE_SECOND;
-	private static Long ONE_HOUR = 60 * ONE_MINUTE;
-	private static Long ONE_DAY = 24 * ONE_HOUR;
 
 	/**
 	 * Handle a GET Request and serve the appropriate {@link DataTable}

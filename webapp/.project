@@ -52,14 +52,14 @@
 			<location>/Users/ssaammee/dev/git/Handstand-Tech-Libs/src/restclient</location>
 		</link>
 		<link>
-			<name>server</name>
-			<type>2</type>
-			<location>/Users/ssaammee/dev/git/Handstand-Tech-Libs/src/server</location>
-		</link>
-		<link>
 			<name>shared</name>
 			<type>2</type>
 			<location>/Users/ssaammee/dev/git/Handstand-Tech-Libs/src/shared</location>
+		</link>
+		<link>
+			<name>twitter</name>
+			<type>2</type>
+			<location>/Users/ssaammee/dev/git/Handstand-Tech-Libs/src/twitter</location>
 		</link>
 	</linkedResources>
 </projectDescription>
