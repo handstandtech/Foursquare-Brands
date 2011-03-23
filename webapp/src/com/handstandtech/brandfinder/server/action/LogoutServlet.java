@@ -30,8 +30,8 @@ public class LogoutServlet extends HttpServlet {
 	 * Handle a GET Request and serve the appropriate {@link DataTable}
 	 */
 	@Override
-	protected void doGet(HttpServletRequest request,
-			HttpServletResponse response) throws IOException {
+	public void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws IOException {
 		HttpSession session = request.getSession();
 		User currentUser = SessionHelper.getCurrentUser(session);
 		if (currentUser != null) {

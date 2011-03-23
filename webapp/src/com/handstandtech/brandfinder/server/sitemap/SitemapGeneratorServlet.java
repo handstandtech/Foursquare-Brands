@@ -56,7 +56,7 @@ public class SitemapGeneratorServlet extends HttpServlet {
 	 * Handle a GET Request and serve the appropriate {@link DataTable}
 	 */
 	@Override
-	protected void doGet(HttpServletRequest request,
+	public void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
 		PrintWriter out = response.getWriter();
 

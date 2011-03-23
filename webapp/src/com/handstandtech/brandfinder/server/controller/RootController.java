@@ -1,5 +1,6 @@
 package com.handstandtech.brandfinder.server.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -7,6 +8,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -25,7 +29,7 @@ import com.handstandtech.brandfinder.shared.model.User;
 import com.handstandtech.foursquare.shared.model.v2.FoursquareUser;
 
 @SuppressWarnings("serial")
-public class RootController extends BaseController {
+public class RootController extends HttpServlet {
 
 	public static final Logger log = LoggerFactory
 			.getLogger(RootController.class);
@@ -38,8 +42,7 @@ public class RootController extends BaseController {
 	 * Handle a GET Request and serve the appropriate {@link DataTable}
 	 */
 	@Override
-	protected void doGet(HttpServletRequest request,
-			HttpServletResponse response) {
+	public void doGet(HttpServletRequest request, HttpServletResponse response) {
 		String destination = null;
 		HttpSession session = request.getSession();
 		User currentUser = SessionHelper.getCurrentUser(session);
@@ -80,5 +83,20 @@ public class RootController extends BaseController {
 			foursquareUsersMap.put(u.getId(), u);
 		}
 		return foursquareUsersMap;
+	}
+
+	protected void forwardRequest(HttpServletRequest request,
+			HttpServletResponse response, String destination) {
+		RequestDispatcher dispatcher = getServletContext()
+				.getRequestDispatcher(destination);
+		try {
+			dispatcher.forward(request, response);
+		} catch (ServletException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }

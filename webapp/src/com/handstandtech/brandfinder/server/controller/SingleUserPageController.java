@@ -4,9 +4,13 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.google.visualization.datasource.datatable.DataTable;
 import com.handstandtech.brandfinder.server.constants.Pages;
@@ -20,43 +24,29 @@ import com.handstandtech.brandfinder.shared.model.User;
 import com.handstandtech.foursquare.shared.model.v2.FoursquareUser;
 
 @SuppressWarnings("serial")
-public class BrandOrCelebPageController extends BaseController {
+public class SingleUserPageController extends HttpServlet {
+
+	public static final Logger log = LoggerFactory
+			.getLogger(SingleUserPageController.class);
 
 	private static DAO dao = new CachingDAOImpl();
-
-	private static final Integer PAGE_SIZE = 50;
 
 	/**
 	 * Handle a GET Request and serve the appropriate {@link DataTable}
 	 */
 	@Override
-	protected void doGet(HttpServletRequest request,
-			HttpServletResponse response) {
-		String destination = null;
-
+	public void doGet(HttpServletRequest request, HttpServletResponse response) {
 		HttpSession session = request.getSession();
 		User currentUser = SessionHelper.getCurrentUser(session);
 		if (currentUser != null) {
 			Manager.createFriendsMap(request, currentUser);
 		}
-
-		// See if this is a "users" or "user" page, and prepare information
-		String uriString = request.getRequestURI();
-		if (uriString.split("/").length <= 2) {
-			destination = Pages.USERS;
-			prepareUsers(request, response);
-		} else {
-			destination = Pages.USER;
-			prepareUser(request, response);
-		}
-
-		forwardRequest(request, response, destination);
+		prepareUser(request, response);
 	}
 
 	private void prepareUser(HttpServletRequest request,
 			HttpServletResponse response) {
-
-		String userId = getUserId(request.getRequestURI());
+		String userId = (String) request.getAttribute("userId");
 		if (userId != null) {
 			FoursquareUser brand = dao.findFoursquareUser(userId);
 			request.setAttribute("user", brand);
@@ -106,70 +96,5 @@ public class BrandOrCelebPageController extends BaseController {
 		month = new Integer(Integer.parseInt(month) - 1).toString();
 		String day = dayFormat.format(date);
 		return year + ", " + month + ", " + day;
-	}
-
-	private String getUserId(String uri) {
-
-		String[] tokens = uri.split("/");
-		String userId = null;
-		if (tokens.length == 3) {
-			userId = tokens[2];
-		}
-		return userId;
-	}
-
-	private void prepareUsers(HttpServletRequest request,
-			HttpServletResponse response) {
-
-		Integer pageNum = getPageNumber(request);
-		Integer totalCount = 0;
-		Integer offset = calculateOffset(pageNum, PAGE_SIZE);
-
-		List<FoursquareUser> users = null;
-		String title = null;
-		String userType = null;
-		String uriString = request.getRequestURI();
-		if (uriString.startsWith("/brand")) {
-			// Get The Current Brands
-			totalCount = dao.getBrands().size();
-			users = dao.getBrands(offset, PAGE_SIZE);
-			userType = "brands";
-			title = "Brands";
-		} else {
-			// Get The Current Celebrities
-			totalCount = dao.getCelebrities().size();
-			users = dao.getCelebrities(offset, PAGE_SIZE);
-			userType = "celebs";
-			title = "Celebrities";
-		}
-
-		request.setAttribute("title", title);
-		request.setAttribute("userType", userType);
-		request.setAttribute("users", users);
-		request.setAttribute("limit", PAGE_SIZE);
-		request.setAttribute("offset", offset);
-		request.setAttribute("page", pageNum);
-		request.setAttribute("totalCount", totalCount);
-	}
-
-	private Integer calculateOffset(Integer pageNum, Integer pageSize) {
-		Integer offset = 0;
-		if (pageNum != null && pageSize > 0) {
-			offset = (pageNum - 1) * pageSize;
-		}
-		return offset;
-	}
-
-	private Integer getPageNumber(HttpServletRequest request) {
-		Integer pageNum = 1;
-		String pageStr = request.getParameter("page");
-		if (pageStr != null) {
-			try {
-				pageNum = Integer.parseInt(pageStr);
-			} catch (Exception e) {
-				// Do nothing we have a default value
-			}
-		}
-		return pageNum;
 	}
 }

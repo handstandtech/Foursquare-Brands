@@ -2,8 +2,12 @@ package com.handstandtech.brandfinder.server.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.google.visualization.datasource.datatable.DataTable;
 import com.handstandtech.brandfinder.server.constants.Pages;
@@ -12,14 +16,17 @@ import com.handstandtech.brandfinder.server.dao.impl.CachingDAOImpl;
 import com.handstandtech.brandfinder.shared.model.User;
 
 @SuppressWarnings("serial")
-public class AdminController extends BaseController {
+public class AdminController extends HttpServlet {
+	
+	private static Logger log = LoggerFactory.getLogger(AdminController.class);
+	
 	private static DAO dao = new CachingDAOImpl();
 
 	/**
 	 * Handle a GET Request and serve the appropriate {@link DataTable}
 	 */
 	@Override
-	protected void doGet(HttpServletRequest request,
+	public void doGet(HttpServletRequest request,
 			HttpServletResponse response) {
 		String limitString = request.getParameter("limit");
 
@@ -41,6 +48,6 @@ public class AdminController extends BaseController {
 		List<User> users = dao.getRecentlyActiveUsers(limit);
 		request.setAttribute("users", users);
 
-		forwardRequest(request, response, Pages.ADMIN);
+//		forwardRequest(request, response, Pages.ADMIN);
 	}
 }

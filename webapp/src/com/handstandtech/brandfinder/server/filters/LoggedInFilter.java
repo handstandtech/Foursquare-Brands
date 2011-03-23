@@ -93,7 +93,6 @@ public class LoggedInFilter implements Filter {
 				SessionHelper.setContinueUrl(session, requestUri);
 			}
 		}
-
 		chain.doFilter(req, resp);
 	}
 
