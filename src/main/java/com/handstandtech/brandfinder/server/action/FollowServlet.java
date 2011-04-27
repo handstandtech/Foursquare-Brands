@@ -75,7 +75,7 @@ public class FollowServlet extends HttpServlet {
 					Date now = new Date();
 					if (timeToRunUpdate == null) {
 						Long time = now.getTime()
-								+ TimesInMilliseconds.ONE_MINUTE * 20;
+								+ TimesInMilliseconds.ONE_SECOND * 30;
 						timeToRunUpdate = new Date(time);
 						CF.put(FOURSQUARE_BRANDS_TO_UPDATE_TIME,
 								timeToRunUpdate);

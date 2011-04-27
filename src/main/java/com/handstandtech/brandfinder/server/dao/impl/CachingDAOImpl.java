@@ -19,6 +19,7 @@ import com.handstandtech.memcache.MemcacheScopeManager;
 public class CachingDAOImpl extends DAOImpl {
 
 	private static final String ALL_USERS = "ALL_USERS";
+	private static final String LIMIT = "limit";
 
 	public CachingDAOImpl() {
 		super();
@@ -28,7 +29,7 @@ public class CachingDAOImpl extends DAOImpl {
 	public List<BrandDiscovered> getNewestBrands(Integer limit) {
 		String scope = getScope(BrandDiscovered.class);
 		Map<String, Object> params = new HashMap<String, Object>();
-		CacheKeyMaker.addParam(params, String.class, "limit", limit);
+		CacheKeyMaker.addParam(params, String.class, LIMIT, limit);
 		String key = CacheKeyMaker.createKey(params);
 		List<BrandDiscovered> items = (List<BrandDiscovered>) MemcacheScopeManager
 				.getFromCache(scope, key);
@@ -43,7 +44,7 @@ public class CachingDAOImpl extends DAOImpl {
 	public List<BrandDiscovered> getNewestCelebrities(Integer limit) {
 		String scope = getScope(BrandDiscovered.class);
 		Map<String, Object> params = new HashMap<String, Object>();
-		CacheKeyMaker.addParam(params, String.class, "limit", limit);
+		CacheKeyMaker.addParam(params, String.class, LIMIT, limit);
 		String key = CacheKeyMaker.createKey(params);
 		List<BrandDiscovered> items = (List<BrandDiscovered>) MemcacheScopeManager
 				.getFromCache(scope, key);
@@ -273,7 +274,7 @@ public class CachingDAOImpl extends DAOImpl {
 		String scope = getScope(FoursquareUser.class);
 		Map<String, Object> params = new HashMap<String, Object>();
 		CacheKeyMaker.addParam(params, Integer.class, "offset", offset);
-		CacheKeyMaker.addParam(params, Integer.class, "limit", limit);
+		CacheKeyMaker.addParam(params, Integer.class, LIMIT, limit);
 		String key = CacheKeyMaker.createKey(params);
 		List<FoursquareUser> items = (List<FoursquareUser>) MemcacheScopeManager
 				.getFromCache(scope, key);
@@ -289,7 +290,7 @@ public class CachingDAOImpl extends DAOImpl {
 		String scope = getScope(FoursquareUser.class);
 		Map<String, Object> params = new HashMap<String, Object>();
 		CacheKeyMaker.addParam(params, Integer.class, "offset", offset);
-		CacheKeyMaker.addParam(params, Integer.class, "limit", limit);
+		CacheKeyMaker.addParam(params, Integer.class, LIMIT, limit);
 		String key = CacheKeyMaker.createKey(params);
 		List<FoursquareUser> items = (List<FoursquareUser>) MemcacheScopeManager
 				.getFromCache(scope, key);
