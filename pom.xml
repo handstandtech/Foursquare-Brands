@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.foursquarebrands</groupId>
+	<artifactId>foursquarebrands</artifactId>
+	<packaging>war</packaging>
+	<version>1.0-SNAPSHOT</version>
+	<name>FoursquareBrands.com</name>
+	<parent>
+		<groupId>com.handstandtech</groupId>
+		<artifactId>handstandtech-libs</artifactId>
+		<version>1.0-SNAPSHOT</version>
+		<relativePath>../Handstand-Tech-Libs</relativePath>
+	</parent>
+	<properties>
+		<!-- Other configuration -->
+		<gwt.style>PRETTY</gwt.style>
+		<gwt.inplace>true</gwt.inplace>
+		<gwt.draftCompile>true</gwt.draftCompile>
+		<gae.home>${settings.localRepository}/com/google/appengine/appengine-java-sdk/${gae.version}/appengine-java-sdk-${gae.version}</gae.home>
+	</properties>
+	<dependencies>
+		<dependency>
+			<groupId>com.handstandtech</groupId>
+			<artifactId>client</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.handstandtech</groupId>
+			<artifactId>shared</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.handstandtech</groupId>
+			<artifactId>googleanalytics</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.handstandtech</groupId>
+			<artifactId>restclient-server</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.handstandtech</groupId>
+			<artifactId>facebook</artifactId>
+		</dependency>
+		<!-- Foursquare -->
+		<dependency>
+			<groupId>com.handstandtech</groupId>
+			<artifactId>foursquare</artifactId>
+		</dependency>
+		<!-- Gowalla -->
+		<dependency>
+			<groupId>com.handstandtech</groupId>
+			<artifactId>gowalla</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.handstandtech</groupId>
+			<artifactId>memcache</artifactId>
+		</dependency>
+		<!-- Twitter -->
+		<dependency>
+			<groupId>com.handstandtech</groupId>
+			<artifactId>twitter</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.handstandtech</groupId>
+			<artifactId>server</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.google.gwt</groupId>
+			<artifactId>gwt-user</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- JSON -->
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+		</dependency>
+
+		<!-- Make use of JSP tags. Remove, if you don't use JSPs -->
+		<dependency>
+			<artifactId>standard</artifactId>
+			<groupId>taglibs</groupId>
+			<scope>runtime</scope>
+		</dependency>
+
+		<!-- URL Rewrite Filter -->
+		<dependency>
+			<groupId>org.tuckey</groupId>
+			<artifactId>urlrewritefilter</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+
+		<!-- GIN -->
+		<dependency>
+			<groupId>com.google.gwt.inject</groupId>
+			<artifactId>gin</artifactId>
+		</dependency>
+
+		<!-- App Engine Testing -->
+		<dependency>
+			<groupId>com.google.appengine</groupId>
+			<artifactId>appengine-api-stubs</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.google.appengine</groupId>
+			<artifactId>appengine-testing</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- Logging -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+		</dependency>
+	</dependencies>
+	<build>
+		<plugins>
+			<!-- Eclipse configuration -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-eclipse-plugin</artifactId>
+				<version>${maven-eclipse-plugin.version}</version>
+				<configuration>
+					<downloadSources>true</downloadSources>
+					<downloadJavadocs>true</downloadJavadocs>
+					<wtpversion>2.0</wtpversion>
+					<additionalBuildcommands>
+						<buildCommand>
+							<name>com.google.gwt.eclipse.core.gwtProjectValidator</name>
+						</buildCommand>
+						<buildCommand>
+							<name>net.sf.eclipsecs.core.CheckstyleBuilder</name>
+						</buildCommand>
+					</additionalBuildcommands>
+					<additionalProjectnatures>
+						<projectnature>com.google.gwt.eclipse.core.gwtNature
+						</projectnature>
+						<projectnature>com.google.appengine.eclipse.core.gaeNature
+						</projectnature>
+						<projectnature>net.sf.eclipsecs.core.CheckstyleNature
+						</projectnature>
+					</additionalProjectnatures>
+					<additionalConfig>
+						<file>
+							<name>.checkstyle</name>
+							<location>/checkstyle/eclipse-checkstyle.xml</location>
+						</file>
+					</additionalConfig>
+					<sourceIncludes>
+						<sourceInclude>*.ui.xml</sourceInclude>
+					</sourceIncludes>
+				</configuration>
+			</plugin>
+
+			<!-- AppEngine configuration -->
+			<plugin>
+				<groupId>net.kindleit</groupId>
+				<artifactId>maven-gae-plugin</artifactId>
+				<version>${maven-gae-plugin.version}</version>
+				<configuration>
+					<sdkDir>${gae.home}</sdkDir>
+				</configuration>
+				<executions>
+					<execution>
+						<id>install-server-jar</id>
+						<phase>validate</phase>
+						<goals>
+							<goal>unpack</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>deploy</id>
+						<goals>
+							<goal>deploy</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<!-- Some jars with <scope>provided</scope> are copied by gwt-maven-plugin 
+				because of <copyWebapp>true</copyWebapp>. These jars can be safely removed 
+				here. For more information, see this thread: https://groups.google.com/d/topic/codehaus-mojo-gwt-maven-plugin-users/Si8eqJsVjdE/discussion -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-clean-plugin</artifactId>
+				<version>${maven-clean-plugin.version}</version>
+				<executions>
+					<execution>
+						<id>default-clean</id>
+						<phase>clean</phase>
+						<configuration>
+							<filesets>
+								<fileset>
+									<directory>${output.directory}</directory>
+									<includes>
+										<include>**/*.class</include>
+									</includes>
+									<followSymlinks>false</followSymlinks>
+								</fileset>
+								<fileset>
+									<directory>${webapp.directory}/WEB-INF/lib</directory>
+									<includes>
+										<include>*.jar</include>
+									</includes>
+									<followSymlinks>false</followSymlinks>
+								</fileset>
+							</filesets>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>${maven-war-plugin.version}</version>
+				<configuration>
+					<webappDirectory>${webapp.directory}</webappDirectory>
+				</configuration>
+				<executions>
+					<execution>
+						<id>exploded-war</id>
+						<goals>
+							<goal>exploded</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>${target.jdk}</source>
+					<target>${target.jdk}</target>
+				</configuration>
+			</plugin>
+		</plugins>
+
+		<outputDirectory>${output.directory}</outputDirectory>
+	</build>
+	<profiles>
+		<profile>
+			<id>dev</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<webapp.directory>${project.basedir}/src/main/webapp</webapp.directory>
+				<output.directory>${webapp.directory}/WEB-INF/classes</output.directory>
+			</properties>
+			<dependencies>
+				<!-- LOG4J logging -->
+				<dependency>
+					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-log4j12</artifactId>
+				</dependency>
+				<dependency>
+					<groupId>log4j</groupId>
+					<artifactId>log4j</artifactId>
+				</dependency>
+			</dependencies>
+		</profile>
+		<profile>
+			<id>release</id>
+			<properties>
+				<webapp.directory>${project.build.directory}/${project.build.finalName}</webapp.directory>
+				<output.directory>${webapp.directory}/WEB-INF/classes</output.directory>
+			</properties>
+			<dependencies>
+				<!-- Java Util Logging -->
+				<dependency>
+					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-jdk14</artifactId>
+				</dependency>
+			</dependencies>
+		</profile>
+	</profiles>
+</project>
