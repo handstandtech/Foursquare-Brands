@@ -1,0 +1,210 @@
+<!doctype html>
+<html>
+  <!--
+    Copyright Facebook Inc.
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+  -->
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>Connect JavaScript - jQuery Login Example</title>
+	<style type="text/css">
+	.photo {
+		float:left;
+		/*
+		position:absolute;
+		top:200px;
+		left:400px;
+		width:150px;
+		height:150px;*/
+	}
+	.dot {
+		position: absolute;
+		/*border:5px solid black;*/
+		background:#F0F;
+		opacity:0.4;
+		filter:alpha(opacity=40);
+	}
+	</style>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
+    <!--script src="photos.js"></script-->
+	<script>
+		$(document).ready(function() {
+			
+			function showpics(photos, idForPhotos){
+			
+		var boxPercentage = .25;
+			
+		var total = photos.data.length;
+		//total=5;
+		for(x=0;x<total;x++) {
+			var photodata=photos.data[x];
+				//var photodiv2 = $('<div class="photo"></div>');
+	    		//photodiv2.css('background-image',"url('"+photodata.source+"')");
+				//photodiv2.css('width', photodata.width+"px").css('height', photodata.height+"px");
+				//$('#content').append(photodiv2);
+	
+			var photodiv = $('<div class="photo"></div>');
+    		photodiv.css('background-image',"url('"+photodata.source+"')");
+			photodiv.css('width', boxDimension+"px").css('height', boxDimension+"px");
+			$('#content').append(photodiv);
+			for(i=0;i<photodata.tags.data.length;i++) {
+					var tag = photodata.tags.data[i];
+					if(tag.id==idForPhotos){
+						var newDot = $("<div class='dot'></div>");
+						
+						var max=photodata.height;
+						if(photodata.width>photodata.height){
+							max=photodata.width;
+						}
+						
+						//var boxDimension = max*boxPercentage;
+						var boxDimension=200;
+						
+						var halfBoxSize= (boxDimension/2);
+				
+						var tagTop = (photodata.height*(tag.y/100));//+(photodata.height-halfBoxSize);
+						var tagLeft = (photodata.width*(tag.x/100));//+(photodata.width-halfBoxSize);
+						
+						//console.log("X "+tagLeft +" out of "+ photodata.width);
+						//console.log("Y "+tagTop +" out of "+ photodata.height);
+						
+						//var backgroundPositionWidth = (relativePercentageCoordLeft*-1);
+						//var backgroundPositionHeight = (relativePercentageCoordTop*-1);
+						
+						var newTop = (-1*tagTop) + halfBoxSize;
+						var newLeft = (-1*tagLeft)+halfBoxSize;
+						
+					photodiv.css('background-position', newLeft+"px "+ newTop+"px");
+					
+					//var percentageTimesCount = (20/total)*x;
+					//var opacity = 100 - (80 + percentageTimesCount);
+					//photodiv.css('opacity', (opacity/100)).css('filter', 'opacity='+opacity);
+				
+					
+					
+					
+					
+					
+					var photodivLeft = photodiv.position().left;
+					var photodivTop = photodiv.position().top;
+				
+					//newDot.css('top', (top+photodivTop)+"px").css('left', (left+photodivLeft)+"px");
+					//newDot.css('width', boxDimension+"px").css('height', boxDimension+"px");
+					//photodiv.append(newDot);
+				}
+			}
+		}
+			}
+			
+			
+			
+			 // initialize the library with the API key
+		      FB.init({ apiKey: 'bbedb2a073ce9849c92561a300332e27'});
+
+		      // fetch the status on load
+		      FB.getLoginStatus(handleSessionResponse);
+
+		      $('#login').click(function() {
+		        FB.login(handleSessionResponse,{perms:'read_stream,publish_stream,user_photo_video_tags,offline_access,friends_photos,user_photos,friends_photo_video_tags'});
+		      });
+
+		      $('#logout').click(function() {
+		        FB.logout(handleSessionResponse);
+		      });
+
+		      $('#disconnect').click(function() {
+		        FB.api({ method: 'Auth.revokeAuthorization' }, function(response) {
+		          clearDisplay();
+		        });
+		      });
+
+		      // no user, clear display
+		      function clearDisplay() {
+		        $('#user-info').hide('fast');
+		      }
+
+		      // handle a session response from any of the auth related calls
+		      function handleSessionResponse(response) {
+		        // if we dont have a session, just hide the user info
+		        if (!response.session) {
+		          clearDisplay();
+		          return;
+		        }
+		        
+		        var uid = FB.getSession().uid;
+
+		        // if we have a session, query for the user's profile picture and name
+		        FB.api(
+		          {
+		            method: 'fql.query',
+		            query: 'SELECT name, pic FROM profile WHERE id=' + uid
+		          },
+		          function(response) {
+		            var user = response[0];
+		            $('#user-info').html('<img src="' + user.pic + '">' + user.name).show('fast');
+		          	
+		            FB.api('/me/friends', function(response) {
+		            	var friendsdata=response.data;  
+		            	
+		            	var select = $('#friends');
+		            	
+		            	for(i=0;i<friendsdata.length;i++){
+		            		var name = friendsdata[i].name;
+		            		var id = friendsdata[i].id;
+		            		
+		            		select.append('<option value="'+id+'">'+name+'</option>');
+		            		
+		            	}
+		         
+		            });
+		          }
+		        );
+		      }
+		      
+		      $('#friends').change(function() {
+		    	  var idForPhotos=$(this).val();
+
+		    	  //alert("changed! " + idForPhotos);
+		    	  
+		    	  $('#content').children().remove();
+		    	  $('#content').append('<h1>loading...</h1>');
+		    	  
+		    	   FB.api('/'+idForPhotos+'/photos', function(response) {
+							console.log(response);
+				    	$('#content').children().remove();
+		    		   	if(response.data.length>0) {
+				          	showpics(response, idForPhotos);
+		    	   		}else {
+		    	   			$('#content').append("<h2>No photos...</h2>");
+		    	   		}
+		            });
+		      });
+		});
+    </script>
+</head>
+  <body>
+    <h1>Connect JavaScript - jQuery Login Example</h1>
+	    <div>
+	      <button id="login">Login</button>
+	      <button id="logout">Logout</button>
+	      <button id="disconnect">Disconnect</button>
+	      <select id="friends"></select>
+	    </div>
+	    <div id="user-info" style="display: none;"></div>
+
+	    <div id="fb-root"></div>
+	    <script src="http://connect.facebook.net/en_US/all.js"></script>
+  <div id="content"></div>
+</body>
+</html>

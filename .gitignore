@@ -5,6 +5,11 @@ Java Binary Files
 *.class
 *.jar
 
+#Eclipse Files
+.classpath
+.project
+.settings/**
+
 #SVN Files
 *.svn
 
@@ -13,7 +18,10 @@ Java Binary Files
 #bin/*
 
 #No App-Engine Generated Files
-webapp/war/WEB-INF/appengine-generated*
+src/main/webapp/WEB-INF/classes
 
 #No Backups
 backup/archives*
+
+#Target Directory
+target

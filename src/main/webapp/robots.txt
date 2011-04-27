@@ -1,0 +1,6 @@
+User-agent: *
+Disallow: /admin/
+Disallow: /cron/
+Disallow: /tasks/
+
+Sitemap: http://foursquarebrands.com/sitemap
