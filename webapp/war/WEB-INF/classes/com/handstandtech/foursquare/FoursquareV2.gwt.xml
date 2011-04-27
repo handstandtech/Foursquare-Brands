@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<module rename-to='foursquareV2'>
-	<!-- Specify the paths for translatable code -->
-	<source path='v2/model' />
-	<source path='shared/model/v2' />
-</module>

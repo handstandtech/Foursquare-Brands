@@ -1,9 +1,0 @@
-cron:
-- description: Follows new Brands when Discovered
-  url: /cron/hourly
-  schedule: every 1 hours synchronized
-
-- description: Collects Brand Follower Stats Daily at 12:05am Pacific Time (Same as Google Analytics)
-  url: /cron/daily
-  schedule: every day 00:05
-  timezone: America/Los_Angeles

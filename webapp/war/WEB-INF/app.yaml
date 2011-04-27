@@ -1,9 +1,0 @@
-application: 4sqbrands
-version: 11
-runtime: python
-api_version: 1
-
-handlers:
-- url: /(.*)
-  static_files: static/\1
-  upload: static/(.*)
