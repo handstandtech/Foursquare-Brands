@@ -182,9 +182,6 @@
 				</executions>
 			</plugin>
 
-			<!-- Some jars with <scope>provided</scope> are copied by gwt-maven-plugin 
-				because of <copyWebapp>true</copyWebapp>. These jars can be safely removed 
-				here. For more information, see this thread: https://groups.google.com/d/topic/codehaus-mojo-gwt-maven-plugin-users/Si8eqJsVjdE/discussion -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-clean-plugin</artifactId>
@@ -202,12 +199,20 @@
 									</includes>
 									<followSymlinks>false</followSymlinks>
 								</fileset>
+								<!--fileset>
+									<directory>src/main/webapp/socialusage</directory>
+								</fileset-->
 								<fileset>
-									<directory>${webapp.directory}/WEB-INF/lib</directory>
-									<includes>
-										<include>*.jar</include>
-									</includes>
-									<followSymlinks>false</followSymlinks>
+									<directory>src/main/webapp/WEB-INF/classes</directory>
+								</fileset>
+								<fileset>
+									<directory>src/main/webapp/WEB-INF/appengine-generated</directory>
+								</fileset>
+								<fileset>
+									<directory>src/main/webapp/WEB-INF/lib</directory>
+								</fileset>
+								<fileset>
+									<directory>src/main/webapp/WEB-INF/deploy</directory>
 								</fileset>
 							</filesets>
 						</configuration>
@@ -244,9 +249,9 @@
 
 		<outputDirectory>${output.directory}</outputDirectory>
 	</build>
-	<profiles>
+	<profiles>		
 		<profile>
-			<id>dev</id>
+			<id>dev-inplace</id>
 			<activation>
 				<activeByDefault>true</activeByDefault>
 			</activation>
@@ -259,12 +264,25 @@
 				<dependency>
 					<groupId>org.slf4j</groupId>
 					<artifactId>slf4j-log4j12</artifactId>
+					<version>${slf4j.version}</version>
 				</dependency>
 				<dependency>
 					<groupId>log4j</groupId>
 					<artifactId>log4j</artifactId>
+					<version>${log4j.version}</version>
 				</dependency>
 			</dependencies>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-war-plugin</artifactId>
+						<goals>
+							<goal>inplace</goal>
+						</goals>
+					</plugin>
+				</plugins>
+			</build>
 		</profile>
 		<profile>
 			<id>release</id>
@@ -277,6 +295,7 @@
 				<dependency>
 					<groupId>org.slf4j</groupId>
 					<artifactId>slf4j-jdk14</artifactId>
+					<version>${slf4j.version}</version>
 				</dependency>
 			</dependencies>
 		</profile>
