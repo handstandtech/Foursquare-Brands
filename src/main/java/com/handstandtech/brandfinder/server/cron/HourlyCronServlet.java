@@ -29,6 +29,7 @@ import com.google.visualization.datasource.datatable.DataTable;
 import com.handstandtech.brandfinder.server.dao.DAO;
 import com.handstandtech.brandfinder.server.dao.impl.CachingDAOImpl;
 import com.handstandtech.brandfinder.server.tasks.FollowerCountTaskServlet;
+import com.handstandtech.brandfinder.server.util.TimesInMilliseconds;
 import com.handstandtech.brandfinder.shared.model.BrandDiscovered;
 import com.handstandtech.brandfinder.shared.model.User;
 import com.handstandtech.brandfinder.shared.util.ModelUtils;
@@ -36,7 +37,6 @@ import com.handstandtech.foursquare.shared.model.v2.FoursquareUser;
 import com.handstandtech.foursquare.v2.FoursquareAPIv2;
 import com.handstandtech.foursquare.v2.exception.FoursquareNot200Exception;
 import com.handstandtech.foursquare.v2.impl.CachingFoursquareAPIv2Impl;
-import com.handstandtech.memcache.TimesInMilliseconds;
 
 /**
  * Hourly Cron Servlet

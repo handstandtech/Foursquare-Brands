@@ -8,7 +8,7 @@
 	<session-config>
 		<session-timeout>
 			1440
-        </session-timeout>
+		</session-timeout>
 	</session-config>
 
 
@@ -169,6 +169,17 @@
 		<url-pattern>/appstats/*</url-pattern>
 	</servlet-mapping>
 
+	<!-- Session Cleanup -->
+	<servlet>
+		<servlet-name>_ah_sessioncleanup</servlet-name>
+		<servlet-class>com.google.apphosting.utils.servlet.SessionCleanupServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>_ah_sessioncleanup</servlet-name>
+		<url-pattern>/_ah/sessioncleanup</url-pattern>
+	</servlet-mapping>
+
 	<!-- Security Constraints -->
 	<security-constraint>
 		<web-resource-collection>
@@ -178,6 +189,7 @@
 			<url-pattern>/tasks/*</url-pattern>
 			<url-pattern>/util/*</url-pattern>
 			<url-pattern>/cache/*</url-pattern>
+			<url-pattern>/_ah/sessioncleanup/*</url-pattern>
 		</web-resource-collection>
 		<auth-constraint>
 			<role-name>admin</role-name>

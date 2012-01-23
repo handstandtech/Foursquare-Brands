@@ -18,6 +18,7 @@ import com.handstandtech.brandfinder.server.dao.DAO;
 import com.handstandtech.brandfinder.server.dao.impl.CachingDAOImpl;
 import com.handstandtech.brandfinder.server.util.ContentTypes;
 import com.handstandtech.brandfinder.server.util.SessionHelper;
+import com.handstandtech.brandfinder.server.util.TimesInMilliseconds;
 import com.handstandtech.brandfinder.shared.model.User;
 import com.handstandtech.foursquare.shared.model.v2.FoursquareUser;
 import com.handstandtech.foursquare.v2.FoursquareAPIv2;
@@ -25,7 +26,6 @@ import com.handstandtech.foursquare.v2.exception.FoursquareNot200Exception;
 import com.handstandtech.foursquare.v2.impl.CachingFoursquareAPIv2Impl;
 import com.handstandtech.foursquare.v2.server.model.FoursquareMeta;
 import com.handstandtech.memcache.CF;
-import com.handstandtech.memcache.TimesInMilliseconds;
 
 /**
  * The server side implementation of the RPC service.
