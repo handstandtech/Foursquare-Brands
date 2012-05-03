@@ -3,7 +3,7 @@
 URL="https://backup.4sqbrands.appspot.com/remote_api"
 APPLICATION="4sqbrands"
 CONFIG="config.yml"
-EMAIL="ssaammee@gmail.com"
+EMAIL="apps@handstandtech.com"
 
 DATE=$(date +"%Y-%m-%d - %H.%M.%OS");	
 

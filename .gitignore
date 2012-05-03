@@ -25,3 +25,5 @@ backup/archives*
 
 #Target Directory
 target
+
+.metadata
