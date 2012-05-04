@@ -15,12 +15,12 @@ import org.slf4j.LoggerFactory;
 
 import com.handstandtech.brandfinder.server.dao.DAO;
 import com.handstandtech.brandfinder.server.dao.impl.CachingDAOImpl;
+import com.handstandtech.brandfinder.server.foursquare.CachingFoursquareAPIv2Impl;
 import com.handstandtech.brandfinder.server.twitter.FoursquareBrandsTwitter;
 import com.handstandtech.brandfinder.shared.model.BrandDiscovered;
 import com.handstandtech.brandfinder.shared.model.User;
 import com.handstandtech.foursquare.shared.model.v2.FoursquareUser;
 import com.handstandtech.foursquare.v2.FoursquareAPIv2;
-import com.handstandtech.foursquare.v2.impl.CachingFoursquareAPIv2Impl;
 
 public class Manager {
 

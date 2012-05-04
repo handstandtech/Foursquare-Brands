@@ -7,10 +7,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.inject.Singleton;
-import com.handstandtech.brandfinder.server.dao.DAO;
 import com.handstandtech.brandfinder.server.dao.impl.CachingDAOImpl;
 import com.handstandtech.brandfinder.server.importbackup.FoursquareUserImporter;
-import com.handstandtech.memcache.MemcacheScopeManager;
 import com.handstandtech.server.controller.BaseController;
 
 @SuppressWarnings("serial")

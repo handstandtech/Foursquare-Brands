@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.google.visualization.datasource.datatable.DataTable;
 import com.handstandtech.brandfinder.server.dao.impl.CachingDAOImpl;
 import com.handstandtech.brandfinder.server.dao.impl.DAOImpl;
 import com.handstandtech.foursquare.shared.model.v2.FoursquareUser;

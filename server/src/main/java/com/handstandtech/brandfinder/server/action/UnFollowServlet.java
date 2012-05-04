@@ -12,13 +12,13 @@ import org.slf4j.LoggerFactory;
 
 import com.google.gson.Gson;
 import com.google.inject.Singleton;
+import com.handstandtech.brandfinder.server.foursquare.CachingFoursquareAPIv2Impl;
 import com.handstandtech.brandfinder.server.util.ContentTypes;
 import com.handstandtech.brandfinder.server.util.SessionHelper;
 import com.handstandtech.brandfinder.shared.model.User;
+import com.handstandtech.foursquare.shared.model.v2.FoursquareMeta;
 import com.handstandtech.foursquare.v2.FoursquareAPIv2;
-import com.handstandtech.foursquare.v2.exception.FoursquareNot200Exception;
-import com.handstandtech.foursquare.v2.impl.CachingFoursquareAPIv2Impl;
-import com.handstandtech.foursquare.v2.server.model.FoursquareMeta;
+import com.handstandtech.foursquare.v2.FoursquareNot200Exception;
 
 /**
  * The server side implementation of the RPC service.

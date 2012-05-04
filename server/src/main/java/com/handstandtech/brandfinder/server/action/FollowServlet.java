@@ -1,8 +1,6 @@
 package com.handstandtech.brandfinder.server.action;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -16,15 +14,14 @@ import com.google.gson.Gson;
 import com.google.inject.Singleton;
 import com.handstandtech.brandfinder.server.dao.DAO;
 import com.handstandtech.brandfinder.server.dao.impl.CachingDAOImpl;
+import com.handstandtech.brandfinder.server.foursquare.CachingFoursquareAPIv2Impl;
 import com.handstandtech.brandfinder.server.util.ContentTypes;
 import com.handstandtech.brandfinder.server.util.SessionHelper;
 import com.handstandtech.brandfinder.shared.model.User;
+import com.handstandtech.foursquare.shared.model.v2.FoursquareMeta;
 import com.handstandtech.foursquare.shared.model.v2.FoursquareUser;
 import com.handstandtech.foursquare.v2.FoursquareAPIv2;
-import com.handstandtech.foursquare.v2.exception.FoursquareNot200Exception;
-import com.handstandtech.foursquare.v2.impl.CachingFoursquareAPIv2Impl;
-import com.handstandtech.foursquare.v2.server.model.FoursquareMeta;
-import com.handstandtech.memcache.CF;
+import com.handstandtech.foursquare.v2.FoursquareNot200Exception;
 
 /**
  * The server side implementation of the RPC service.
@@ -37,7 +34,8 @@ public class FollowServlet extends HttpServlet {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private static final String FOURSQUARE_BRANDS_TO_UPDATE = "FoursquareBrandsToUpdate";
+	// private static final String FOURSQUARE_BRANDS_TO_UPDATE =
+	// "FoursquareBrandsToUpdate";
 	// private static final String FOURSQUARE_BRANDS_TO_UPDATE_TIME =
 	// "FoursquareBrandsToUpdateTime";
 
@@ -47,19 +45,16 @@ public class FollowServlet extends HttpServlet {
 	 * Handle a Follow Request
 	 */
 	@Override
-	protected void doPost(HttpServletRequest request,
-			HttpServletResponse response) throws IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		doFollow(request, response);
 	}
 
-	private void doFollow(HttpServletRequest request,
-			HttpServletResponse response) throws IOException {
+	private void doFollow(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		FoursquareMeta meta = new FoursquareMeta();
 		HttpSession session = request.getSession();
 		User currentUser = SessionHelper.getCurrentUser(session);
 		if (currentUser != null) {
-			FoursquareAPIv2 helper = new CachingFoursquareAPIv2Impl(
-					currentUser.getToken());
+			FoursquareAPIv2 helper = new CachingFoursquareAPIv2Impl(currentUser.getToken());
 
 			String id = request.getParameter("id");
 			try {
@@ -113,12 +108,13 @@ public class FollowServlet extends HttpServlet {
 		response.getWriter().write(metaJson);
 	}
 
-	private Map<String, FoursquareUser> getUsersToUpdate() {
-		Map<String, FoursquareUser> usersToUpdate = (Map<String, FoursquareUser>) CF
-				.get(FOURSQUARE_BRANDS_TO_UPDATE);
-		if (usersToUpdate == null) {
-			usersToUpdate = new HashMap<String, FoursquareUser>();
-		}
-		return usersToUpdate;
-	}
+	// private Map<String, FoursquareUser> getUsersToUpdate() {
+	// Map<String, FoursquareUser> usersToUpdate = (Map<String, FoursquareUser>)
+	// CF
+	// .get(FOURSQUARE_BRANDS_TO_UPDATE);
+	// if (usersToUpdate == null) {
+	// usersToUpdate = new HashMap<String, FoursquareUser>();
+	// }
+	// return usersToUpdate;
+	// }
 }

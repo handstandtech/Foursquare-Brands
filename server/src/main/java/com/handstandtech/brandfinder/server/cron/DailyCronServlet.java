@@ -19,12 +19,11 @@ import com.google.appengine.api.taskqueue.QueueFactory;
 import com.google.appengine.api.taskqueue.TaskOptions;
 import com.google.appengine.api.taskqueue.TaskOptions.Method;
 import com.google.inject.Singleton;
-import com.google.visualization.datasource.datatable.DataTable;
 import com.handstandtech.brandfinder.server.dao.DAO;
 import com.handstandtech.brandfinder.server.dao.impl.CachingDAOImpl;
 import com.handstandtech.foursquare.shared.model.v2.FoursquareUser;
-import com.handstandtech.foursquare.v2.impl.FoursquareAPIv2Impl;
-import com.handstandtech.restclient.server.RESTUtil;
+import com.handstandtech.foursquare.v2.FoursquareAPIv2Impl;
+import com.handstandtech.restclient.server.util.RESTUtil;
 
 /**
  * Daily Cron Servlet

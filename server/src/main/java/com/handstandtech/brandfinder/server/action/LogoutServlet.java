@@ -11,11 +11,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.inject.Singleton;
-import com.google.visualization.datasource.datatable.DataTable;
+import com.handstandtech.brandfinder.server.foursquare.CachingFoursquareAPIv2Impl;
 import com.handstandtech.brandfinder.server.util.SessionHelper;
 import com.handstandtech.brandfinder.shared.model.User;
 import com.handstandtech.foursquare.v2.FoursquareAPIv2;
-import com.handstandtech.foursquare.v2.impl.CachingFoursquareAPIv2Impl;
 
 @Singleton
 public class LogoutServlet extends HttpServlet {

@@ -1,7 +1,5 @@
 package com.handstandtech.brandfinder.server.util;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 public class TimesInMilliseconds {
 	public static final Long ONE_SECOND = 1000L;

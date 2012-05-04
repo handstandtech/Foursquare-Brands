@@ -10,9 +10,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.inject.Singleton;
-import com.google.visualization.datasource.datatable.DataTable;
-import com.handstandtech.brandfinder.server.twitter.FoursquareBrandsTwitter;
-import com.handstandtech.foursquare.v2.impl.FoursquareAPIv2Impl;
 
 /**
  * The server side implementation of the RPC service.

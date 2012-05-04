@@ -1,20 +1,5 @@
 package com.handstandtech.brandfinder.server.dao.impl;
 
-import java.util.Collection;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-
-import com.googlecode.objectify.Key;
-import com.handstandtech.brandfinder.shared.model.BrandDiscovered;
-import com.handstandtech.brandfinder.shared.model.DailyFollowEventCount;
-import com.handstandtech.brandfinder.shared.model.DailyFollowerCount;
-import com.handstandtech.brandfinder.shared.model.User;
-import com.handstandtech.foursquare.shared.model.v2.FoursquareUser;
-import com.handstandtech.memcache.CacheKeyMaker;
-import com.handstandtech.memcache.MemcacheScopeManager;
 
 public class CachingDAOImpl extends DAOImpl {
 

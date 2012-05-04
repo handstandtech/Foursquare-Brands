@@ -1,6 +1,5 @@
 package com.handstandtech.brandfinder.server.guice;
 
-import com.google.apphosting.utils.remoteapi.RemoteApiServlet;
 import com.google.inject.Singleton;
 import com.google.inject.servlet.ServletModule;
 import com.googlecode.objectify.ObjectifyFactory;
@@ -15,10 +14,10 @@ import com.handstandtech.brandfinder.server.cron.TweetServlet;
 import com.handstandtech.brandfinder.server.filter.UrlRewriteSingletonFilter;
 import com.handstandtech.brandfinder.server.filters.LoggedInFilter;
 import com.handstandtech.brandfinder.server.foursquare.FoursquareCallback;
+import com.handstandtech.brandfinder.server.foursquare.MyFoursquareOAuth2Login;
 import com.handstandtech.brandfinder.server.googleanalytics.GetEventDataForDateServlet;
 import com.handstandtech.brandfinder.server.servlet.RemoteApiSingletonServlet;
 import com.handstandtech.brandfinder.server.tasks.FollowerCountTaskServlet;
-import com.handstandtech.foursquare.oauth.FoursquareOAuth2Login;
 
 /**
  * @author Sam Edwards
@@ -40,7 +39,7 @@ public class GuiceServletModule extends ServletModule {
 		ts("/util/devimport").with(DevImportController.class);
 		
 		ts("/foursquare/callback").with(FoursquareCallback.class);
-		ts("/login").with(FoursquareOAuth2Login.class);
+		ts("/login").with(MyFoursquareOAuth2Login.class);
 		ts("/logout").with(LogoutServlet.class);
 		ts("/follow").with(FollowServlet.class);
 		ts("/unfollow").with(UnFollowServlet.class);

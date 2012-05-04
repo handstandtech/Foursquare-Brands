@@ -1,6 +1,5 @@
 package com.handstandtech.brandfinder.server.dao.impl;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
@@ -12,7 +11,7 @@ import org.slf4j.LoggerFactory;
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.ObjectifyService;
 import com.googlecode.objectify.Query;
-import com.googlecode.objectify.helper.DAOBase;
+import com.googlecode.objectify.util.DAOBase;
 import com.handstandtech.brandfinder.server.dao.DAO;
 import com.handstandtech.brandfinder.shared.model.BrandDiscovered;
 import com.handstandtech.brandfinder.shared.model.DailyFollowEventCount;
@@ -71,13 +70,11 @@ public class DAOImpl extends DAOBase implements DAO {
 	}
 
 	private Query<FoursquareUser> createBrandQuery() {
-		return ofy().query(FoursquareUser.class).filter("type", "page")
-				.order("-followers.count");
+		return ofy().query(FoursquareUser.class).filter("type", "page").order("-followers.count");
 	}
 
 	private Query<FoursquareUser> createCelebQuery() {
-		return ofy().query(FoursquareUser.class).filter("type", "celebrity")
-				.order("-followers.count");
+		return ofy().query(FoursquareUser.class).filter("type", "celebrity").order("-followers.count");
 	}
 
 	/**
@@ -89,26 +86,25 @@ public class DAOImpl extends DAOBase implements DAO {
 		return celebQuery.list();
 	}
 
-//	/**
-//	 * @see com.handstandtech.brandfinder.server.dao.DAO#getAllFoursquareUserObjects()
-//	 */
-//	@Override
-//	public List<FoursquareUser> getAllFoursquareUserObjects() {
-//		List<FoursquareUser> list = new ArrayList<FoursquareUser>();
-//		list.addAll(getBrands());
-//		list.addAll(getCelebrities());
-//		return list;
-//	}
+	// /**
+	// * @see
+	// com.handstandtech.brandfinder.server.dao.DAO#getAllFoursquareUserObjects()
+	// */
+	// @Override
+	// public List<FoursquareUser> getAllFoursquareUserObjects() {
+	// List<FoursquareUser> list = new ArrayList<FoursquareUser>();
+	// list.addAll(getBrands());
+	// list.addAll(getCelebrities());
+	// return list;
+	// }
 
 	/**
 	 * @see com.handstandtech.brandfinder.server.dao.DAO#getDailyFollowEventsForBrand(java.lang.String,
 	 *      java.util.Date, java.util.Date)
 	 */
 	@Override
-	public List<DailyFollowEventCount> getDailyFollowEventsForBrand(
-			String foursquareId, Date start, Date stop) {
-		Query<DailyFollowEventCount> query = ofy().query(
-				DailyFollowEventCount.class);
+	public List<DailyFollowEventCount> getDailyFollowEventsForBrand(String foursquareId, Date start, Date stop) {
+		Query<DailyFollowEventCount> query = ofy().query(DailyFollowEventCount.class);
 		query.filter("foursquareId", foursquareId);
 		if (start != null) {
 			query.filter("date >=", start);
@@ -126,8 +122,7 @@ public class DAOImpl extends DAOBase implements DAO {
 	 *      java.util.Date, java.util.Date)
 	 */
 	@Override
-	public List<DailyFollowerCount> getDailyFollowCountsForBrand(
-			String foursquareId, Date start, Date stop) {
+	public List<DailyFollowerCount> getDailyFollowCountsForBrand(String foursquareId, Date start, Date stop) {
 		Query<DailyFollowerCount> query = ofy().query(DailyFollowerCount.class);
 		query.filter("foursquareId", foursquareId);
 		if (start != null) {
@@ -175,8 +170,7 @@ public class DAOImpl extends DAOBase implements DAO {
 	 */
 	@Override
 	public BrandDiscovered getBrandDiscovered(String foursquareId) {
-		Query<BrandDiscovered> query = ofy().query(BrandDiscovered.class)
-				.filter("brandId", foursquareId);
+		Query<BrandDiscovered> query = ofy().query(BrandDiscovered.class).filter("brandId", foursquareId);
 		BrandDiscovered brandDiscovered = query.get();
 		return brandDiscovered;
 	}
@@ -220,18 +214,17 @@ public class DAOImpl extends DAOBase implements DAO {
 	// return getKeyHashset(createBrandQuery().listKeys());
 	// }
 
-	private HashSet<String> getKeyHashset(List<Key<FoursquareUser>> keys) {
-		HashSet<String> ids = new HashSet<String>();
-		for (Key<FoursquareUser> key : keys) {
-			String id = key.getName();
-			ids.add(id);
-		}
-		return ids;
-	}
+	// private HashSet<String> getKeyHashset(List<Key<FoursquareUser>> keys) {
+	// HashSet<String> ids = new HashSet<String>();
+	// for (Key<FoursquareUser> key : keys) {
+	// String id = key.getName();
+	// ids.add(id);
+	// }
+	// return ids;
+	// }
 
 	@Override
-	public void updateDailyFollowEventCounts(
-			Collection<DailyFollowEventCount> dailyCounts) {
+	public void updateDailyFollowEventCounts(Collection<DailyFollowEventCount> dailyCounts) {
 		ofy().put(dailyCounts);
 	}
 
@@ -266,8 +259,7 @@ public class DAOImpl extends DAOBase implements DAO {
 	 */
 	@Override
 	public List<BrandDiscovered> getNewestBrands(Integer limit) {
-		Query<BrandDiscovered> query = ofy().query(BrandDiscovered.class)
-				.filter("type", "page").order("-date");
+		Query<BrandDiscovered> query = ofy().query(BrandDiscovered.class).filter("type", "page").order("-date");
 		if (limit != null) {
 			query.limit(limit);
 		}
@@ -279,8 +271,7 @@ public class DAOImpl extends DAOBase implements DAO {
 	 */
 	@Override
 	public List<BrandDiscovered> getNewestCelebrities(Integer limit) {
-		Query<BrandDiscovered> query = ofy().query(BrandDiscovered.class)
-				.filter("type", "celebrity").order("-date");
+		Query<BrandDiscovered> query = ofy().query(BrandDiscovered.class).filter("type", "celebrity").order("-date");
 		if (limit != null) {
 			query.limit(limit);
 		}
@@ -288,8 +279,7 @@ public class DAOImpl extends DAOBase implements DAO {
 	}
 
 	@Override
-	public List<FoursquareUser> getFoursquareUsersForIds(
-			Collection<String> foursquareUserIds) {
+	public List<FoursquareUser> getFoursquareUsersForIds(Collection<String> foursquareUserIds) {
 		Query<FoursquareUser> query = ofy().query(FoursquareUser.class);
 		if (foursquareUserIds != null && !foursquareUserIds.isEmpty()) {
 			query.filter("id in", foursquareUserIds);
