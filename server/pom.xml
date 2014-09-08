@@ -23,15 +23,13 @@
 	</issueManagement>
 	<properties>
 		<!-- Project properties -->
-		<target.jdk>1.6</target.jdk>
+		<target.jdk>1.7</target.jdk>
 		<project.encoding>UTF-8</project.encoding>
-		<webapp.directory>${project.basedir}/src/main/webapp</webapp.directory>
-		<output.directory>${webapp.directory}/WEB-INF/classes</output.directory>
 
 		<!-- Dependencies versions -->
 		<aopalliance.version>1.0</aopalliance.version>
 		<foursquare-api.version>0.9.2-SNAPSHOT</foursquare-api.version>
-		<gae.version>1.6.3</gae.version>
+		<gae.version>1.9.9</gae.version>
 		<gdata-analytics.version>2.1</gdata-analytics.version>
 		<gdata-core.version>1.0</gdata-core.version>
 		<gdata-client.version>1.0</gdata-client.version>
@@ -67,9 +65,6 @@
 		<maven-gae-plugin.version>0.9.0</maven-gae-plugin.version>
 		<validation-api.version>1.0.0.GA</validation-api.version>
 		<urlrewritefilter.version>3.1.0</urlrewritefilter.version>
-
-		<!-- Other configuration -->
-		<gae.home>${settings.localRepository}/com/google/appengine/appengine-java-sdk/${gae.version}/appengine-java-sdk-${gae.version}</gae.home>
 	</properties>
 	<repositories>
 		<repository>
@@ -260,9 +255,188 @@
 			<version>${urlrewritefilter.version}</version>
 		</dependency>
 	</dependencies>
-	<build>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>com.google.appengine</groupId>
+                <artifactId>appengine-maven-plugin</artifactId>
+                <version>${gae.version}</version>
+                <!--configuration>
+                  <app-dir>${webapp.directory}</app-dir>
+                </configuration-->
+                <configuration>
+                    <email>apps@handstandtech.com</email>
+                    <oauth2>false</oauth2>
+                    <noCookies>true</noCookies>
+                    <passin>true</passin>
+                </configuration>
+            </plugin>
+
+            <!--plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-clean-plugin</artifactId>
+              <version>${maven-clean-plugin.version}</version>
+              <executions>
+                <execution>
+                  <id>default-clean</id>
+                  <phase>clean</phase>
+                  <configuration>
+                    <filesets>
+                      <fileset>
+                        <directory>${output.directory}</directory>
+                        <includes>
+                          <include>**/*.class</include>
+                        </includes>
+                        <followSymlinks>false</followSymlinks>
+                      </fileset>
+                      <fileset>
+                        <directory>src/main/webapp/WEB-INF/classes</directory>
+                      </fileset>
+                      <fileset>
+                        <directory>src/main/webapp/WEB-INF/lib</directory>
+                      </fileset>
+                      <fileset>
+                        <directory>src/main/webapp/WEB-INF/deploy</directory>
+                      </fileset>
+                    </filesets>
+                  </configuration>
+                </execution>
+              </executions>
+            </plugin-->
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>${target.jdk}</source>
+                    <target>${target.jdk}</target>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>${maven-war-plugin.version}</version>
+                <configuration>
+                    <webappDirectory>${webapp.directory}</webappDirectory>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>exploded-war</id>
+                        <goals>
+                            <goal>exploded</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+        <outputDirectory>${webapp.directory}/WEB-INF/classes</outputDirectory>
+    </build>
+    <!-- BUILD PROFILES -->
+    <profiles>
+        <!-- DEVELOPMENT WITH FIREFOX -->
+        <profile>
+            <id>dev-firefox</id>
+            <properties>
+                <webapp.directory>${project.basedir}/src/main/webapp</webapp.directory>
+                <output.directory>${webapp.directory}/WEB-INF/classes</output.directory>
+            </properties>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <dependencies>
+                <!-- LOG4J logging -->
+                <dependency>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-log4j12</artifactId>
+                    <version>${slf4j.version}</version>
+                </dependency>
+                <dependency>
+                    <groupId>log4j</groupId>
+                    <artifactId>log4j</artifactId>
+                    <version>${log4j.version}</version>
+                </dependency>
+            </dependencies>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-war-plugin</artifactId>
+                        <goals>
+                            <goal>inplace</goal>
+                        </goals>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-clean-plugin</artifactId>
+                        <version>${maven-clean-plugin.version}</version>
+                        <executions>
+                            <execution>
+                                <id>default-clean</id>
+                                <phase>clean</phase>
+                                <configuration>
+                                    <filesets>
+                                        <fileset>
+                                            <directory>${output.directory}</directory>
+                                            <includes>
+                                                <include>**/*.class</include>
+                                            </includes>
+                                            <followSymlinks>false</followSymlinks>
+                                        </fileset>
+                                        <fileset>
+                                            <directory>src/main/webapp/WEB-INF/classes</directory>
+                                        </fileset>
+                                        <fileset>
+                                            <directory>src/main/webapp/WEB-INF/lib</directory>
+                                        </fileset>
+                                        <fileset>
+                                            <directory>src/main/webapp/WEB-INF/deploy</directory>
+                                        </fileset>
+                                    </filesets>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <!-- RELEASE -->
+        <profile>
+            <id>release</id>
+            <dependencies>
+                <!-- Java Util Logging -->
+                <dependency>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-jdk14</artifactId>
+                    <version>${slf4j.version}</version>
+                </dependency>
+
+                <dependency>
+                    <groupId>log4j</groupId>
+                    <artifactId>log4j</artifactId>
+                    <version>${log4j.version}</version>
+                </dependency>
+            </dependencies>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-war-plugin</artifactId>
+                        <goals>
+                            <goal>inplace</goal>
+                        </goals>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+</project>
+
+
+
+
+	<!--build>
 		<plugins>
-			<!-- Eclipse configuration -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-eclipse-plugin</artifactId>
@@ -278,7 +452,6 @@
 				</configuration>
 			</plugin>
 
-			<!-- AppEngine configuration -->
 			<plugin>
 				<groupId>net.kindleit</groupId>
 				<artifactId>maven-gae-plugin</artifactId>
@@ -322,7 +495,6 @@
 									</includes>
 									<followSymlinks>false</followSymlinks>
 								</fileset>
-								<!--fileset> <directory>src/main/webapp/socialusage</directory> </fileset -->
 								<fileset>
 									<directory>src/main/webapp/WEB-INF/classes</directory>
 								</fileset>
@@ -373,16 +545,13 @@
 		</plugins>
 		<outputDirectory>${webapp.directory}/WEB-INF/classes</outputDirectory>
 	</build>
-	<!-- BUILD PROFILES -->
 	<profiles>
-		<!-- DEVELOPMENT WITH FIREFOX -->
 		<profile>
 			<id>dev</id>
 			<activation>
 				<activeByDefault>true</activeByDefault>
 			</activation>
 			<dependencies>
-				<!-- LOG4J logging -->
 				<dependency>
 					<groupId>org.slf4j</groupId>
 					<artifactId>slf4j-log4j12</artifactId>
@@ -395,11 +564,9 @@
 				</dependency>
 			</dependencies>
 		</profile>
-		<!-- RELEASE -->
 		<profile>
 			<id>release</id>
 			<dependencies>
-				<!-- Java Util Logging -->
 				<dependency>
 					<groupId>org.slf4j</groupId>
 					<artifactId>slf4j-jdk14</artifactId>
@@ -408,4 +575,4 @@
 			</dependencies>
 		</profile>
 	</profiles>
-</project>
+</project-->

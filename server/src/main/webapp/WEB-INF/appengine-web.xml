@@ -3,6 +3,7 @@
 	<application>4sqbrands</application>
 	<version>39</version>
 	<sessions-enabled>true</sessions-enabled>
+    <threadsafe>true</threadsafe>
 
 	<static-files>
 		<include path="/assets/**" />
